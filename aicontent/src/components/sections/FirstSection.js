@@ -3,7 +3,7 @@ import teenager from "../../assets/images/teenSmile.jpg";
 import { Link, useNavigate } from "react-router-dom";
 import { UserContext } from "../../App";
 import { useContext } from "react";
-import GeneralSpinner from "./GeneralSpinner";
+import GeneralSpinner from "../layouts/GeneralSpinner";
 import { Logout } from "../../services/userService";
 
 

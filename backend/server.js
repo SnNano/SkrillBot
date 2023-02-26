@@ -10,9 +10,9 @@ const app = express();
 connectDB();
 
 var corsOptions = {
-    origin: '*',
-    optionsSuccessStatus: 200 // some legacy browsers (IE11, various SmartTVs) choke on 204
-  }
+  origin: '*',
+  optionsSuccessStatus: 200 // some legacy browsers (IE11, various SmartTVs) choke on 204
+}
 
 app.use(cors(corsOptions));
 app.use(express.json());
@@ -26,16 +26,16 @@ app.use((req, res, next) => {
 });
 // Webhooks and things
 app.use('/stripe', require('./stripe'))
- // Routes
-app.use("/api/chatgpt",  require("./routes/chatGptRoute"));
-app.use("/api/chimp",  require("./routes/chimpRoute"));
-app.use("/api/random",  require("./routes/userRoute"));
-app.use("/api/users",  require("./routes/userRoutes"));
-app.use("/api/users",  require("./routes/stripeRoutes"));
-app.use("/api",  require("./routes/checkcharacterRoutes"));
+// Routes
+app.use("/api/chatgpt", require("./routes/gptRoutes"));
+app.use("/api/chimp", require("./routes/chimpRoutes"));
+app.use("/api/random", require("./routes/randomRoutes"));
+app.use("/api/users", require("./routes/userRoutes"));
+app.use("/api/users", require("./routes/stripeRoutes"));
+app.use("/api", require("./routes/checkcharacterRoutes"));
 
 app.use(errorHandler);
 
-app.listen(PORT, ()=>{
-    console.log(`Server is listening on ${PORT}`);
+app.listen(PORT, () => {
+  console.log(`Server is listening on ${PORT}`);
 });
