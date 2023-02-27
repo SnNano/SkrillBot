@@ -25,7 +25,7 @@ const Signup = () => {
             toast.error(state.message);
         }
         if (state.isSuccess || state.user) {
-            navigate('/essay');
+            navigate('/dashboard');
         }
         dispatch({ type: "RESET" });
     }, [state.isError, state.isSuccess, state.isLoading, state.message, navigate, state.user, dispatch]);

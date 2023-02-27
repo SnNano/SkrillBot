@@ -15,7 +15,7 @@ const Profile = () => {
         <>
             <BreadCumb header="Profile" />
             <Sidebar />
-            <div className="container mt-32">
+            <div className="container mt-40">
                 <a href={referralLink} target="_blank" rel="noreferrer">Your referral link: {referralLink}</a>
             </div>
         </>

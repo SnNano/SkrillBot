@@ -22,6 +22,7 @@ import { initialState } from "./Reducers/authReducer";
 import { authReducer } from "./Reducers/authReducer";
 import Pricing from "./components/sections/Pricing";
 import Profile from "./components/sections/Profile";
+import Dashboard from "./pages/Dashboard";
 
 export const UserContext = createContext();
 
@@ -42,8 +43,9 @@ function App() {
                 element={
                   <div className="relative px-8 py-4 sm:ml-64">
                     <Routes>
-                      <Route path="/success" element={<Essay />} />
-                      <Route path="/profile" element={<Profile />} />
+                      <Route path="/dashboard" element={<Dashboard />} />
+                      <Route path="/success" element={<Dashboard />} />
+                      <Route path="/settings" element={<Profile />} />
                       <Route path="/essay" element={<Essay />} />
                       <Route path="/blog" element={<BlogArticle />} />
                       <Route path="/email" element={<Email />} />
