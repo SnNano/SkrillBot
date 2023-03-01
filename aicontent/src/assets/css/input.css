@@ -5,7 +5,7 @@
 /* Firefox */
 * {
     scrollbar-width: thin;
-    scrollbar-color: #26E35F;
+    scrollbar-color: #6366f1;
   }
   
   /* Chrome, Edge, and Safari */
@@ -18,5 +18,5 @@
   }
   
   *::-webkit-scrollbar-thumb {
-    background-color: #26E35F;
+    background-color: #6366f1;
   }

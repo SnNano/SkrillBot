@@ -3,13 +3,14 @@ import { checkCharacters } from "../../services/userService";
 import { UserContext } from "../../App";
 import { Logout } from "../../services/userService";
 
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useLocation } from "react-router-dom";
 
 
 const BreadCumb = ({ header, paragraph }) => {
   const [characters, setCharacters] = useState(0);
   const { state, dispatch } = useContext(UserContext);
   const [openDrop, setOpenDrop] = useState(false);
+  const location = useLocation();
   const navigate = useNavigate();
   const onLogout = async () => {
     await Logout(dispatch);
@@ -25,17 +26,20 @@ const BreadCumb = ({ header, paragraph }) => {
     return () => clearInterval(intervalId);
   }, []);
 
+  useEffect(() => {
+    setOpenDrop(false); // close dropdown when location changes
+  }, [location.pathname]);
+
   return (
     <div className="w-full flex justify-between p-4 breadbubble-element bg-white shadow-md absolute top-0 left-0">
       <div>
-        <h1 className="lg:text-4xl md:text-2xl text-xl font-semibold text-gray-900 px-2 py-2">{header}</h1>
-        <p className="text-green-500 px-2">Characters {characters === -1 ? '∞' : `${characters}`}</p>
-        <div className="font-normal text-gray-400 lg:text-lg md:text-md text-sm py-2 px-2">{paragraph}</div>
+        <h1 className="md:text-2xl text-xl font-semibold text-gray-900 px-2 py-2">{header}</h1>
+        <p className="text-indigo-500 md:text-md text-sm px-2">Characters {characters === -1 ? '∞' : `${characters}`}</p>
+        <div className="font-normal text-gray-400 md:text-md text-sm py-2 px-2">{paragraph}</div>
       </div>
       {state.user ? <>
         <div className="flex items-center md:order-2 px-2">
-          <button onClick={() => { setOpenDrop(!openDrop) }} type="button" className="outline-0 flex mr-3 text-sm bg-gray-800 rounded-full md:mr-0">
-            <img className="w-8 h-8 rounded-full" src="/docs/images/people/profile-picture-3.jpg" alt="user" />
+          <button onClick={() => { setOpenDrop(!openDrop) }} type="button" className="w-8 h-8 outline-0 flex mr-3 text-sm bg-gray-800 rounded-full md:mr-0">
           </button>
           <div className={`dropDown ${openDrop ? '' : 'hidden'} z-50 absolute right-[32px] top-[75%] text-base list-none bg-white divide-y divide-gray-100 rounded-lg shadow`}>
             <div className="px-4 py-3">
@@ -43,10 +47,13 @@ const BreadCumb = ({ header, paragraph }) => {
               <span className="block font-medium text-sm text-gray-500 truncate">{state.user.user.email}</span>
             </div>
             <ul className="py-2">
-              <li className="hover:bg-green-400 hover:rounded-lg hover:text-green-800">
+              <li className="hover:bg-indigo-400 hover:rounded-lg hover:text-indigo-800">
                 <Link to="/settings" className="block px-4 py-2 text-md text-gray-700">Settings</Link>
               </li>
-              <li className="hover:bg-green-400 hover:rounded-lg hover:text-green-800">
+              <li className="hover:bg-indigo-400 hover:rounded-lg hover:text-indigo-800">
+                <Link to="/billing" className="block px-4 py-2 text-md text-gray-700">Billing</Link>
+              </li>
+              <li className="hover:bg-indigo-400 hover:rounded-lg hover:text-indigo-800">
                 <button onClick={onLogout} className="block px-4 py-2 text-md text-gray-700">Sign out</button>
               </li>
             </ul>

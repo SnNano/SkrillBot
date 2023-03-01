@@ -1,11 +1,16 @@
 const express = require("express");
 const dotenv = require("dotenv").config();
+const passport = require("passport");
+const session = require('express-session');
+
 const { errorHandler } = require("./middleware/errorMiddleware");
 const PORT = process.env.PORT || 5000;
 const cors = require('cors');
 const connectDB = require("./config/db");
 
 const app = express();
+require("./controllers/auth/passportGoogleSSO");
+
 
 connectDB();
 
@@ -24,6 +29,13 @@ app.use((req, res, next) => {
     express.json()(req, res, next);
   }
 });
+app.use(session({
+  secret: process.env.COOKIE_KEY,
+  resave: false,
+  saveUninitialized: false
+}));
+app.use(passport.initialize());
+app.use(passport.session());
 // Webhooks and things
 app.use('/stripe', require('./stripe'))
 // Routes
@@ -33,6 +45,8 @@ app.use("/api/random", require("./routes/randomRoutes"));
 app.use("/api/users", require("./routes/userRoutes"));
 app.use("/api/users", require("./routes/stripeRoutes"));
 app.use("/api", require("./routes/checkcharacterRoutes"));
+app.use("/api", require("./routes/oauthRoutes"));
+
 
 app.use(errorHandler);
 

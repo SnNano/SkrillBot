@@ -38,7 +38,7 @@ const Home = () => {
                         <div className="lg:mx-auto lg:max-w-7xl lg:px-8 lg:grid lg:grid-cols-2 lg:grid-flow-col-dense lg:gap-6 xl:gap-12 2xl:gap-24">
                             <div className="max-w-xl px-4 mx-auto sm:px-6 lg:py-32 lg:max-w-none lg:mx-0 lg:px-0 space-y-6">
                                 <div>
-                                    <h2 className="text-4xl font-extrabold tracking-tight text-gray-900">Bypasses ai plagiarism detectors<span className="text-green-400">.</span></h2>
+                                    <h2 className="text-4xl font-extrabold tracking-tight text-gray-900">Bypasses ai plagiarism detectors<span className="text-indigo-400">.</span></h2>
                                     <p className="mt-4 text-lg leading-relaxed text-gray-500 sm:text-xl">Our Ai algorithms ensure that your writing is unique and not flagged by plagiarism detectors, saving you time and hassle. Whether you're a student, professional, or content creator our, Ai-powered writing topics will help you produce high quality work quickly and easily.</p>
                                 </div>
                                 <div></div>
@@ -52,12 +52,12 @@ const Home = () => {
                     </div>
                 </section>
                 <General />
-                <section className="py-12 overflow-hidden bg-green-400 bg-opacity-80 md:py-20">
+                <section className="py-12 overflow-hidden bg-indigo-400 bg-opacity-80 md:py-20">
                     <div className="relative px-4 mx-auto max-w-7xl sm:px-6 lg:px-8">
                         <svg className="absolute transform top-full right-full translate-x-1/3 -translate-y-1/4 lg:translate-x-1/2 xl:-translate-y-1/2 rotate-3" width="404" height="404" fill="none" viewBox="0 0 404 404" role="img">
                             <title id="svg-squares">squares</title>
                             <defs>
-                                <pattern id="ad119f34-7694-4c31-947f-5c9d249b21f3" x="0" y="0" width="20" height="20" patternUnits="userSpaceOnUse"><rect x="0" y="0" width="4" height="4" className="text-green-400" fill="currentColor"></rect></pattern></defs>
+                                <pattern id="ad119f34-7694-4c31-947f-5c9d249b21f3" x="0" y="0" width="20" height="20" patternUnits="userSpaceOnUse"><rect x="0" y="0" width="4" height="4" className="text-indigo-400" fill="currentColor"></rect></pattern></defs>
                             <rect width="404" height="404" fill="url(#ad119f34-7694-4c31-947f-5c9d249b21f3)"></rect>
                         </svg>
                         <div className="relative">
@@ -100,10 +100,10 @@ export default Home
 //     <div className="hidden w-full md:block md:w-auto" id="navbar-default">
 //       <ul className="flex flex-col p-4 mt-4 border border-gray-100 rounded-lg bg-gray-50 md:flex-row md:space-x-8 md:mt-0 md:text-sm md:font-medium md:border-0 md:bg-white">
 //         <li>
-//           <Link to="/" className="block py-2 pl-3 pr-4 text-white bg-green-400 rounded md:bg-transparent md:text-green-400 md:p-0">Home</Link>
+//           <Link to="/" className="block py-2 pl-3 pr-4 text-white bg-indigo-400 rounded md:bg-transparent md:text-indigo-400 md:p-0">Home</Link>
 //         </li>
 //         <li>
-//           <Link to="/" className="block py-2 pl-3 pr-4 text-gray-700 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-green-700 md:p-0">About</Link>
+//           <Link to="/" className="block py-2 pl-3 pr-4 text-gray-700 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-indigo-700 md:p-0">About</Link>
 //         </li>
 //       </ul>
 //     </div>

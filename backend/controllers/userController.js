@@ -27,12 +27,12 @@ const registerUser = asyncHandler(async (req, res) => {
     const salt = await bcrypt.genSalt(10);
     const hashedPassword = await bcrypt.hash(password, salt);
     // Create new user
-    const newUser = await User.create({ username: username, email: email, password: hashedPassword, customerId: customer.id, });
-    if (newUser) {
-        delete newUser.password
+    const user = await User.create({ username: username, email: email, password: hashedPassword, customerId: customer.id, });
+    if (user) {
+        delete user.password
         res.status(201).json({
-            newUser,
-            token: generateToken(newUser.id)
+            user,
+            token: generateToken(user.id)
         });
     } else {
         res.status(401);

@@ -3,7 +3,7 @@
 }
 .breadbubble-element{
     order: 1; 
-    height: 150px; 
+    height: 140px; 
 }
 .dropDown{
     width: 252px;
@@ -17,16 +17,9 @@
     overflow: visible; word-break: break-word; 
     line-height: 1.4; 
 }
-.rounded-full.cyan {
-    width: 40rem;
-    height: 49rem;
-    background: radial-gradient(50% 50% at 50% 50%, rgba(101, 31, 255, .15) 0, hsla(0, 0%, 100%, 0) 100%);
-    z-index: -1;
+
+.formWidth{
+    min-width: 22rem;
 }
 
-.rounded-full.red {
-    width: 40rem;
-    height: 40rem;
-    background: radial-gradient(50% 50% at 50% 50%, #26e35f5d 0, hsla(0, 0%, 100%, 0) 100%);
-    z-index: -1;
-}
+

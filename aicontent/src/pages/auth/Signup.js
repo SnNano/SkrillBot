@@ -5,6 +5,7 @@ import { useContext, useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { referralCode, register } from "../../services/userService";
 import GeneralSpinner from "../../components/layouts/GeneralSpinner";
+import LeftLoginSignup from "../../components/layouts/LeftLoginSignup";
 
 const Signup = () => {
 
@@ -51,69 +52,58 @@ const Signup = () => {
         }
     }
 
+    const redirectToGoogleSSO = async () => {
+        const googleLoginURL = "http://localhost:5000/api/auth/google";
+        window.open(
+            googleLoginURL,
+            "_self",
+        );
+    };
+
     if (state.isLoading) {
         return <GeneralSpinner />
     }
 
     return (
-        <div>
-            <header>
-                <nav className="bg-white py-6 shadow-md flex justify-center">
-                    <Link to="/">SkrillBot</Link>
-                </nav>
-            </header>
-            <div className="h-full w-full relative">
-                <div className="hidden gradients lg:flex justify-center items-center">
-                    <div className="absolute left-[5%] top-0 rounded-full cyan "></div>
-                    <div className="absolute right-[5%] top-0 rounded-full red"></div>
-                </div>
-                <div className="mt-12 flex flex-col items-center justify-center">
-                    <h3 className="text-6xl md:text-4xl text-center max-w-[40rem]">Let's get you an account for the most powerful academic weapon!</h3>
-                    <form className="mt-12 md:max-w-md" onSubmit={handleSubmit}>
-                        <div className="mb-6">
-                            <div className="relative">
-                                <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
-                                    <i className="fa-regular fa-user w-5 h-5 text-gray-500"></i>
-                                </div>
-                                <input type="text" value={username} onChange={handleChange} id="username" name="username" className="outline-0 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full pl-10 p-2.5" placeholder="Your username" required />
-                            </div>
+        <div className="h-full flex justify-center items-center">
+            <div className="signTemplate h-screen w-full grid lg:grid-cols-2 grid-cols-1">
+                <LeftLoginSignup />
+                <div className="signColor flex justify-center items-center flex-col p-4">
+                    <h3 className="mb-6 text-4xl font-semibold text-center">Sign Up</h3>
+                    <form className="formWidth" onSubmit={handleSubmit}>
+                        <div className="mb-4">
+                            <label htmlFor="username" className="block mb-2 text-sm font-light">Username</label>
+                            <input type="text" value={username} onChange={handleChange} name="username" id="username" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-indigo-500 focus:border-indigo-500 block w-full p-2.5 focus:outline-none" placeholder="John Smith" required />
                         </div>
-                        <div className="mb-6">
-                            <div className="relative">
-                                <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
-                                    <i className="fa-regular fa-envelope w-5 h-5 text-gray-500"></i>
-                                </div>
-                                <input type="email" value={email} onChange={handleChange} id="email" name="email" className="outline-0 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full pl-10 p-2.5" placeholder="name@gmail.com" required />
-                            </div>
+                        <div className="mb-4">
+                            <label htmlFor="email" className="block mb-2 text-sm font-light">Email</label>
+                            <input type="email" value={email} onChange={handleChange} name="email" id="email" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-indigo-500 focus:border-indigo-500 block w-full p-2.5 focus:outline-none" placeholder="john@gmail.com" required />
                         </div>
-                        <div className="mb-6">
-                            <div className="relative">
-                                <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
-                                    <i className="fa-solid fa-lock w-5 h-5 text-gray-500"></i>
-                                </div>
-                                <input type="password" value={password} onChange={handleChange} id="password" name="password" className="outline-0 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full pl-10 p-2.5" placeholder="Password" required />
-                            </div>
+                        <div className="mb-4">
+                            <label htmlFor="password" className="block mb-2 text-sm font-light">Password</label>
+                            <input type="password" value={password} onChange={handleChange} name="password" id="password" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-indigo-500 focus:border-indigo-500 block w-full p-2.5 focus:outline-none" placeholder="Password" required />
                         </div>
-                        <div className="mb-6">
-                            <div className="relative">
-                                <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
-                                    <i className="fa-solid fa-unlock w-5 h-5 text-gray-500"></i>
-                                </div>
-                                <input type="password" value={cpassword} onChange={handleChange} id="cpassword" name="cpassword" className="outline-0 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full pl-10 p-2.5" placeholder="Confirm Password" required />
-                            </div>
+                        <div className="mb-4">
+                            <label htmlFor="cpassword" className="block mb-2 text-sm font-light">Confirm Password</label>
+                            <input type="password" value={cpassword} onChange={handleChange} name="cpassword" id="cpassword" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-indigo-500 focus:border-indigo-500 block w-full p-2.5 focus:outline-none" placeholder="Confirm Password" required />
                         </div>
-                        <div className="mb-6">
+                        {/* <div className="mb-6">
                             <div className="flex items-center">
-                                <input id="terms" type="checkbox" value="" className="w-4 h-4 text-green-700 bg-gray-100 border-gray-300 rounded focus:ring-green-500 focus:ring-2" />
-                                <label for="terms" className="ml-2 text-sm font-medium text-gray-900">I agree with the <a href="##" className="text-green-600 hover:underline">terms and conditions</a>.</label>
+                                <input id="terms" type="checkbox" value="" className="w-4 h-4 text-indigo-700 bg-gray-100 border-gray-300 rounded focus:ring-indigo-500 focus:ring-2" />
+                                <label htmlFor="terms" className="ml-2 text-sm font-medium text-gray-900">I agree with the <a href="##" className="text-indigo-700 hover:underline">terms and conditions</a>.</label>
                             </div>
+                        </div> */}
+                        <div className="flex justify-center flex-col">
+                            <button className="w-full mb-3 rounded-lg px-4 py-2 bg-indigo-500 text-white text-md hover:bg-indigo-300">Sign Up</button>
+                            <button type="button" onClick={redirectToGoogleSSO} className="text-red-500 bg-transparent px-4 py-2 rounded-full border border-gray-200">
+                                <i className="fa-brands fa-google mr-3"></i>
+                                <span className="text-red-500">Google</span>
+                            </button>
                         </div>
-                        <div className="mb-6 flex justify-center">
-                            <button className="uppercase rounded-lg px-6 py-2 text-md bg-green-700 text-white hover:bg-green-800">Sign Up</button>
+                        <div className="text-sm text-center mt-4">
+                            <Link to="/login">Already signed up? Click here to <span className="text-indigo-700 font-medium">Log in!</span></Link>
                         </div>
-                        <div className="text-sm text-center">
-                            <Link to="/login">Already signed up? Click here to <span className="text-green-700">log in!</span></Link>
-                        </div>
+                        <hr className="container bg-gray-400 my-4" />
                     </form>
                 </div>
             </div>

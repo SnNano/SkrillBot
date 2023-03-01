@@ -48,6 +48,11 @@ const GeneralForm = ({ header, paragraph, label2, type, maxLength, minLength }) 
       \nKeywords:[${keywords}]\nPlease use numbers for the outlines.`;
     } else if (type === "SALES_COPY") {
       prompt = `Write a ${tone} sales copy that highlights the key features and benefits of [${message}]. Address the pain points of your target audience, explain how your product/service solves their problems, and demonstrate its value proposition. Use persuasive language, testimonials, and social proof to convince potential customers to make a purchase.\nKeywords:[${keywords}].`;
+    } else if (type === "ARTICLE_SUM") {
+      prompt = `"Please summarize the following article in 8 bullet points:
+                [${message}]
+                \nTone should be [${tone}]     
+                \nKeywords:[${keywords}].`;
     } else if (type === "AD_COPY") {
       prompt = `Title: ${message}\n
       Keywords: ${keywords}\n
@@ -77,8 +82,8 @@ const GeneralForm = ({ header, paragraph, label2, type, maxLength, minLength }) 
             <form onSubmit={handleSubmit} className="mb-6">
               <div className="mb-6 grid lg:grid-cols-2 gap-4">
                 <div>
-                  <label htmlFor="tone" className="block mb-2 text-sm font-medium text-green-500">Select tone</label>
-                  <select name="tone" id="tone" value={tone} onChange={handleChange} className="block w-full px-5 py-3 text-base text-gray-900 placeholder-gray-500 border border-gray-300 rounded-md shadow-sm focus:outline-0 focus:border-green-400 flex-1">
+                  <label htmlFor="tone" className="block mb-2 text-sm font-medium text-indigo-500">Select tone</label>
+                  <select name="tone" id="tone" value={tone} onChange={handleChange} className="block w-full px-4 py-2 text-sm text-gray-900 placeholder-gray-500 border border-gray-300 rounded-md shadow-sm focus:outline-0 focus:border-indigo-400 flex-1">
                     <option value="Convincing">Convincing</option>
                     <option value="Creative">Creative</option>
                     <option value="Appreciative">Appreciative</option>
@@ -89,8 +94,8 @@ const GeneralForm = ({ header, paragraph, label2, type, maxLength, minLength }) 
                   </select>
                 </div>
                 <div>
-                  <label htmlFor="creativity" className="block mb-2 text-sm font-medium text-green-500">Creativity level</label>
-                  <select name="creativity" id="creativity" value={creativity} onChange={handleChange} className="focus:border-green-400 block w-full px-5 py-3 text-base text-gray-900 placeholder-gray-500 border border-gray-300 rounded-md shadow-sm focus:outline-0 flex-1">
+                  <label htmlFor="creativity" className="block mb-2 text-sm font-medium text-indigo-500">Creativity level</label>
+                  <select name="creativity" id="creativity" value={creativity} onChange={handleChange} className="block w-full px-4 py-2 text-sm text-gray-900 placeholder-gray-500 border border-gray-300 rounded-md shadow-sm focus:outline-0 focus:border-indigo-400 flex-1">
                     <option value="0">None</option>
                     <option value="0.3">Low</option>
                     <option value="0.5">Medium</option>
@@ -100,14 +105,16 @@ const GeneralForm = ({ header, paragraph, label2, type, maxLength, minLength }) 
                 </div>
               </div>
               <div className="mb-6">
-                <label htmlFor="keywords" className="block mb-2 text-sm font-medium text-green-500">Keywords</label>
-                <input name="keywords" id="keywords" value={keywords} onChange={handleChange} className="focus:border-green-400 block w-full px-5 py-3 text-base text-gray-900 placeholder-gray-500 border border-gray-300 rounded-md shadow-sm focus:outline-0 flex-1" placeholder="keywords should be separated by a comma" />
+                <label htmlFor="keywords" className="block mb-2 text-sm font-medium text-indigo-500">Keywords</label>
+                <input name="keywords" id="keywords" value={keywords} onChange={handleChange} className="block w-full px-4 py-2 text-sm text-gray-900 placeholder-gray-500 border border-gray-300 rounded-md shadow-sm focus:outline-0 focus:border-indigo-400 flex-1" placeholder="keywords should be separated by a comma" required />
               </div>
               <div className="mb-6">
-                <label htmlFor="message" className="block mb-2 text-md font-medium text-green-500">{label2}</label>
-                <textarea id="message" minLength={minLength} maxLength={maxLength} value={message} onChange={handleChange} name="message" rows="6" className="block w-full px-5 py-3 text-base text-gray-900 placeholder-gray-500 border border-gray-300 rounded-md shadow-sm focus:outline-0 focus:border-green-400 flex-1" placeholder={label2}></textarea>
+                <label htmlFor="message" className="block mb-2 text-md font-medium text-indigo-500">{label2}</label>
+                <textarea id="message" minLength={minLength} maxLength={maxLength} value={message} onChange={handleChange} name="message" rows="6" className="block w-full px-4 py-2 text-sm text-gray-900 placeholder-gray-500 border border-gray-300 rounded-md shadow-sm focus:outline-0 focus:border-indigo-400 flex-1" placeholder={label2} required></textarea>
               </div>
-              <Button loading={loading} />
+              <div className="flex justify-center">
+                <Button loading={loading} />
+              </div>
             </form>
             <Content generatedText={generatedText} loading={loading} />
           </div>

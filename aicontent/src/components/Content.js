@@ -56,15 +56,16 @@ const Content = ({ loading, generatedText }) => {
     }, 3000)
   }
   return (
-    <div className="min-h-[20rem] flex items-center justify-center flex-col p-6 bg-white border border-gray-200 rounded-lg shadow-md sm:my-4">
+    <div className="min-h-[20rem] flex-col p-6  border border-gray-200 rounded-lg shadow-md sm:my-4">
       {!loading && generatedText && displayedText && <pre style={{ whiteSpace: 'pre-wrap' }}>{displayedText}</pre>
       }
+      {!generatedText && !loading && <div className="flex min-h-[20rem] justify-center items-center"><p className="text-2xl text-center text-gray-400">Answer will appear here.</p></div>}
       {loading && <div className="spinnerH"><Spinner /></div>}
       {!loading && generatedText &&
-        <div className="cursor-pointer text-green-400 font-semibold mt-4 text-lg hover:text-green-500" onClick={copyToClip}><i className="fa-regular fa-copy"></i>
+        <div className="cursor-pointer text-indigo-500 font-semibold mt-4 text-md hover:text-indigo-500" onClick={copyToClip}><i className="fa-regular fa-copy"></i>
           <span className="ml-2">Copy to Clipboard</span>
         </div>}
-      {isSuccess && <p className="text-md text-green-700 font-light">The text is copied</p>}
+      {isSuccess && <p className="text-md text-indigo-700 font-light">The text is copied</p>}
     </div>
   )
 }

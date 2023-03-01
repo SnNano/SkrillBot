@@ -1,5 +1,5 @@
 const mongoose = require("mongoose");
-const { v4 } = require('uuid');
+const { v4: uuidv4 } = require('uuid');
 
 
 const userSchema = mongoose.Schema({
@@ -55,7 +55,7 @@ const userSchema = mongoose.Schema({
 		type: String,
 		unique: true,
 		maxLength: 100,
-		default: v4(),
+		default: uuidv4,
 	},
 	referrerPaid: { type: Boolean, default: false }, // has the referral been given credits yet?
 	referrer: {

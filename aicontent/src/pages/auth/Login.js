@@ -6,6 +6,7 @@ import { UserContext } from "../../App";
 import { useContext } from "react";
 import { login } from "../../services/userService";
 import GeneralSpinner from "../../components/layouts/GeneralSpinner";
+import LeftLoginSignup from "../../components/layouts/LeftLoginSignup";
 
 
 const Login = () => {
@@ -43,45 +44,42 @@ const Login = () => {
     await login(formData, dispatch)
   }
 
+  const redirectToGoogleSSO = async () => {
+    const googleLoginURL = "http://localhost:5000/api/auth/google";
+    window.open(
+      googleLoginURL,
+      "_self",
+    );
+  };
+
   if (state.isLoading) {
     return <GeneralSpinner />
   }
   return (
-    <div>
-      <header>
-        <nav className="bg-white py-6 shadow-md flex justify-center">
-          <Link to="/">SkrillBot</Link>
-        </nav>
-      </header>
-      <div className="min-h-screen w-full relative">
-        <div className="hidden gradients lg:flex justify-center items-center">
-          <div className="absolute left-[5%] top-0 rounded-full cyan "></div>
-          <div className="absolute right-[5%] top-0 rounded-full red"></div>
-        </div>
-        <div className="mt-12 flex flex-col items-center justify-center">
-          <h3 className="text-6xl md:text-4xl text-center max-w-[40rem]">Log in with your email and password!</h3>
-          <form className="mt-12 md:max-w-md" onSubmit={handleSubmit}>
-            <div className="mb-6">
-              <div className="relative">
-                <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
-                  <i className="fa-regular fa-envelope w-5 h-5 text-gray-500"></i>
-                </div>
-                <input type="email" value={email} onChange={handleChange} id="email" name="email" className="outline-0 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full pl-10 p-2.5" placeholder="name@gmail.com" />
-              </div>
+    <div className="h-full flex justify-center items-center">
+      <div className="signTemplate h-screen w-full signTemplate grid lg:grid-cols-2 grid-cols-1">
+        <LeftLoginSignup />
+        <div className="flex justify-center items-center flex-col shadow-lg signColor p-4">
+          <h3 className="mb-6 text-4xl font-semibold text-center">Log in</h3>
+          <form className="formWidth" onSubmit={handleSubmit}>
+            <div className="mb-4">
+              <label htmlFor="email" className="block mb-2 text-sm font-light">Email</label>
+              <input type="email" value={email} onChange={handleChange} name="email" id="email" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-indigo-500 focus:border-indigo-500 block w-full p-2.5 focus:outline-none" placeholder="john@gmail.com" />
             </div>
-            <div className="mb-6">
-              <div className="relative">
-                <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
-                  <i className="fa-solid fa-lock w-5 h-5 text-gray-500"></i>
-                </div>
-                <input type="password" value={password} onChange={handleChange} id="password" name="password" className="outline-0 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full pl-10 p-2.5" placeholder="Password" />
-              </div>
+            <div className="mb-4">
+              <label htmlFor="password" className="block mb-2 text-sm font-light">Password</label>
+              <input type="password" value={password} onChange={handleChange} name="password" id="password" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-indigo-500 focus:border-indigo-500 block w-full p-2.5 focus:outline-none" placeholder="Password" />
             </div>
-            <div className="mb-6 flex justify-center">
-              <button className="uppercase rounded-lg px-6 py-2 text-md bg-green-700 text-white hover:bg-green-800">Log in</button>
+            <div className="flex justify-center flex-col">
+              <button className="rounded-lg w-full mb-3 px-4 py-2 bg-indigo-500 text-white text-md hover:bg-indigo-300">Log In</button>
+              <button onClick={redirectToGoogleSSO} className="text-red-500 bg-transparent px-4 py-2 rounded-full border border-gray-200">
+                <i className="fa-brands fa-google mr-3"></i>
+                <span className="text-red-500">Google</span>
+              </button>
             </div>
-            <div className="text-sm text-center">
-              <Link to="/sign-up">Don't have an account? Click here to <span className="text-green-700">Sign up!</span></Link>
+            <hr className="container bg-gray-400 my-4" />
+            <div className="text-sm text-center my-4">
+              <Link to="/sign-up">Don't have an account? Click here to <span className="text-indigo-700 font-medium">Sign up!</span></Link>
             </div>
           </form>
         </div>
