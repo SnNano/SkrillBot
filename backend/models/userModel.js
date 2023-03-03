@@ -23,6 +23,11 @@ const userSchema = mongoose.Schema({
 		minLength: 10,
 		maxLength: 200
 	},
+	googleId: {
+		type: String,
+		required: false,
+		default: ""
+	},
 	characters: {
 		type: Number,
 		default: 5000,

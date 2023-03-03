@@ -1,8 +1,6 @@
-import GeneralForm from "../../components/GeneralForm"
 import BreadCumb from "../../components/layouts/BreadCumb";
 import Sidebar from "../../components/layouts/Sidebar";
 import { getResponse } from "../../services/openaiService";
-import Button from "../../components/layouts/Button";
 import { useState } from "react";
 import Content from "../../components/Content";
 

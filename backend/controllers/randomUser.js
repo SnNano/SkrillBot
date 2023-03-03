@@ -1,7 +1,7 @@
 const dotenv = require("dotenv").config();
 const axios = require('axios');
 
-const getRandomUser = async(req, res)=>{
+const getRandomUser = async (req, res) => {
     const apiUrl = `https://randomuser.me/api/?results=13`;
     try {
         const { data } = await axios.get(apiUrl);
@@ -12,4 +12,4 @@ const getRandomUser = async(req, res)=>{
     }
 }
 
-module.exports = {getRandomUser}
+module.exports = { getRandomUser }

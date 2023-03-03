@@ -1,7 +1,9 @@
 const express = require("express");
 const dotenv = require("dotenv").config();
+const cookieSession = require("cookie-session");
+
 const passport = require("passport");
-const session = require('express-session');
+// const session = require('express-session');
 
 const { errorHandler } = require("./middleware/errorMiddleware");
 const PORT = process.env.PORT || 5000;
@@ -9,13 +11,15 @@ const cors = require('cors');
 const connectDB = require("./config/db");
 
 const app = express();
+require("./controllers/auth/passport");
 require("./controllers/auth/passportGoogleSSO");
 
 
 connectDB();
 
 var corsOptions = {
-  origin: '*',
+  origin: 'http://localhost:3000',
+  credentials: true,
   optionsSuccessStatus: 200 // some legacy browsers (IE11, various SmartTVs) choke on 204
 }
 
@@ -29,18 +33,19 @@ app.use((req, res, next) => {
     express.json()(req, res, next);
   }
 });
-app.use(session({
-  secret: process.env.COOKIE_KEY,
-  resave: false,
-  saveUninitialized: false
-}));
+app.use(
+  cookieSession({
+    maxAge: 24 * 60 * 60 * 1000,
+    keys: [process.env.COOKIE_KEY],
+  })
+);
 app.use(passport.initialize());
 app.use(passport.session());
 // Webhooks and things
 app.use('/stripe', require('./stripe'))
 // Routes
 app.use("/api/chatgpt", require("./routes/gptRoutes"));
-app.use("/api/chimp", require("./routes/chimpRoutes"));
+app.use("/api/rewrite", require("./routes/rewriterRoutes"));
 app.use("/api/random", require("./routes/randomRoutes"));
 app.use("/api/users", require("./routes/userRoutes"));
 app.use("/api/users", require("./routes/stripeRoutes"));

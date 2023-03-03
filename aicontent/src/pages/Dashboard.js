@@ -1,18 +1,28 @@
 import Sidebar from "../components/layouts/Sidebar";
 import { Link, useNavigate } from "react-router-dom";
 import { UserContext } from "../App";
-import { useContext, useState } from "react";
-import { Logout } from "../services/userService";
+import { useContext, useEffect, useState } from "react";
+import { checkCharacters, Logout } from "../services/userService";
 import { moreData } from "../data";
 
 const categories = [
-    "All", "Writing", "Summary", "Code", "Ideas", "Blog", "Copy"
+    "All", "Writing", "Summary", "Social Media", "Code", "Ideas", "Blog", "Copy"
 ]
 
 const Dashboard = () => {
     const { state, dispatch } = useContext(UserContext);
+    const [characters, setCharacters] = useState(0);
     const [openDrop, setOpenDrop] = useState(false);
     const [selectedCategory, setSelectedCategory] = useState("All");
+    useEffect(() => {
+        const getCharacter = async () => {
+            let data = await checkCharacters();
+            setCharacters(data)
+        }
+        getCharacter()
+        const intervalId = setInterval(checkCharacters, 5000);
+        return () => clearInterval(intervalId);
+    }, []);
     const navigate = useNavigate();
     // Filter data based on selected category
     const filteredData = selectedCategory === "All"
@@ -20,7 +30,7 @@ const Dashboard = () => {
         : moreData.filter(item => item.category.toLowerCase() === selectedCategory.toLowerCase());
 
     const onLogout = async () => {
-        await Logout(dispatch);
+        await Logout(state, dispatch);
         navigate("/login");
     }
     return (
@@ -36,7 +46,7 @@ const Dashboard = () => {
                         <nav className="flex flex-grow relative">
                             <ul className="flex flex-grow justify-end flex-wrap items-center">
                                 <div className="mr-6">
-                                    <span className="text-indigo-500">{state.user.user.characters ? state.user.user.characters : ''}</span> characters
+                                    <span className="text-indigo-500">{state.user ? (characters === -1 ? 'Unlimited' : `${characters}`) : ''}</span> characters
                                 </div>
                                 <div className="flex items-center md:order-2 px-2">
                                     <button onClick={() => { setOpenDrop(!openDrop) }} className="w-8 h-8 outline-0 flex mr-3 text-sm bg-gray-800 rounded-full md:mr-0">
@@ -59,9 +69,9 @@ const Dashboard = () => {
                                             </li>
                                         </ul>
                                     </div>
-                                    <button data-collapse-toggle="mobile-menu-2" type="button" className="inline-flex items-center p-2 ml-1 text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600" aria-controls="mobile-menu-2" aria-expanded="false">
+                                    <button data-collapse-toggle="mobile-menu-2" type="button" className="inline-flex items-center p-2 ml-1 text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200" aria-controls="mobile-menu-2" aria-expanded="false">
                                         <span className="sr-only">Open main menu</span>
-                                        <svg className="w-6 h-6" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fillRule="evenodd" d="M3 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 10a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 15a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z" clip-rule="evenodd"></path></svg>
+                                        <svg className="w-6 h-6" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fillRule="evenodd" d="M3 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 10a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 15a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z" clipRule="evenodd"></path></svg>
                                     </button>
                                 </div>
 

@@ -16,20 +16,20 @@ passport.use(
       passReqToCallback: true,
     },
     async (req, accessToken, refreshToken, profile, cb) => {
-         // Hash the password
-        const salt = await bcrypt.genSalt(10);
-        const hashedPassword = await bcrypt.hash("123secretpassword", salt);
-        const defaultUser = {
-            username: `${profile.name.givenName} ${profile.name.familyName}`,
-            email: profile.emails[0].value,
-            password:hashedPassword,
-            googleId: profile.id,
-        };
-        let user = await User.findOne({googleId: profile.id});
-        //const token = generateToken(user._id)
-        if(!user){
-           user = await User.create(defaultUser);
-        }
+      // Hash the password
+      const salt = await bcrypt.genSalt(10);
+      const hashedPassword = await bcrypt.hash("123secretpassword", salt);
+      const defaultUser = {
+        username: `${profile.name.givenName} ${profile.name.familyName}`,
+        email: profile.emails[0].value,
+        password: hashedPassword,
+        googleId: profile.id,
+      };
+      let user = await User.findOne({ googleId: profile.id });
+      //const token = generateToken(user._id)
+      if (!user) {
+        user = await User.create(defaultUser);
+      }
 
       if (user) return cb(null, user);
     }
@@ -42,7 +42,7 @@ passport.serializeUser((user, cb) => {
 });
 
 passport.deserializeUser(async (id, cb) => {
-  const user = await User.findOne({ _id:id }).catch((err) => {
+  const user = await User.findOne({ _id: id }).catch((err) => {
     console.log("Error deserializing", err);
     cb(err, null);
   });

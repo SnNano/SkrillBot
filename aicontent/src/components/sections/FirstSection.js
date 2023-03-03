@@ -3,7 +3,6 @@ import teenager from "../../assets/images/teenSmile.jpg";
 import { Link, useNavigate } from "react-router-dom";
 import { UserContext } from "../../App";
 import { useContext } from "react";
-import GeneralSpinner from "../layouts/GeneralSpinner";
 import { Logout } from "../../services/userService";
 
 
@@ -11,18 +10,15 @@ const FirstSection = () => {
     const { state, dispatch } = useContext(UserContext);
     const navigate = useNavigate();
     const onLogout = async () => {
-        await Logout(dispatch);
+        await Logout(state, dispatch);
         navigate("/login");
-    }
-    if (state.isLoading) {
-        return <GeneralSpinner />
     }
     return (
         <>
             <div className="pl-14 pr-12 pt-4 flex justify-between items-center">
-                <div class="flex items-center space-x-2">
-                    <img class="w-auto h-8" src="https://storage.googleapis.com/mixo-files/logos/thesisBot-1676073030014.svg" alt="PlumeAi logo" />
-                    <p class="font-sans text-xl font-bold text-gray-900">Skrillbot</p>
+                <div className="flex items-center space-x-2">
+                    <img className="w-auto h-8" src="https://storage.googleapis.com/mixo-files/logos/thesisBot-1676073030014.svg" alt="PlumeAi logo" />
+                    <p className="font-sans text-xl font-bold text-gray-900">Skrillbot</p>
                 </div>
                 {state.user ? (<>
                     <div>

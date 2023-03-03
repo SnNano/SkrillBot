@@ -1,5 +1,5 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import { useState, createContext, useReducer } from "react";
+import { useState, createContext, useReducer, useEffect } from "react";
 
 import Home from "./pages/Home";
 import NotFound from "./components/layouts/NotFound";
@@ -28,12 +28,19 @@ import LinkedInBio from "./pages/Functionalities/LinkedInBio";
 import ArticleSummary from "./pages/Functionalities/ArticleSummary";
 import BookSummary from "./pages/Functionalities/BookSummary";
 import YoutubeSummary from "./pages/Functionalities/YoutubeSummary";
+import YoutubeScripts from "./pages/Functionalities/YoutubeScripts";
+import Rewritter from "./pages/Functionalities/Rewritter";
+import EmailResponder from "./pages/Functionalities/EmailResponder";
+import { fetchAuthUser } from "./services/userService";
 
 export const UserContext = createContext();
 
 function App() {
   const [open, setOpen] = useState(false);
   const [state, dispatch] = useReducer(authReducer, initialState);
+  useEffect(() => {
+    fetchAuthUser(dispatch)
+  }, [])
 
   return (
     <div className="font-poppins">
@@ -57,11 +64,14 @@ function App() {
                       <Route path="/email" element={<Email />} />
                       <Route path="/sales-copy" element={<SalesCopy />} />
                       <Route path="/ad-copy" element={<AdCopy />} />
+                      <Route path="/rewriter" element={<Rewritter />} />
                       <Route path="/questions-answers" element={<QandA />} />
                       <Route path="/linkedin-bio" element={<LinkedInBio />} />
                       <Route path="/article-summary" element={<ArticleSummary />} />
+                      <Route path="/email-responder" element={<EmailResponder />} />
                       <Route path="/book-summary" element={<BookSummary />} />
                       <Route path="/youtube-summary" element={<YoutubeSummary />} />
+                      <Route path="/youtube-scripts" element={<YoutubeScripts />} />
                       <Route path="/product-review" element={<ProductReview />} />
                       <Route path="/ideas" element={<Ideas />} />
                       <Route path="/code-generator" element={<CodeLookUp />} />

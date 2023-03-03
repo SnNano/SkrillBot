@@ -1,15 +1,15 @@
 const User = require("../models/userModel");
 
-const invoice = async (eventType,data) => {
+const invoice = async (eventType, data) => {
 
 	if (!eventType.includes("invoice")) {
 		return // not a subscription event
 	}
-	paid(eventType,data)
+	paid(eventType, data)
 
 }
 
-const paid = async (eventType,data) => {
+const paid = async (eventType, data) => {
 
 	if (!eventType.includes("invoice.paid")) {
 		return // not a subscription event
@@ -19,10 +19,10 @@ const paid = async (eventType,data) => {
 	let credits = 0
 
 	// 500 credits for $30
-	if(object.amount_paid > 2900){
+	if (object.amount_paid > 2900) {
 		credits += (object.amount_paid / 12)
 	}
-	if(object.amount_paid > 8900){
+	if (object.amount_paid > 8900) {
 		credits += (object.amount_paid / 12)
 	}
 
@@ -30,13 +30,13 @@ const paid = async (eventType,data) => {
 		customerId: object.customer
 	})
 
-	if(object.amount_paid > 0){
-		if(user){
-			if(!user.referrerPaid){
+	if (object.amount_paid > 0) {
+		if (user) {
+			if (!user.referrerPaid) {
 				let referrer = await User.findOne({
 					_id: user.referrer
 				})
-				if(referrer){
+				if (referrer) {
 					referrer.credits += 100
 					user.referrerPaid = true
 					referrer.save()
@@ -48,7 +48,7 @@ const paid = async (eventType,data) => {
 		}
 	}
 
-	
+
 
 	// await User
 	// 	.updateOne({ customerId: object.customer },

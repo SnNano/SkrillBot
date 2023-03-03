@@ -6,6 +6,8 @@ import { useNavigate } from "react-router-dom";
 import { referralCode, register } from "../../services/userService";
 import GeneralSpinner from "../../components/layouts/GeneralSpinner";
 import LeftLoginSignup from "../../components/layouts/LeftLoginSignup";
+import google from "../../assets/images/googleLogo.png";
+
 
 const Signup = () => {
 
@@ -93,12 +95,14 @@ const Signup = () => {
                                 <label htmlFor="terms" className="ml-2 text-sm font-medium text-gray-900">I agree with the <a href="##" className="text-indigo-700 hover:underline">terms and conditions</a>.</label>
                             </div>
                         </div> */}
-                        <div className="flex justify-center flex-col">
+                        <div className="flex justify-center ">
                             <button className="w-full mb-3 rounded-lg px-4 py-2 bg-indigo-500 text-white text-md hover:bg-indigo-300">Sign Up</button>
-                            <button type="button" onClick={redirectToGoogleSSO} className="text-red-500 bg-transparent px-4 py-2 rounded-full border border-gray-200">
-                                <i className="fa-brands fa-google mr-3"></i>
-                                <span className="text-red-500">Google</span>
-                            </button>
+                        </div>
+                        <div className="flex justify-center mb-6">
+                            <p onClick={redirectToGoogleSSO} className="cursor-pointer flex items-center justify-center bg-transparent w-full px-4 py-2 rounded-full border border-gray-200 hover:border-gray-400">
+                                <img src={google} alt="google logo" className="w-6 h-6 mr-3" />
+                                <span className="text-black">Google</span>
+                            </p>
                         </div>
                         <div className="text-sm text-center mt-4">
                             <Link to="/login">Already signed up? Click here to <span className="text-indigo-700 font-medium">Log in!</span></Link>

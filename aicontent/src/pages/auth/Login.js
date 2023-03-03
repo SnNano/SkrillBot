@@ -7,6 +7,7 @@ import { useContext } from "react";
 import { login } from "../../services/userService";
 import GeneralSpinner from "../../components/layouts/GeneralSpinner";
 import LeftLoginSignup from "../../components/layouts/LeftLoginSignup";
+import google from "../../assets/images/googleLogo.png";
 
 
 const Login = () => {
@@ -70,12 +71,14 @@ const Login = () => {
               <label htmlFor="password" className="block mb-2 text-sm font-light">Password</label>
               <input type="password" value={password} onChange={handleChange} name="password" id="password" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-indigo-500 focus:border-indigo-500 block w-full p-2.5 focus:outline-none" placeholder="Password" />
             </div>
-            <div className="flex justify-center flex-col">
+            <div className="mb-6 flex justify-center">
               <button className="rounded-lg w-full mb-3 px-4 py-2 bg-indigo-500 text-white text-md hover:bg-indigo-300">Log In</button>
-              <button onClick={redirectToGoogleSSO} className="text-red-500 bg-transparent px-4 py-2 rounded-full border border-gray-200">
-                <i className="fa-brands fa-google mr-3"></i>
-                <span className="text-red-500">Google</span>
-              </button>
+            </div>
+            <div className="flex justify-center mb-6">
+              <p onClick={redirectToGoogleSSO} className="cursor-pointer flex items-center justify-center bg-transparent w-full px-4 py-2 rounded-full border border-gray-200 hover:border-gray-400">
+                <img src={google} alt="google logo" className="w-6 h-6 mr-3" />
+                <span className="text-black">Google</span>
+              </p>
             </div>
             <hr className="container bg-gray-400 my-4" />
             <div className="text-sm text-center my-4">

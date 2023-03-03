@@ -1,6 +1,6 @@
 import Button from "./layouts/Button";
 import Content from "./Content";
-import { getResponse, chimpRewriter } from "../services/openaiService";
+import { getResponse, rewriteText } from "../services/openaiService";
 import { useEffect, useState } from "react";
 import PropTypes from 'prop-types';
 import Sidebar from "./layouts/Sidebar";
@@ -32,43 +32,40 @@ const GeneralForm = ({ header, paragraph, label2, type, maxLength, minLength }) 
       prompt = `Write a ${tone} essay discussing the importance and implications of [${message}]. 
         Provide examples, research, and arguments to support your position. 
         Address any potential counterarguments and conclude with your final thoughts on the topic.
-        Write it in multiple paragraphs.\nKeywords: [${keywords}]
+        Write it in multiple paragraphs.\n${keywords ? `Keywords: [${keywords}]` : ''}
         \nIt should not be plagiarised, it should be original.`;
     } else if (type === "EMAIL") {
       prompt = `"Write a ${tone} email about ${message}, and asking the recipient to reach out 
       if they have any questions, and suggest a Subject for the email. 
       End the email with a polite closing such as 'Have a great day'. 
-      Using the Keywords [${keywords}]."`
+      ${keywords ? `Keywords: [${keywords}]` : ''}".`
     } else if (type === "FULL_BLOG") {
       prompt = `Write a comprehensive blog post on [${message}].
       The post should be well-researched, informative, and engaging.
       The post should be more than 900 words.
       The tone of the post should be [${tone}], thought-provoking, encouraging readers to further explore the topic and consider its impact on people.
       It should not be plagiarised, it should be original.
-      \nKeywords:[${keywords}]\nPlease use numbers for the outlines.`;
+      \n${keywords ? `Keywords: [${keywords}]` : ''}\nPlease use numbers for the outlines.`;
     } else if (type === "SALES_COPY") {
       prompt = `Write a ${tone} sales copy that highlights the key features and benefits of [${message}]. Address the pain points of your target audience, explain how your product/service solves their problems, and demonstrate its value proposition. Use persuasive language, testimonials, and social proof to convince potential customers to make a purchase.\nKeywords:[${keywords}].`;
     } else if (type === "ARTICLE_SUM") {
       prompt = `"Please summarize the following article in 8 bullet points:
-                [${message}]
-                \nTone should be [${tone}]     
-                \nKeywords:[${keywords}].`;
+                [${message}]\nTone should be [${tone}]     
+                \n${keywords ? `Keywords: [${keywords}]` : ''}.`;
     } else if (type === "AD_COPY") {
-      prompt = `Title: ${message}\n
-      Keywords: ${keywords}\n
+      prompt = `Title: ${message}\n${keywords ? `Keywords: [${keywords}]` : ''}
       Tone: ${tone}\n
       Write an ad copy based on the provided title, keywords, and tone. 
       The ad copy should be engaging and persuasive, and should encourage the target audience to take action.
       Use emojis and numbers for the important points.`;
     } else if (type === "IDEAS") {
       prompt = `Provide me with 10 different ${tone} ideas related to [${message}], but should be original.\n Start from 1 to 10.`;
+    } else if (type === "YOUTUBE_SCRIPT") {
+      prompt = `Generate a ${tone} script about [${message}].\n${keywords ? `Keywords: [${keywords}]` : ''}.`;
     }
-
     const result = await getResponse(prompt, parseFloat(creativity));
-    console.log("result", result);
-    const rewritted = await chimpRewriter(result);
-    console.log("rewritten", rewritted)
-    setFormData({ ...formData, generatedText: rewritted, loading: false });
+    const rewritten = await rewriteText(result);
+    setFormData({ ...formData, generatedText: rewritten, loading: false });
   }
   useEffect(() => { window.scrollTo({ top: 0, left: 0, behavior: "smooth" }); }, []);
 
@@ -106,7 +103,7 @@ const GeneralForm = ({ header, paragraph, label2, type, maxLength, minLength }) 
               </div>
               <div className="mb-6">
                 <label htmlFor="keywords" className="block mb-2 text-sm font-medium text-indigo-500">Keywords</label>
-                <input name="keywords" id="keywords" value={keywords} onChange={handleChange} className="block w-full px-4 py-2 text-sm text-gray-900 placeholder-gray-500 border border-gray-300 rounded-md shadow-sm focus:outline-0 focus:border-indigo-400 flex-1" placeholder="keywords should be separated by a comma" required />
+                <input name="keywords" id="keywords" value={keywords} onChange={handleChange} className="block w-full px-4 py-2 text-sm text-gray-900 placeholder-gray-500 border border-gray-300 rounded-md shadow-sm focus:outline-0 focus:border-indigo-400 flex-1" placeholder="keywords should be separated by a comma" />
               </div>
               <div className="mb-6">
                 <label htmlFor="message" className="block mb-2 text-md font-medium text-indigo-500">{label2}</label>

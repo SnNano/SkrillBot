@@ -195,7 +195,7 @@ export const moreData = [
         id: 11,
         icone: "fa-pen-to-square",
         title: "LinkedIn Bio",
-        category: "bio",
+        category: "social media",
         text: "Unlock your writing potential",
         link: "/linkedin-bio"
     },
@@ -230,5 +230,21 @@ export const moreData = [
         category: "writing",
         text: "Unlock our blog's potential with SkrilBats AI-powered writing.",
         link: "/apps-writer"
+    },
+    {
+        id: 16,
+        icone: "fa-pen-to-square",
+        title: "Youtube Scripts",
+        category: "social media",
+        text: "Unlock our blog's potential with SkrilBats AI-powered writing.",
+        link: "/youtube-scripts"
+    },
+    {
+        id: 17,
+        icone: "fa-pen-to-square",
+        title: "Rewritter",
+        category: "writing",
+        text: "Unlock our blog's potential with SkrilBats AI-powered writing.",
+        link: "/rewriter"
     },
 ]

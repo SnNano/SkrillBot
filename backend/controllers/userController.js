@@ -77,12 +77,32 @@ const referralCode = asyncHandler(async (req, res) => {
     }
 });
 
+const checkGoogleAuth = (req, res) => {
+    // res.json({ user: req.user, token: generateToken(req.user._id) });
+    res.json({
+        user: {
+            _id: req.user._id,
+            username: req.user.username,
+            googleId: req.user.googleId,
+            email: req.user.email,
+            characters: req.user.characters,
+        },
+        token: generateToken(req.user.id)
+    });
+}
+
+const logout = (req, res) => {
+    req.logout();
+    res.status(200).json({ message: "logged out" })
+};
+
+
 const generateToken = (id) => {
     return jwt.sign({ id }, process.env.JWT_SECRET, { expiresIn: "2d" });
 }
 
 module.exports = {
     registerUser,
-    login,
-    referralCode
+    login, checkGoogleAuth,
+    referralCode, logout
 }

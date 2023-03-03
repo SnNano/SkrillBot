@@ -1,27 +1,27 @@
 const User = require("../models/userModel");
 
-const checkout = async (eventType,data) => {
+const checkout = async (eventType, data) => {
 
 	if (!eventType.includes("checkout")) {
 		return // not a subscription event
 	}
 
-	console.log("checkout event detected",eventType)
-	
-	complete(eventType,data)
+	console.log("checkout event detected", eventType)
+
+	complete(eventType, data)
 	// updated(reqBody)
 	// deleted(reqBody)
 
 }
 
-const complete = async (eventType,data) => {
+const complete = async (eventType, data) => {
 
 	if (!eventType.includes("checkout.session.completed")) {
 		return // not a subscription event
 	}
 	const { object } = data
-	console.log(`object.customer`,object.customer)
-	console.log(`object.customer_email`,object.customer_email)
+	console.log(`object.customer`, object.customer)
+	console.log(`object.customer_email`, object.customer_email)
 
 	await User
 		.updateOne({ email: object.customer_email },
