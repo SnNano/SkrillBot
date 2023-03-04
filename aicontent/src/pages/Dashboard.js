@@ -4,6 +4,7 @@ import { UserContext } from "../App";
 import { useContext, useEffect, useState } from "react";
 import { checkCharacters, Logout } from "../services/userService";
 import { moreData } from "../data";
+import GeneralSpinner from "../components/layouts/GeneralSpinner";
 
 const categories = [
     "All", "Writing", "Summary", "Social Media", "Code", "Ideas", "Blog", "Copy"
@@ -33,6 +34,10 @@ const Dashboard = () => {
         await Logout(state, dispatch);
         navigate("/login");
     }
+    if (state.user && (state.user.user.characters < -1 || state.user.user.characters === 0)) {
+        navigate('/billing'); // Navigate to the billing page
+    }
+
     return (
         <>
             <header className="border-b w-full z-30 md:bg-opacity-90 transition duration-300 ease-in-out false">
@@ -106,6 +111,12 @@ const Dashboard = () => {
                             })}
                         </div>
                         <div className="w-full">
+                            {characters < -1 && <div className="mb-4 w-full bg-red-300 text-center rounded-[25px] shadow">
+                                <div className="p-5">
+                                    <h5 className="mb-2 text-md font-bold tracking-tight mb-3">You reached the characters Limits</h5>
+                                    <Link to="/billing" className="bg-indigo-500 px-4 py-2 text-md my-3">Upgrade plan</Link>
+                                </div>
+                            </div>}
                             <div className="w-full bg-white border border-gray-200 rounded-[25px] shadow">
                                 <div className="p-5">
                                     <h5 className="mb-2 text-md font-bold tracking-tight text-gray-900">Upcoming Tools</h5>

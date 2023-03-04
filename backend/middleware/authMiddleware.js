@@ -4,7 +4,6 @@ const User = require("../models/userModel");
 
 
 const protect = asyncHandler(async (req, res, next) => {
-
     let token = req.body.token || req.query.token || req.headers['x-access-token'];
     if (token) {
         try {

@@ -1,6 +1,7 @@
 const { Configuration, OpenAIApi } = require("openai");
 const dotenv = require("dotenv").config();
 const User = require("../models/userModel");
+const asyncHandler = require("express-async-handler");
 
 const configuration = new Configuration({
     apiKey: process.env.OPENAI_API_KEY,
@@ -33,11 +34,6 @@ const postPrompt = async (req, res) => {
         output = output.substring(0, output.length - 1)
     }
 
-    // // If the output string ends with one or more hashtags, remove all of them
-    // if (output.endsWith('"')) {
-    // 	output = output.substring(0, output.length - 1)
-    // }
-
     // remove a single new line at the end of output if there is one
     if (output.endsWith('\n')) {
         output = output.substring(0, output.length - 1)
@@ -47,7 +43,6 @@ const postPrompt = async (req, res) => {
     await updateUserCharacter(req, res, outputLength)
     res.status(200).json({ result: output })
 }
-
 
 
 const codePrompt = async (req, res) => {
@@ -65,7 +60,24 @@ const codePrompt = async (req, res) => {
         console.log(error);
         throw new Error("You should type a prompt");
     }
-    res.status(200).json({ result: completion.data.choices[0].text })
+    let output = `${completion.data.choices[0].text}`
+
+    // remove the first character from output
+    output = output.substring(1, output.length)
+
+    // If the output string ends with one or more hashtags, remove all of them
+    if (output.endsWith('"')) {
+        output = output.substring(0, output.length - 1)
+    }
+
+    // remove a single new line at the end of output if there is one
+    if (output.endsWith('\n')) {
+        output = output.substring(0, output.length - 1)
+    }
+
+    outputLength = output.length
+    await updateUserCharacter(req, res, outputLength)
+    res.status(200).json({ result: output })
 }
 
 const updateUserCharacter = async (req, res, outputLength) => {

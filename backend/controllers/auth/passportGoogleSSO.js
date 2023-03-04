@@ -22,6 +22,7 @@ passport.use(
       const defaultUser = {
         username: `${profile.name.givenName} ${profile.name.familyName}`,
         email: profile.emails[0].value,
+        phone: "0607011756",
         password: hashedPassword,
         googleId: profile.id,
       };

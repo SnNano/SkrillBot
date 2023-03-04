@@ -26,14 +26,23 @@ const BreadCumb = ({ header, paragraph }) => {
     return () => clearInterval(intervalId);
   }, []);
   useEffect(() => {
+    const setChar = () => { setCharacters(0) }
+    if (characters === 0 || characters < -1) {
+      setChar();
+    }
+  }, [])
+  useEffect(() => {
     setOpenDrop(false); // close dropdown when location changes
   }, [location.pathname]);
-
+  if (state.user && (state.user.user.characters < -1 || state.user.user.characters === 0)) {
+    navigate('/billing'); // Navigate to the billing page
+  }
   return (
     <div className="w-full flex justify-between p-4 breadbubble-element bg-white shadow-md absolute top-0 left-0">
       <div>
         <h1 className="md:text-2xl text-xl font-semibold text-gray-900 px-2 py-2">{header}</h1>
-        <p className="text-indigo-500 md:text-md text-sm px-2">Characters {characters === -1 ? 'Unlimited' : `${characters}`}</p>
+        {characters >= -1 && <p className="text-indigo-500 md:text-md text-sm px-2">Characters {characters === -1 ? 'Unlimited' : `${characters}`}</p>}
+        {(characters < -1 || characters === 0) && <p className="text-red-600 md:text-md text-sm px-2">You reached the characters Limits Please Upgrade your plan</p>}
         <div className="font-normal text-gray-400 md:text-md text-sm py-2 px-2">{paragraph}</div>
       </div>
       {state.user ? <>

@@ -23,3 +23,10 @@
 }
 
 
+.react-tel-input .form-control{
+    width: 100% !important;
+}
+
+.pointer-events{
+    pointer-events:none;
+}

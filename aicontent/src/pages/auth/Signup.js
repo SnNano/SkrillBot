@@ -7,17 +7,19 @@ import { referralCode, register } from "../../services/userService";
 import GeneralSpinner from "../../components/layouts/GeneralSpinner";
 import LeftLoginSignup from "../../components/layouts/LeftLoginSignup";
 import google from "../../assets/images/googleLogo.png";
+import PhoneInput from 'react-phone-input-2'
+import 'react-phone-input-2/lib/style.css'
 
 
 const Signup = () => {
 
     const { state, dispatch } = useContext(UserContext);
+    const [phone, setPhoneNumber] = useState('');
     const { referralId } = useParams();
 
     const [formData, setFormData] = useState({
-        username: '',
-        email: '',
-        password: '',
+        username: '', email: '',
+        phone: "", password: '',
         cpassword: ''
     });
     const { username, email, password, cpassword } = formData;
@@ -40,6 +42,9 @@ const Signup = () => {
             [e.target.name]: e.target.value
         }))
     }
+    const handleOnChange = (value) => {
+        setPhoneNumber(value);
+    };
     // Submit the htmlForm
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -48,9 +53,11 @@ const Signup = () => {
                 position: toast.POSITION.BOTTOM_RIGHT,
             });
         } else {
-            const userData = { username, email, password };
+            const userData = { username, email, phone, password };
             await register(userData, dispatch);
-            await referralCode(referralId);
+            if (referralId) {
+                await referralCode(referralId);
+            }
         }
     }
 
@@ -80,6 +87,20 @@ const Signup = () => {
                         <div className="mb-4">
                             <label htmlFor="email" className="block mb-2 text-sm font-light">Email</label>
                             <input type="email" value={email} onChange={handleChange} name="email" id="email" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-indigo-500 focus:border-indigo-500 block w-full p-2.5 focus:outline-none" placeholder="john@gmail.com" required />
+                        </div>
+                        <div className="mb-4">
+                            <label htmlFor="phone" className="block mb-2 text-sm font-light">Phone Number</label>
+                            <PhoneInput
+                                country={'us'}
+                                enableSearch={true}
+                                value={phone}
+                                onChange={handleOnChange}
+                                inputProps={{
+                                    name: 'phone',
+                                    required: true,
+                                }}
+                                inputClass="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-indigo-500 focus:border-indigo-500 block w-[100%] p-2.5 focus:outline-none"
+                            />
                         </div>
                         <div className="mb-4">
                             <label htmlFor="password" className="block mb-2 text-sm font-light">Password</label>

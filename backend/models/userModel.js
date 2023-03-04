@@ -28,6 +28,13 @@ const userSchema = mongoose.Schema({
 		required: false,
 		default: ""
 	},
+	phone: {
+		type: String,
+		required: true,
+		unique: true,
+		minlength: 10,
+		maxlength: 15
+	},
 	characters: {
 		type: Number,
 		default: 5000,
@@ -44,7 +51,7 @@ const userSchema = mongoose.Schema({
 	},
 	customerId: { type: String, default: "" }, // stripe id
 	plan: { type: String, default: "free" }, // monthly, annualy
-	status: { type: String, default: "active" }, // trialing, active, inactive
+	status: { type: String, default: "active" }, // active, cancel, inactive
 	trial_end: {
 		type: Date,
 		default: ((Date.now() / 1000) + (30 * 24 * 60 * 60)),

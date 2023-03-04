@@ -26,9 +26,8 @@ const subscribeStripe = async (req, res) => {
 			],
 			subscription_data,
 			success_url: `${domainURL}success?session_id={CHECKOUT_SESSION_ID}`,
-			cancel_url: `${domainURL}/failed`,
+			cancel_url: `${domainURL}/failed`
 		});
-		console.log("we did it");
 		updateUser(user, priceId);
 		res.redirect(303, session.url);
 	} catch (e) {
@@ -43,10 +42,14 @@ const subscribeStripe = async (req, res) => {
 };
 
 const updateUser = async (user, priceId) => {
-	if (priceId === process.env.STRIPE_PRODUCT_MONTHLY || priceId === process.env.STRIPE_PRODUCT_YEARLY) {
+	if (priceId === process.env.STRIPE_PRODUCT_MONTHLY) {
 		user.characters = -1;
-		await user.save()
+		user.plan = "monthly";
+	} else if (priceId === process.env.STRIPE_PRODUCT_YEARLY) {
+		user.characters = -1;
+		user.plan = "yearly";
 	}
+	await user.save();
 }
 
 app.post('/stripe/customer-portal', async (req, res) => {
@@ -119,10 +122,8 @@ const cancelStripe = async (req, res) => {
 		// This is the url to which the customer will be redirected when they are done
 		// managing their billing with the portal.
 		const domainURL = process.env.DOMAIN;
-		const returnUrl = `${domainURL}my-profile`
-
+		const returnUrl = `${domainURL}`
 		let user = await User.findOne({ _id: req.user._id })
-
 		const subscriptions = await stripe.subscriptions.list({
 			customer: user.customerId,
 			limit: 1,
@@ -132,11 +133,14 @@ const cancelStripe = async (req, res) => {
 		let update = stripe.subscriptions.update(subscriptions.data[0].id, {
 			cancel_at_period_end: true,
 		});
-		setTimeout(() => res.redirect(303, returnUrl), 2500)
+		user.plan = "canceled";
+		user.characters = 5000;
+		await user.save();
+		res.redirect(303, returnUrl)
 	} catch (err) {
 		console.log(err)
 		const domainURL = process.env.DOMAIN;
-		const returnUrl = `${domainURL}my-profile`
+		const returnUrl = `${domainURL}`
 		res.redirect(303, returnUrl);
 	}
 };

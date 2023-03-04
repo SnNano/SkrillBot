@@ -42,13 +42,13 @@ app.use(
 app.use(passport.initialize());
 app.use(passport.session());
 // Webhooks and things
-app.use('/stripe', require('./stripe'))
+//app.use('/api/stripe', require('./stripe'))
 // Routes
 app.use("/api/chatgpt", require("./routes/gptRoutes"));
 app.use("/api/rewrite", require("./routes/rewriterRoutes"));
 app.use("/api/random", require("./routes/randomRoutes"));
 app.use("/api/users", require("./routes/userRoutes"));
-app.use("/api/users", require("./routes/stripeRoutes"));
+app.use("/api/stripe", require("./routes/stripeRoutes"));
 app.use("/api", require("./routes/checkcharacterRoutes"));
 app.use("/api", require("./routes/oauthRoutes"));
 

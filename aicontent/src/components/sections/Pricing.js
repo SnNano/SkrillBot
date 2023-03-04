@@ -1,14 +1,22 @@
 import config from '../../config'
 import { useContext } from "react";
 import { UserContext } from "../../App";
+import { cancelSubscription } from '../../services/stripeService';
 
 const Pricing = () => {
   const { state, dispatch } = useContext(UserContext);
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    await cancelSubscription(dispatch);
+    window.location.reload();
+  }
+
   return (
 
     <section className="text-gray-800">
-      <div className="grid lg:grid-cols-2 gap-6 px-12">
-        <div className="mb-6 lg:mb-0">
+      <div className="grid lg:grid-cols-2 gap-6 px-12 ">
+        {state.user.user.plan !== "monthly" && <div className="mb-6 lg:mb-0">
           <div className="block rounded-lg shadow-lg bg-gray-100 w-[300px] h-full">
             <div className="p-6 border-b border-gray-300 text-center">
               <p className="uppercase mb-4 text-sm">
@@ -18,7 +26,7 @@ const Pricing = () => {
                 <strong>$9.99</strong>
                 <small className="text-gray-500 text-sm">/year</small>
               </h3>
-              <form action={config.baseURL + "users/stripe/subscribe"} method="POST" className="flex flex-1">
+              <form action={config.baseURL + "stripe/stripe/subscribe"} method="POST" className="flex flex-1">
                 <input type="hidden" name="token" value={state.user.token} />
                 <input type="hidden" name="priceId" value={config.stripe.monthly} />
                 <button type="submit"
@@ -59,9 +67,9 @@ const Pricing = () => {
               </ol>
             </div>
           </div>
-        </div>
+        </div>}
 
-        <div className="mb-6 lg:mb-0">
+        {state.user.user.plan !== "yearly" && <div className="mb-6 lg:mb-0">
           <div className="block rounded-lg shadow-lg bg-gray-100 w-[300px] h-full">
             <div className="p-6 border-b border-gray-300 text-center">
               <p className="uppercase mb-4 text-sm">
@@ -130,7 +138,18 @@ const Pricing = () => {
               </ol>
             </div>
           </div>
-        </div>
+        </div>}
+        {state.user.user.plan !== "free" && state.user.user.plan !== "canceled" && <div className="mb-6 lg:mb-0">
+          <div className="block w-[300px] h-full">
+            <div className="p-6 h-full flex items-center justify-center text-center">
+              <form onSubmit={handleSubmit}>
+                <button type="submit" className="px-4 py-2 bg-red-500 text-white text-md hover:bg-red-400">
+                  Cancel Subscription
+                </button>
+              </form>
+            </div>
+          </div>
+        </div>}
       </div>
     </section>
   )

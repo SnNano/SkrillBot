@@ -8,7 +8,7 @@ const jwt = require("jsonwebtoken");
 // @route  POST /api/users
 // @access  Public
 const registerUser = asyncHandler(async (req, res) => {
-    const { username, email, password } = req.body;
+    const { username, email, phone, password } = req.body;
     if (!username || !email || !password) {
         res.status(401);
         throw new Error("Fields should not be empty");
@@ -19,20 +19,30 @@ const registerUser = asyncHandler(async (req, res) => {
         res.status(401);
         throw new Error("Email already exists");
     }
+    // Checking if phone number exists
+    const phoneExists = await User.findOne({ phone: phone });
+    if (phoneExists) {
+        res.status(401);
+        throw new Error("User already exists");
+    }
+
     const customer = await stripe.customers.create({
         email: `${req.body.email}`,
-        name: `${req.body.fname} ${req.body.lname}`
+        name: `${req.body.username}`
     });
     // Hash the password
     const salt = await bcrypt.genSalt(10);
     const hashedPassword = await bcrypt.hash(password, salt);
     // Create new user
-    const user = await User.create({ username: username, email: email, password: hashedPassword, customerId: customer.id, });
+    const user = await User.create({
+        username: username, phone: phone,
+        email: email, password: hashedPassword, customerId: customer.id,
+    });
     if (user) {
         delete user.password
         res.status(201).json({
             user,
-            token: generateToken(user.id)
+            token: generateToken(user._id)
         });
     } else {
         res.status(401);
@@ -52,7 +62,7 @@ const login = asyncHandler(async (req, res) => {
         delete user.password
         res.status(201).json({
             user,
-            token: generateToken(user.id),
+            token: generateToken(user._id),
         });
     } else {
         res.status(400);
@@ -86,6 +96,22 @@ const checkGoogleAuth = (req, res) => {
             googleId: req.user.googleId,
             email: req.user.email,
             characters: req.user.characters,
+            plan: req.user.plan,
+        },
+        token: generateToken(req.user._id)
+    });
+}
+const checkUserAuth = (req, res) => {
+    // res.json({ user: req.user, token: generateToken(req.user._id) });
+    res.json({
+        user: {
+            _id: req.user._id,
+            username: req.user.username,
+            googleId: req.user.googleId,
+            email: req.user.email,
+            customerId: req.user.customerId,
+            characters: req.user.characters,
+            plan: req.user.plan,
         },
         token: generateToken(req.user.id)
     });
@@ -102,7 +128,7 @@ const generateToken = (id) => {
 }
 
 module.exports = {
-    registerUser,
+    registerUser, checkUserAuth,
     login, checkGoogleAuth,
     referralCode, logout
 }

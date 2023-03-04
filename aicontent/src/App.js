@@ -1,4 +1,4 @@
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
 import { useState, createContext, useReducer, useEffect } from "react";
 
 import Home from "./pages/Home";
@@ -18,6 +18,7 @@ import Signup from "./pages/auth/Signup";
 import Login from "./pages/auth/Login";
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+
 import { initialState } from "./Reducers/authReducer";
 import { authReducer } from "./Reducers/authReducer";
 import Pricing from "./components/sections/Pricing";
@@ -31,7 +32,7 @@ import YoutubeSummary from "./pages/Functionalities/YoutubeSummary";
 import YoutubeScripts from "./pages/Functionalities/YoutubeScripts";
 import Rewritter from "./pages/Functionalities/Rewritter";
 import EmailResponder from "./pages/Functionalities/EmailResponder";
-import { fetchAuthUser } from "./services/userService";
+import { fetchAuthUserGoogle, fetchAuthUser } from "./services/userService";
 
 export const UserContext = createContext();
 
@@ -39,6 +40,7 @@ function App() {
   const [open, setOpen] = useState(false);
   const [state, dispatch] = useReducer(authReducer, initialState);
   useEffect(() => {
+    fetchAuthUserGoogle(dispatch)
     fetchAuthUser(dispatch)
   }, [])
 
@@ -52,7 +54,7 @@ function App() {
             <Routes>
               <Route
                 path="/*"
-                element={
+                element={state.user ?
                   <div className="relative px-8 py-4 sm:ml-64 bg-gray-100 min-h-screen">
                     <Routes>
                       <Route path="/settings" element={<Settings />} />
@@ -76,13 +78,12 @@ function App() {
                       <Route path="/ideas" element={<Ideas />} />
                       <Route path="/code-generator" element={<CodeLookUp />} />
                     </Routes>
-                  </div>
+                  </div> : <Navigate to="/login" />
                 }
               />
               <Route path="/sign-up" element={<Signup />} />
               <Route path="/sign-up/:referralId" element={<Signup />} />
               <Route path="/login" element={<Login />} />
-              <Route path="/pricing" element={<Pricing />} />
               <Route path="/" element={<Home />} />
               <Route path="*" element={<NotFound />} />
 

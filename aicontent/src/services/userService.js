@@ -23,7 +23,7 @@ export const login = async (userData, dispatch) => {
 export const referralCode = async (referralId) => {
   await axios.get(process.env.REACT_APP_BACKEND_URL + 'users/' + referralId);
 }
-export const fetchAuthUser = async (dispatch) => {
+export const fetchAuthUserGoogle = async (dispatch) => {
   try {
     const response = await axios.get(process.env.REACT_APP_BACKEND_URL + "users/auth/user", { withCredentials: true });
     dispatch({ type: "LOGIN_USER", payload: response.data });
@@ -33,9 +33,22 @@ export const fetchAuthUser = async (dispatch) => {
     dispatch({ type: "ERROR", payload: error.response.data.message });
   }
 }
+export const fetchAuthUser = async (dispatch) => {
+  try {
+    const response = await axios.get(process.env.REACT_APP_BACKEND_URL + "users/auth/refresh", {
+      headers: {
+        'x-access-token': getToken()
+      }
+    });
+    dispatch({ type: "LOGIN_USER", payload: response.data });
+    localStorage.setItem("user", JSON.stringify(response.data));
+  } catch (error) {
+    console.log(error)
+    dispatch({ type: "ERROR", payload: error.response.data.message });
+  }
+}
 
 export const Logout = async (state, dispatch) => {
-  console.log(state.user.user.googleId)
   if (state.user.user.googleId || state.user.user.facebookId) {
     await axios.get(process.env.REACT_APP_BACKEND_URL + "users/auth/logout", { withCredentials: true });
   }
