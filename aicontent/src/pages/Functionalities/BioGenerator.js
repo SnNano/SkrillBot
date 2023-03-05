@@ -4,13 +4,14 @@ import { getResponse } from "../../services/openaiService";
 import { useState } from "react";
 import Content from "../../components/Content";
 
-const LinkedInBio = () => {
+const BioGenerator = () => {
     const [formData, setFormData] = useState({
         topic: "",
+        socialMedia: "",
         loading: false,
         generatedText: null
     });
-    const { topic, generatedText, loading } = formData;
+    const { topic, socialMedia, generatedText, loading } = formData;
 
     const handleChange = (e) => {
         setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -20,7 +21,7 @@ const LinkedInBio = () => {
         e.preventDefault();
         let prompt;
         setFormData({ ...formData, generatedText: null, loading: true });
-        prompt = `Please generate a linkedin bio according to the following topic: [${topic}].`;
+        prompt = `Please generate a ${socialMedia} bio according to the following topic: [${topic}].`;
         const result = await getResponse(prompt);
         setFormData({ ...formData, generatedText: result, loading: false });
     }
@@ -33,6 +34,16 @@ const LinkedInBio = () => {
                 <section className="flex justify-center flex-col lg:pb-32 lg:pt-6 md:pb-12 md:pt-4 sm:py-6">
                     <div className="grid grid-cols-1 gap-3">
                         <form onSubmit={handleSubmit}>
+                            <div className="mb-6">
+                                <label htmlFor="socialMedia" className="block mb-2 text-sm font-medium text-indigo-500">Creativity level</label>
+                                <select name="socialMedia" id="socialMedia" value={socialMedia} onChange={handleChange} className="block w-full px-4 py-2 text-sm text-gray-900 placeholder-gray-500 border border-gray-300 rounded-md shadow-sm focus:outline-0 focus:border-indigo-400 flex-1">
+                                    <option value="Facebook">Facebook</option>
+                                    <option value="Instagram">Instagram</option>
+                                    <option value="LinkedIn">LinkedIn</option>
+                                    <option value="Twitter">Twitter</option>
+                                    <option value="Quora">Quora</option>
+                                </select>
+                            </div>
                             <label className="mb-2 text-sm font-medium text-gray-900 sr-only">Search</label>
                             <div className="relative">
                                 <div className="">
@@ -52,4 +63,4 @@ const LinkedInBio = () => {
         </>
     )
 }
-export default LinkedInBio
+export default BioGenerator

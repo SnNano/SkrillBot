@@ -28,9 +28,9 @@ const Input = ({ header, paragraph, type, keywordsText }) => {
     let prompt;
     setFormData({ ...formData, loading: true });
     if (type === "PRODUCT_REVIEW") {
-      prompt = `Write a product review based on these notes:\nName:${name}\nKeywords:${keywords}\nReview:\nUse emojis and markdown to bold important points.`;
+      prompt = `Write a product review based on these notes:\nName:${name}\nKeywords:[${keywords}]\nReview:\nUse emojis and markdown to bold important points.`;
     } else if (type === "YOUTUBE_SUM") {
-      prompt = `Please generate a summary of the YouTube video at [${youtubeUrl}]. The summary should capture the main ideas and key points of the video.`
+      prompt = `Please generate a full youtube transcript of [${youtubeUrl}] for 5 minutes.\nKeywords:[${keywords}].`
     }
     const result = await getResponse(prompt, parseFloat(creativity));
     setFormData({ ...formData, generatedText: result, loading: false });
@@ -58,13 +58,13 @@ const Input = ({ header, paragraph, type, keywordsText }) => {
                   <option value="1">Max</option>
                 </select>
               </div>
-              {type !== "YOUTUBE_SUM" && <div className="mb-6">
+              <div className="mb-6">
                 <label htmlFor="keywords" className="block mb-2 text-sm font-medium text-indigo-500">Keywords</label>
                 <input name="keywords" id="keywords" value={keywords} onChange={handleChange} className="block w-full px-4 py-2 text-sm text-gray-900 placeholder-gray-500 border border-gray-300 rounded-md shadow-sm focus:outline-0 flex-1" placeholder={keywordsText} />
-              </div>}
+              </div>
               {type === "YOUTUBE_SUM" && <div className="mb-6">
-                <label htmlFor="youtubeUrl" className="block mb-2 text-sm font-medium text-indigo-500">Youtube URL</label>
-                <input name="youtubeUrl" id="youtubeUrl" value={youtubeUrl} onChange={handleChange} className="block w-full px-4 py-2 text-sm text-gray-900 placeholder-gray-500 border border-gray-300 rounded-md shadow-sm focus:outline-0 flex-1" placeholder="Youtube link" />
+                <label htmlFor="youtubeUrl" className="block mb-2 text-sm font-medium text-indigo-500">Subject/Title</label>
+                <input name="youtubeUrl" id="youtubeUrl" value={youtubeUrl} onChange={handleChange} className="block w-full px-4 py-2 text-sm text-gray-900 placeholder-gray-500 border border-gray-300 rounded-md shadow-sm focus:outline-0 flex-1" placeholder="Youtube Title/Subject" />
               </div>}
               <Button btnText="Generate" loading={loading} />
             </form>

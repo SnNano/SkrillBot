@@ -25,7 +25,7 @@ const Billing = () => {
                         <hr className="bg-gray-400 my-2" />
                         <div className="p-4">
                             <div className="">
-                                <h3 className="font-normal text-md mb-2">Current Plan: <span className="font-light">{state.user.user.username}</span></h3>
+                                <h3 className="font-normal text-md mb-2">Current Plan: <span className="font-light">{state.user.user.plan}</span></h3>
                                 <button onClick={() => setShowModal(true)} className="px-4 py-2 bg-pink-400 text-md font-light text-white border border-pink-400 hover:bg-transparent hover:text-pink-400 rounded-lg w-[220px]">Upgrade plan</button>
                             </div>
                         </div>

@@ -3,7 +3,6 @@ import { useState, createContext, useReducer, useEffect } from "react";
 
 import Home from "./pages/Home";
 import NotFound from "./components/layouts/NotFound";
-import Header from "./components/layouts/Header";
 import Essay from "./pages/Functionalities/Essay";
 import Email from "./pages/Functionalities/Email";
 import BlogArticle from "./pages/Functionalities/BlogArticle";
@@ -21,18 +20,18 @@ import 'react-toastify/dist/ReactToastify.css';
 
 import { initialState } from "./Reducers/authReducer";
 import { authReducer } from "./Reducers/authReducer";
-import Pricing from "./components/sections/Pricing";
 import Settings from "./components/sections/Settings";
 import Dashboard from "./pages/Dashboard";
 import Billing from "./components/sections/Billing";
-import LinkedInBio from "./pages/Functionalities/LinkedInBio";
+import BioGenerator from "./pages/Functionalities/BioGenerator";
 import ArticleSummary from "./pages/Functionalities/ArticleSummary";
 import BookSummary from "./pages/Functionalities/BookSummary";
-import YoutubeSummary from "./pages/Functionalities/YoutubeSummary";
+import YoutubeTranscripts from "./pages/Functionalities/YoutubeTranscripts";
 import YoutubeScripts from "./pages/Functionalities/YoutubeScripts";
 import Rewritter from "./pages/Functionalities/Rewritter";
 import EmailResponder from "./pages/Functionalities/EmailResponder";
 import { fetchAuthUserGoogle, fetchAuthUser } from "./services/userService";
+import MiniGpt from "./pages/Functionalities/MiniGpt";
 
 export const UserContext = createContext();
 
@@ -65,14 +64,15 @@ function App() {
                       <Route path="/blog" element={<BlogArticle />} />
                       <Route path="/email" element={<Email />} />
                       <Route path="/sales-copy" element={<SalesCopy />} />
+                      <Route path="/ask-anything" element={<MiniGpt />} />
                       <Route path="/ad-copy" element={<AdCopy />} />
                       <Route path="/rewriter" element={<Rewritter />} />
                       <Route path="/questions-answers" element={<QandA />} />
-                      <Route path="/linkedin-bio" element={<LinkedInBio />} />
+                      <Route path="/bio-generator" element={<BioGenerator />} />
                       <Route path="/article-summary" element={<ArticleSummary />} />
                       <Route path="/email-responder" element={<EmailResponder />} />
                       <Route path="/book-summary" element={<BookSummary />} />
-                      <Route path="/youtube-summary" element={<YoutubeSummary />} />
+                      <Route path="/youtube-transcripts" element={<YoutubeTranscripts />} />
                       <Route path="/youtube-scripts" element={<YoutubeScripts />} />
                       <Route path="/product-review" element={<ProductReview />} />
                       <Route path="/ideas" element={<Ideas />} />

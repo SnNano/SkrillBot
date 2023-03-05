@@ -80,6 +80,16 @@ const codePrompt = async (req, res) => {
     res.status(200).json({ result: output })
 }
 
+const postChatgpt = async (req, res) => {
+    const { prompt } = req.body;
+    const completion = await openai.createChatCompletion({
+        model: "gpt-3.5-turbo",
+        messages: prompt,
+    });
+
+    res.json({ result: completion.data.choices[0].message });
+}
+
 const updateUserCharacter = async (req, res, outputLength) => {
     let user = await User.findOne({ _id: req.user._id })
     // check if user has free plan
@@ -90,4 +100,4 @@ const updateUserCharacter = async (req, res, outputLength) => {
     }
 }
 
-module.exports = { postPrompt, codePrompt }
+module.exports = { postPrompt, codePrompt, postChatgpt }

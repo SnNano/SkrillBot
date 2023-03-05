@@ -3,11 +3,14 @@ import Spinner from "./layouts/Spinner";
 import { useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { UserContext } from "../App";
+import Confetti from 'react-confetti';
 
 const Content = ({ loading, generatedText }) => {
   const [isSuccess, setIsSuccess] = useState(false);
   const [displayedLineIndex, setDisplayedLineIndex] = useState(0);
   const [displayedCharIndex, setDisplayedCharIndex] = useState(0);
+  const [visible, setVisible] = useState(false)
+
   const navigate = useNavigate();
   const { state, dispatch } = useContext(UserContext);
   useEffect(() => {
@@ -48,6 +51,14 @@ const Content = ({ loading, generatedText }) => {
       })
       .join('\n');
   }
+  useEffect(() => {
+    if (displayedText === generatedText) {
+      setVisible(false);
+    } else {
+      setVisible(true);
+    }
+  }, [displayedText, generatedText]);
+
   const copyToClip = () => {
     navigator.clipboard.writeText(generatedText);
     setIsSuccess(true);
@@ -56,17 +67,26 @@ const Content = ({ loading, generatedText }) => {
     }, 3000)
   }
   return (
-    <div className="min-h-[20rem] flex-col p-6  border border-gray-200 rounded-lg shadow-md sm:my-4">
-      {!loading && generatedText && displayedText && <pre style={{ whiteSpace: 'pre-wrap' }}>{displayedText}</pre>
-      }
-      {!generatedText && !loading && <div className="flex min-h-[20rem] justify-center items-center"><p className="text-2xl text-center text-gray-400">Answer will appear here.</p></div>}
-      {loading && <div className="spinnerH"><Spinner /></div>}
-      {!loading && generatedText &&
-        <div className="cursor-pointer text-indigo-500 font-semibold mt-4 text-md hover:text-indigo-500" onClick={copyToClip}><i className="fa-regular fa-copy"></i>
-          <span className="ml-2">Copy to Clipboard</span>
-        </div>}
-      {isSuccess && <p className="text-md text-indigo-700 font-light">The text is copied</p>}
-    </div>
+    <>
+      {visible && displayedText && <div className="left-[25%] w-full h-full fixed top-0 left-0">
+        <Confetti width={900}
+          height={500} numberOfPieces={900}
+          recycle={false}
+          colors={['#FF0080', '#00FFFF', '#FFA500', '#ffff00', '#39FF14']}
+          tweenDuration={2000} />
+      </div>}
+      <div className="min-h-[20rem] flex-col p-6  border border-gray-200 rounded-lg shadow-md sm:my-4">
+        {!loading && generatedText && displayedText && <pre style={{ whiteSpace: 'pre-wrap' }}>{displayedText}</pre>
+        }
+        {!generatedText && !loading && <div className="flex min-h-[20rem] justify-center items-center"><p className="text-2xl text-center text-gray-400">Answer will appear here.</p></div>}
+        {loading && <div className="spinnerH"><Spinner /></div>}
+        {!loading && generatedText &&
+          <div className="cursor-pointer text-indigo-500 font-semibold mt-4 text-md hover:text-indigo-500" onClick={copyToClip}><i className="fa-regular fa-copy"></i>
+            <span className="ml-2">Copy to Clipboard</span>
+          </div>}
+        {isSuccess && <p className="text-md text-indigo-700 font-light">The text is copied</p>}
+      </div>
+    </>
   )
 }
 export default Content

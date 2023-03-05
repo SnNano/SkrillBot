@@ -101,10 +101,16 @@ export const sidebarData = [
         link: "/ad-copy"
     },
     {
-        id: 7,
+        id: 8,
         icone: "fa-handshake-angle",
         title: "Homework Helper",
         link: "/questions-answers"
+    },
+    {
+        id: 7,
+        icone: "fa-handshake-angle",
+        title: "Ask me Anything",
+        link: "/ask-anything"
     },
 
 ]
@@ -194,10 +200,10 @@ export const moreData = [
     {
         id: 11,
         icone: "fa-pen-to-square",
-        title: "LinkedIn Bio",
+        title: "Bio Generator",
         category: "social media",
         text: "Unlock your writing potential",
-        link: "/linkedin-bio"
+        link: "/bio-generator"
     },
     {
         id: 12,
@@ -218,10 +224,10 @@ export const moreData = [
     {
         id: 14,
         icone: "fa-pen-to-square",
-        title: "Youtube Summary",
-        category: "summary",
+        title: "Youtube Transcripts",
+        category: "social media",
         text: "Unlock our blog's potential with SkrilBats AI-powered writing.",
-        link: "/youtube-summary"
+        link: "/youtube-transcripts"
     },
     {
         id: 15,

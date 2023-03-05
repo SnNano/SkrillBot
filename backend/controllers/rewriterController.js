@@ -30,7 +30,6 @@ const rewriteText = async (req, res) => {
     await axios.post(api_url, form, {
         headers: form.getHeaders()
     }).then(response => {
-        console.log(response.data.response);
         res.json({ result: response.data.response })
     })
         .catch(error => {
@@ -38,20 +37,5 @@ const rewriteText = async (req, res) => {
         });
 }
 
-const parseBool = (boolean_number_or_text, convert_to_string_bool = true) => {
-    let result = false;
-
-    switch (typeof (boolean_number_or_text)) {
-        case "string": result = boolean_number_or_text.toLowerCase() === "true"; break;
-        case "boolean": result = boolean_number_or_text === true; break;
-        case "number": result = Number(boolean_number_or_text) === 1; break;
-    }
-
-    if (convert_to_string_bool === true) {
-        return result ? "true" : "false";
-    }
-
-    return result;
-}
 
 module.exports = { rewriteText }
