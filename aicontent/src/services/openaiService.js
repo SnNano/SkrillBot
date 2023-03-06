@@ -14,8 +14,8 @@ export const rewriteText = async (prompt) => {
     return response.data.result;
 }
 
-export const chatapi = async (prompt) => {
-    const response = await axios.post(process.env.REACT_APP_BACKEND_URL + "chatgpt/chat", { prompt }, {
+export const chatapi = async (prompt, creativity) => {
+    const response = await axios.post(process.env.REACT_APP_BACKEND_URL + "chatgpt/chat", { prompt, creativity }, {
         headers: {
             'x-access-token': getToken()
         }

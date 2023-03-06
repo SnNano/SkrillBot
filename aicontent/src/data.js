@@ -77,6 +77,12 @@ export const sidebarData = [
         link: "/essay"
     },
     {
+        id: 12,
+        icone: "fa-bars",
+        title: "Essay Rewriting",
+        link: "/rewrite-essay"
+    },
+    {
         id: 3,
         icone: "fa-pen-to-square",
         title: "Blog Articles",
@@ -253,4 +259,12 @@ export const moreData = [
         text: "Unlock our blog's potential with SkrilBats AI-powered writing.",
         link: "/rewriter"
     },
+    {
+        id: 19,
+        icone: "fa-comments",
+        title: "Essay Rewriting",
+        category: "writing",
+        text: "Unlock our blog's potential with SkrilBats AI-powered writing.",
+        link: "/rewrite-essay"
+    }
 ]

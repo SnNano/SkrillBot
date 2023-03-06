@@ -20,6 +20,18 @@ export const login = async (userData, dispatch) => {
     dispatch({ type: "ERROR", payload: error.response.data.message });
   }
 }
+export const addPhoneNumber = async (data, dispatch) => {
+  try {
+    const response = await axios.post(process.env.REACT_APP_BACKEND_URL + "users/phone-number", data, {
+      headers: { 'x-access-token': getToken() }
+    });
+    dispatch({ type: "LOGIN_USER", payload: response.data });
+    localStorage.setItem("user", JSON.stringify(response.data));
+  } catch (error) {
+    dispatch({ type: "ERROR", payload: error.response.data.message });
+  }
+}
+
 export const referralCode = async (referralId) => {
   await axios.get(process.env.REACT_APP_BACKEND_URL + 'users/' + referralId);
 }

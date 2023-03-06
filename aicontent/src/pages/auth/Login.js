@@ -46,7 +46,7 @@ const Login = () => {
   }
 
   const redirectToGoogleSSO = async () => {
-    const googleLoginURL = "http://localhost:5000/api/auth/google";
+    const googleLoginURL = `${process.env.REACT_APP_BACKEND_URL}auth/google`;
     window.open(
       googleLoginURL,
       "_self",

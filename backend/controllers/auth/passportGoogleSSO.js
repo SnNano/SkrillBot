@@ -2,10 +2,11 @@ const passport = require("passport");
 const GoogleStrategy = require("passport-google-oauth20").Strategy;
 const bcrypt = require("bcryptjs");
 const dotenv = require("dotenv").config();
+const stripe = require('../../middleware/stripe')
 
 const User = require("../../models/userModel");
 
-const GOOGLE_CALLBACK_URL = "http://localhost:5000/api/auth/google/callback";
+const GOOGLE_CALLBACK_URL = `${API_DOMAIN}auth/google/callback`;
 
 passport.use(
   new GoogleStrategy(
@@ -16,13 +17,17 @@ passport.use(
       passReqToCallback: true,
     },
     async (req, accessToken, refreshToken, profile, cb) => {
+      const customer = await stripe.customers.create({
+        email: `${profile.emails[0].value}`,
+        name: `${profile.name.givenName}`
+      });
       // Hash the password
       const salt = await bcrypt.genSalt(10);
       const hashedPassword = await bcrypt.hash("123secretpassword", salt);
       const defaultUser = {
-        username: `${profile.name.givenName} ${profile.name.familyName}`,
+        username: `${profile.name.givenName}`,
         email: profile.emails[0].value,
-        phone: "0607011756",
+        customerId: customer.id,
         password: hashedPassword,
         googleId: profile.id,
       };

@@ -32,6 +32,8 @@ import Rewritter from "./pages/Functionalities/Rewritter";
 import EmailResponder from "./pages/Functionalities/EmailResponder";
 import { fetchAuthUserGoogle, fetchAuthUser } from "./services/userService";
 import MiniGpt from "./pages/Functionalities/MiniGpt";
+import RewriteEssay from "./pages/Functionalities/RewriteEssay";
+import Phone from "./pages/auth/Phone";
 
 export const UserContext = createContext();
 
@@ -53,35 +55,45 @@ function App() {
             <Routes>
               <Route
                 path="/*"
-                element={state.user ?
-                  <div className="relative px-8 py-4 sm:ml-64 bg-gray-100 min-h-screen">
-                    <Routes>
-                      <Route path="/settings" element={<Settings />} />
-                      <Route path="/billing" element={<Billing />} />
-                      <Route path="/dashboard" element={<Dashboard />} />
-                      <Route path="/success" element={<Dashboard />} />
-                      <Route path="/essay" element={<Essay />} />
-                      <Route path="/blog" element={<BlogArticle />} />
-                      <Route path="/email" element={<Email />} />
-                      <Route path="/sales-copy" element={<SalesCopy />} />
-                      <Route path="/ask-anything" element={<MiniGpt />} />
-                      <Route path="/ad-copy" element={<AdCopy />} />
-                      <Route path="/rewriter" element={<Rewritter />} />
-                      <Route path="/questions-answers" element={<QandA />} />
-                      <Route path="/bio-generator" element={<BioGenerator />} />
-                      <Route path="/article-summary" element={<ArticleSummary />} />
-                      <Route path="/email-responder" element={<EmailResponder />} />
-                      <Route path="/book-summary" element={<BookSummary />} />
-                      <Route path="/youtube-transcripts" element={<YoutubeTranscripts />} />
-                      <Route path="/youtube-scripts" element={<YoutubeScripts />} />
-                      <Route path="/product-review" element={<ProductReview />} />
-                      <Route path="/ideas" element={<Ideas />} />
-                      <Route path="/code-generator" element={<CodeLookUp />} />
-                    </Routes>
-                  </div> : <Navigate to="/login" />
+                element={
+                  state.user ? (
+                    state.user.user.phone ? (
+                      <div className="relative px-8 py-4 sm:ml-64 bg-gray-100 min-h-screen">
+                        <Routes>
+                          <Route path="/settings" element={<Settings />} />
+                          <Route path="/billing" element={<Billing />} />
+                          <Route path="/dashboard" element={<Dashboard />} />
+                          <Route path="/success" element={<Dashboard />} />
+                          <Route path="/rewrite-essay" element={<RewriteEssay />} />
+                          <Route path="/essay" element={<Essay />} />
+                          <Route path="/blog" element={<BlogArticle />} />
+                          <Route path="/email" element={<Email />} />
+                          <Route path="/sales-copy" element={<SalesCopy />} />
+                          <Route path="/ask-anything" element={<MiniGpt />} />
+                          <Route path="/ad-copy" element={<AdCopy />} />
+                          <Route path="/rewriter" element={<Rewritter />} />
+                          <Route path="/questions-answers" element={<QandA />} />
+                          <Route path="/bio-generator" element={<BioGenerator />} />
+                          <Route path="/article-summary" element={<ArticleSummary />} />
+                          <Route path="/email-responder" element={<EmailResponder />} />
+                          <Route path="/book-summary" element={<BookSummary />} />
+                          <Route path="/youtube-transcripts" element={<YoutubeTranscripts />} />
+                          <Route path="/youtube-scripts" element={<YoutubeScripts />} />
+                          <Route path="/product-review" element={<ProductReview />} />
+                          <Route path="/ideas" element={<Ideas />} />
+                          <Route path="/code-generator" element={<CodeLookUp />} />
+                        </Routes>
+                      </div>
+                    ) : (
+                      <Navigate to="/complete-signup" />
+                    )
+                  ) : (
+                    <Navigate to="/login" />
+                  )
                 }
               />
               <Route path="/sign-up" element={<Signup />} />
+              <Route path="/complete-signup" element={state.user ? <Phone /> : <Navigate to="/sign-up" />} />
               <Route path="/sign-up/:referralId" element={<Signup />} />
               <Route path="/login" element={<Login />} />
               <Route path="/" element={<Home />} />

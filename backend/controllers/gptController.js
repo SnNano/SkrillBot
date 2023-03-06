@@ -17,6 +17,7 @@ const postPrompt = async (req, res) => {
             prompt: prompt,
             max_tokens: 2048,
             temperature: creativity,
+            stream: True,
             user: req.user._id
         });
     } catch (error) {
@@ -81,10 +82,11 @@ const codePrompt = async (req, res) => {
 }
 
 const postChatgpt = async (req, res) => {
-    const { prompt } = req.body;
+    const { prompt, creativity } = req.body;
     const completion = await openai.createChatCompletion({
         model: "gpt-3.5-turbo",
         messages: prompt,
+        temperature: creativity
     });
 
     res.json({ result: completion.data.choices[0].message });

@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { UserContext } from "../App";
 import Confetti from 'react-confetti';
 
-const Content = ({ loading, generatedText }) => {
+const Content = ({ loading, generatedText, tokenUsage }) => {
   const [isSuccess, setIsSuccess] = useState(false);
   const [displayedLineIndex, setDisplayedLineIndex] = useState(0);
   const [displayedCharIndex, setDisplayedCharIndex] = useState(0);
@@ -76,7 +76,7 @@ const Content = ({ loading, generatedText }) => {
           tweenDuration={2000} />
       </div>}
       <div className="min-h-[20rem] flex-col p-6  border border-gray-200 rounded-lg shadow-md sm:my-4">
-        {!loading && generatedText && displayedText && <pre style={{ whiteSpace: 'pre-wrap' }}>{displayedText}</pre>
+        {!loading && generatedText && displayedText && <pre style={{ whiteSpace: 'pre-wrap', fontFamily: ' Arial, sans-serif' }}>{displayedText}</pre>
         }
         {!generatedText && !loading && <div className="flex min-h-[20rem] justify-center items-center"><p className="text-2xl text-center text-gray-400">Answer will appear here.</p></div>}
         {loading && <div className="spinnerH"><Spinner /></div>}

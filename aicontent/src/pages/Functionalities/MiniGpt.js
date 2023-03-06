@@ -26,7 +26,7 @@ const MiniGpt = () => {
         setIsLoading(true)
         let chatLogNew = [...chatLog, { role: 'user', content: `${input}` }];
         setInput("");
-        const result = await chatapi(chatLogNew);
+        const result = await chatapi(chatLogNew, 0.5);
         setChatLog([...chatLogNew, result]);
         setIsLoading(false);
     }
