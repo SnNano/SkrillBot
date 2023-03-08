@@ -1,5 +1,6 @@
 import happyStudents from "../../assets/images/happyStudents.svg";
 import teenager from "../../assets/images/teenSmile.jpg";
+import logo from "../../assets/images/logo.png";
 import { Link, useNavigate } from "react-router-dom";
 import { UserContext } from "../../App";
 import { useContext } from "react";
@@ -17,8 +18,7 @@ const FirstSection = () => {
         <>
             <div className="pl-14 pr-12 pt-4 flex justify-between items-center">
                 <div className="flex items-center space-x-2">
-                    <img className="w-auto h-8" src="https://storage.googleapis.com/mixo-files/logos/thesisBot-1676073030014.svg" alt="PlumeAi logo" />
-                    <p className="font-sans text-xl font-bold text-gray-900">Skrillbot</p>
+                    <img className="w-auto h-8 ml-2" src={logo} alt="Skrillbot logo" />
                 </div>
                 {state.user ? (<>
                     <div>

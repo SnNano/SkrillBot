@@ -17,7 +17,6 @@ const postPrompt = async (req, res) => {
             prompt: prompt,
             max_tokens: 2048,
             temperature: creativity,
-            stream: True,
             user: req.user._id
         });
     } catch (error) {

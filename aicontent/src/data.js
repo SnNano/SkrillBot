@@ -1,3 +1,9 @@
+import email from "./assets/images/email1.PNG";
+import code from "./assets/images/code1.PNG";
+import idea from "./assets/images/idea1.PNG";
+import minibot from "./assets/images/minibot1.PNG";
+
+
 export const data = [
     {
         id: 1,
@@ -143,6 +149,7 @@ export const moreData = [
         id: 3,
         icone: "fa-file-lines",
         title: "Email Writing",
+        image: email,
         category: "writing",
         text: "Unlock your writing potential.",
         link: "/email"
@@ -183,6 +190,7 @@ export const moreData = [
         id: 8,
         icone: "fa-lightbulb",
         title: "Ideas",
+        image: idea,
         category: "ideas",
         text: "Unlock your writing potential.",
         link: "/ideas"
@@ -191,6 +199,7 @@ export const moreData = [
         id: 9,
         icone: "fa-laptop-code",
         title: "Code Generator",
+        image: code,
         category: "code",
         text: "Unlock your writing potential.",
         link: "/code-generator"
@@ -262,9 +271,18 @@ export const moreData = [
     {
         id: 19,
         icone: "fa-comments",
-        title: "Essay Rewriting",
+        title: "Rewritter",
         category: "writing",
-        text: "Unlock our blog's potential with SkrilBats AI-powered writing.",
+        text: "Avoid plagiarism and evade the detection of AI algorithms",
         link: "/rewrite-essay"
-    }
+    },
+    {
+        id: 20,
+        icone: "fa-handshake-angle",
+        title: "Ask me Anything",
+        category: "chat",
+        image: minibot,
+        link: "/ask-anything",
+        text: "Avoid plagiarism and evade the detection of AI algorithms",
+    },
 ]

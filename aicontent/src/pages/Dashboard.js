@@ -4,7 +4,7 @@ import { UserContext } from "../App";
 import { useContext, useEffect, useState } from "react";
 import { checkCharacters, Logout } from "../services/userService";
 import { moreData } from "../data";
-import GeneralSpinner from "../components/layouts/GeneralSpinner";
+import minibot from "../assets/images/minibot1.PNG";
 
 const categories = [
     "All", "Writing", "Summary", "Social Media", "Code", "Ideas", "Blog", "Copy"
@@ -55,7 +55,7 @@ const Dashboard = () => {
                                 </div>
                                 <div className="flex items-center md:order-2 px-2">
                                     <button onClick={() => { setOpenDrop(!openDrop) }} className="w-8 h-8 outline-0 flex mr-3 text-sm bg-gray-800 rounded-full md:mr-0">
-                                        {/* <i className="fa-solid fa-user text-white"></i> */}
+                                        <img src={minibot} className="rounded-full" alt="pfp" />
                                     </button>
                                     <div className={`dropDown ${openDrop ? '' : 'hidden'} z-50 absolute right-[-2%] top-[112%] text-base list-none bg-white divide-y divide-gray-100 rounded-lg shadow`}>
                                         <div className="px-4 py-3">
@@ -98,11 +98,11 @@ const Dashboard = () => {
                             })}
                         </div>
                     </div>
-                    <div className="grid grid-cols-2 gap-6">
-                        <div className="grid md:grid-cols-2 grid-cols-1 gap-6">
+                    <div className="grid">
+                        <div className="grid md:grid-cols-3 grid-cols-2 gap-2">
                             {filteredData.map((item, index) => {
                                 return <Link to={item.link} key={index} className="scale-90 hover:scale-100 hover:shadow-xl transition ease-in delay-150 max-w-sm bg-white border border-gray-200 rounded-[25px] shadow">
-                                    <img className="rounded-t-[25px]" src="https://images.pexels.com/photos/262978/pexels-photo-262978.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" alt="" />
+                                    <img className="h-[250px] w-full rounded-t-[25px]" src={item.image} alt="" />
                                     <div className="p-5">
                                         <h5 className="mb-2 text-md font-bold tracking-tight text-gray-900">{item.title}</h5>
                                         <p className="mb-3 font-light text-gray-700 text-sm">{item.text}</p>
@@ -110,7 +110,7 @@ const Dashboard = () => {
                                 </Link>
                             })}
                         </div>
-                        <div className="w-full">
+                        {/* <div className="w-full">
                             {characters < -1 && <div className="mb-4 w-full bg-red-300 text-center rounded-[25px] shadow">
                                 <div className="p-5">
                                     <h5 className="mb-2 text-md font-bold tracking-tight mb-3">You reached the characters Limits</h5>
@@ -123,7 +123,7 @@ const Dashboard = () => {
                                     <p className="mb-3 font-light text-gray-700 text-sm">holalalal</p>
                                 </div>
                             </div>
-                        </div>
+                        </div> */}
                     </div>
                 </section>
             </div>

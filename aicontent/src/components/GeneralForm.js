@@ -5,18 +5,20 @@ import { useEffect, useState } from "react";
 import PropTypes from 'prop-types';
 import Sidebar from "./layouts/Sidebar";
 import BreadCumb from "./layouts/BreadCumb";
-
+import axios from 'axios';
+const { CancelToken } = axios;
 
 const GeneralForm = ({ header, paragraph, label2, type, maxLength, minLength }) => {
 
   const [formData, setFormData] = useState({
     tone: "",
-    creativity: 0.7,
+    creativity: 0.5,
     message: "",
     keywords: "",
     loading: false,
     generatedText: null
   });
+  const [cancelToken, setCancelToken] = useState(null);
 
   const { tone, creativity, keywords, message, generatedText, loading } = formData;
 
@@ -28,6 +30,11 @@ const GeneralForm = ({ header, paragraph, label2, type, maxLength, minLength }) 
     e.preventDefault();
     let prompt;
     setFormData({ ...formData, loading: true });
+    if (cancelToken) {
+      cancelToken.cancel();
+    }
+    const source = CancelToken.source();
+    setCancelToken(source);
     if (type === "ESSAY") {
       prompt = `Write a ${tone} essay discussing the importance and implications of [${message}]. 
         Provide examples, research, and arguments to support your position. 
@@ -63,9 +70,17 @@ const GeneralForm = ({ header, paragraph, label2, type, maxLength, minLength }) 
     } else if (type === "YOUTUBE_SCRIPT") {
       prompt = `Generate a ${tone} script about [${message}].\n${keywords ? `Keywords: [${keywords}]` : ''}.`;
     }
-    const result = await getResponse(prompt, parseFloat(creativity));
-    const rewritten = await rewriteText(result);
-    setFormData({ ...formData, generatedText: rewritten, loading: false });
+    try {
+      const result = await getResponse(prompt, parseFloat(creativity), source.token);
+      setFormData({ ...formData, generatedText: result, loading: false });
+    } catch (error) {
+      if (axios.isCancel(error)) {
+        console.log('Request canceled');
+      } else {
+        console.log('Error', error.message);
+      }
+    }
+    setFormData({ ...formData, loading: false });
   }
   useEffect(() => { window.scrollTo({ top: 0, left: 0, behavior: "smooth" }); }, []);
 
@@ -91,11 +106,11 @@ const GeneralForm = ({ header, paragraph, label2, type, maxLength, minLength }) 
                   </select>
                 </div>
                 <div>
-                  <label htmlFor="creativity" className="block mb-2 text-sm font-medium text-indigo-500">Creativity level</label>
+                  <label htmlFor="creativity" className="block mb-2 text-sm font-medium text-indigo-500">Creativity level (The higher the creativity level the less factual it gets)</label>
                   <select name="creativity" id="creativity" value={creativity} onChange={handleChange} className="block w-full px-4 py-2 text-sm text-gray-900 placeholder-gray-500 border border-gray-300 rounded-md shadow-sm focus:outline-0 focus:border-indigo-400 flex-1">
                     <option value="0">None</option>
                     <option value="0.3">Low</option>
-                    <option value="0.5">Medium</option>
+                    <option value="0.5">Medium (recommended)</option>
                     <option value="0.7">High</option>
                     <option value="1">Max</option>
                   </select>
@@ -110,7 +125,12 @@ const GeneralForm = ({ header, paragraph, label2, type, maxLength, minLength }) 
                 <textarea id="message" minLength={minLength} maxLength={maxLength} value={message} onChange={handleChange} name="message" rows="6" className="block w-full px-4 py-2 text-sm text-gray-900 placeholder-gray-500 border border-gray-300 rounded-md shadow-sm focus:outline-0 focus:border-indigo-400 flex-1" placeholder={label2} required></textarea>
               </div>
               <div className="flex justify-center">
-                <Button loading={loading} />
+                {loading ? (
+                  <p
+                    className="cursor-pointer bg-transparent border border-red-500 text-red-500 rounded-lg hover:bg-red-700 hover:text-white font-bold py-2 px-8 hover:translate-y-[-10px] transition ease-in"
+                    onClick={() => cancelToken.cancel()}
+                  > Stop Generating </p>
+                ) : (<Button loading={loading} />)}
               </div>
             </form>
             <Content generatedText={generatedText} loading={loading} />

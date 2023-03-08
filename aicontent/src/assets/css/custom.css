@@ -35,7 +35,9 @@
     width: 70px;
     text-align: left;
   }
-  
+  .Typewriter__cursor {
+    color: transparent !important;
+  }
   .spinner > div {
     width: 18px;
     height: 18px;

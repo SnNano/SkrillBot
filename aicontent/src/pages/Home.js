@@ -63,7 +63,7 @@ const Home = () => {
                         <div className="relative">
                             <blockquote>
                                 <div className="max-w-3xl mx-auto text-xl font-bold leading-7 text-center text-white md:leading-10 md:text-3xl text-shadow-sm">
-                                    <p>"Writing with ThesisBot has given me so much more confidence in my essays."</p>
+                                    <p>"Writing with SkrillBot has given me so much more confidence in my essays."</p>
                                 </div>
                                 <footer className="mt-8">
                                     <div className="md:flex md:items-center md:justify-center">

@@ -6,7 +6,7 @@ const stripe = require('../../middleware/stripe')
 
 const User = require("../../models/userModel");
 
-const GOOGLE_CALLBACK_URL = `${API_DOMAIN}auth/google/callback`;
+const GOOGLE_CALLBACK_URL = `${process.env.API_DOMAIN}auth/google/callback`;
 
 passport.use(
   new GoogleStrategy(

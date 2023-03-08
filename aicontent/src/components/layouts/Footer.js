@@ -37,7 +37,7 @@ const Footer = () => {
                         <form className="grid gap-2 grid-cols-1 sm:w-full sm:flex sm:items-center sm:flex-wrap mt-6 sm:mt-12 sm:mx-auto sm:max-w-lg">
                             <input type="email" id="email" className="block w-full px-5 py-3 text-base text-gray-900 placeholder-gray-500 border border-gray-300 rounded-md shadow-sm focus:outline-0 flex-1" required="" placeholder="Enter your email..." />
                             <div>
-                                <button className="text-white px-4 py-2 rounded-md bg-indigo-400 hover:bg-indigo-500" type="submit">Join the waiting list</button>
+                                <button className="text-white px-4 py-2 rounded-md bg-indigo-400 hover:bg-indigo-500" type="submit">Subscribe for future updates! </button>
                             </div>
                         </form>
                     </div>

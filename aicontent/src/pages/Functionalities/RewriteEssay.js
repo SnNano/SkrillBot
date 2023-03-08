@@ -28,7 +28,7 @@ const RewriteEssay = () => {
 
     return (
         <>
-            <BreadCumb header="Essay Rewriting" paragraph="Unlock your writing potential with our Al-powered essay writing tool" type="ESSAY" label2="Type the subject of essay you want" />
+            <BreadCumb header="Rewritter" paragraph="Crafting content that is both polished and playful, while avoiding plagiarism and evading the detection of AI algorithms" type="ESSAY" label2="Type the subject of essay you want" />
             <Sidebar />
             <div className="container mt-32">
                 <section className="flex justify-center flex-col lg:pb-32 lg:pt-6 md:pb-12 md:pt-4 sm:py-6">

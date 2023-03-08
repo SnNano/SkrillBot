@@ -14,7 +14,7 @@ const Essay = () => {
 
   const [formData, setFormData] = useState({
     tone: "", level: "elementary",
-    creativity: 0.7, message: "",
+    creativity: 0.5, message: "",
     keywords: "", loading: false,
     generatedText: null
   });
@@ -70,11 +70,11 @@ const Essay = () => {
                   </select>
                 </div>
                 <div>
-                  <label htmlFor="creativity" className="block mb-2 text-sm font-medium text-indigo-500">Creativity level</label>
+                  <label htmlFor="creativity" className="block mb-2 text-sm font-medium text-indigo-500">Creativity level (The higher the creativity level the less factual it gets)</label>
                   <select name="creativity" id="creativity" value={creativity} onChange={handleChange} className="block w-full px-4 py-2 text-sm text-gray-900 placeholder-gray-500 border border-gray-300 rounded-md shadow-sm focus:outline-0 focus:border-indigo-400 flex-1">
                     <option value="0">None</option>
                     <option value="0.3">Low</option>
-                    <option value="0.5">Medium</option>
+                    <option value="0.5">Medium (recommended)</option>
                     <option value="0.7">High</option>
                     <option value="1">Max</option>
                   </select>

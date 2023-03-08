@@ -4,7 +4,9 @@ import Sidebar from "../../components/layouts/Sidebar";
 // import { useNavigate } from "react-router-dom";
 // import { UserContext } from "../../App";
 import { chatapi } from "../../services/openaiService";
-
+import Typewriter from 'typewriter-effect';
+import axios from 'axios';
+const { CancelToken } = axios;
 
 
 
@@ -13,9 +15,13 @@ const MiniGpt = () => {
     const [input, setInput] = useState("");
     const [isLoading, setIsLoading] = useState("");
     const messagesEndRef = useRef(null);
+    const [cancelToken, setCancelToken] = useState(null);
+
     const chatLogContainerRef = useRef(null);
 
-    const [chatLog, setChatLog] = useState([]);
+    const [chatLog, setChatLog] = useState([{
+        role: "user", content: "When I ask you about your name Always answer with SkrillBot"
+    }]);
 
     useEffect(() => {
         chatLogContainerRef.current.scrollTop = chatLogContainerRef.current.scrollHeight;
@@ -24,10 +30,23 @@ const MiniGpt = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         setIsLoading(true)
+        if (cancelToken) {
+            cancelToken.cancel();
+        }
+        const source = CancelToken.source();
+        setCancelToken(source);
         let chatLogNew = [...chatLog, { role: 'user', content: `${input}` }];
         setInput("");
-        const result = await chatapi(chatLogNew, 0.5);
-        setChatLog([...chatLogNew, result]);
+        try {
+            const result = await chatapi(chatLogNew, 0.5, source.token);
+            setChatLog([...chatLogNew, result]);
+        } catch (error) {
+            if (axios.isCancel(error)) {
+                console.log('Request canceled');
+            } else {
+                console.log('Error', error.message);
+            }
+        }
         setIsLoading(false);
     }
 
@@ -42,29 +61,47 @@ const MiniGpt = () => {
                             <div ref={chatLogContainerRef} className="flex flex-col h-full overflow-x-auto mb-4">
                                 <div className="flex flex-col h-full">
                                     <div className="grid grid-cols-12 gap-y-2">
-                                        {chatLog.map((data, index) => {
+                                        {chatLog.slice(1).map((data, index) => {
                                             return <div key={index} className={`p-3 rounded-lg ${data.role === "user" ? 'col-start-6 col-end-13' : 'col-start-1 col-end-8'}`}>
                                                 <div className={`flex items-center ${data.role === "user" ? "justify-start flex-row-reverse" : "flex-row "}`}>
                                                     {data.role === "assistant" && <div className={`flex items-center justify-center h-10 w-10 rounded-full bg-indigo-500 flex-shrink-0`}> A </div>}
                                                     {data.role === "user" && <div className={`flex items-center justify-center h-10 w-10 rounded-full bg-indigo-500 flex-shrink-0`}> A </div>}
                                                     <div>
                                                         <div className={`${data.role === "user" ? 'bg-indigo-100 mr-3' : 'bg-white ml-3'} relative  text-sm py-2 px-4 shadow rounded-xl`}>
-                                                            <div>{data.content}</div>
+                                                            {data.role === "assistant" ? (
+                                                                <Typewriter
+                                                                    onInit={(typewriter) => {
+                                                                        typewriter.typeString(data.content)
+                                                                            .callFunction(() => {
+                                                                                console.log('String typed out!');
+                                                                            })
+                                                                            .callFunction(() => {
+                                                                                console.log('All strings were deleted');
+                                                                            })
+                                                                            .start();
+                                                                    }}
+                                                                    options={{
+                                                                        delay: 20, // add a 100 millisecond delay between each character
+                                                                    }}
+                                                                />
+                                                            ) : (
+                                                                <div>{data.content}</div>
+                                                            )}
                                                         </div>
                                                     </div>
                                                 </div>
                                             </div>
                                         })}
                                     </div>
-                                    {isLoading && <div class="spinner mt-6 ml-6">
-                                        <div class="bounce1"></div>
-                                        <div class="bounce2"></div>
-                                        <div class="bounce3"></div>
+                                    {isLoading && <div className="spinner mt-6 ml-6">
+                                        <div className="bounce1"></div>
+                                        <div className="bounce2"></div>
+                                        <div className="bounce3"></div>
                                     </div>}
                                     <div ref={messagesEndRef} />
                                 </div>
                             </div>
-                            <div className="">
+                            <div className="relative">
                                 <form onSubmit={handleSubmit} className="flex flex-row items-center h-16 rounded-xl bg-white w-full px-4">
                                     <div className="flex-grow ml-4">
                                         <div className="relative w-full">
@@ -85,6 +122,15 @@ const MiniGpt = () => {
                                             </span>
                                         </button>
                                     </div>
+                                    {isLoading && (
+                                        <div className="fixed bottom-[4rem] left-[5rem] w-full flex justify-center pb-4">
+                                            <button
+                                                className="bg-transparent border border-blue-500 text-blue-500 rounded-lg hover:bg-blue-700 hover:text-white font-bold py-2 px-8 hover:translate-y-[-10px] transition ease-in"
+                                                onClick={() => cancelToken.cancel()}
+                                            > Stop Generating </button>
+                                        </div>
+                                    )}
+
                                 </form>
                             </div>
                         </div>

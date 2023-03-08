@@ -7,6 +7,9 @@ import { CopyBlock, dracula } from "react-code-blocks";
 import PropTypes from 'prop-types';
 import Sidebar from "../../components/layouts/Sidebar";
 import BreadCumb from "../../components/layouts/BreadCumb";
+import axios from 'axios';
+const { CancelToken } = axios;
+
 
 
 const CodeLookUp = () => {
@@ -18,6 +21,7 @@ const CodeLookUp = () => {
     generatedText: null
   });
   const { codeEx, language, generatedText, loading } = formData;
+  const [cancelToken, setCancelToken] = useState(null);
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -27,9 +31,23 @@ const CodeLookUp = () => {
     e.preventDefault();
     let prompt;
     setFormData({ ...formData, generatedText: null, loading: true });
+    if (cancelToken) {
+      cancelToken.cancel();
+    }
+    const source = CancelToken.source();
+    setCancelToken(source);
     prompt = `Please generate the following code: [${codeEx}] in [${language}].`;
-    const result = await codePrompt(prompt);
-    setFormData({ ...formData, generatedText: result, loading: false });
+    try {
+      const result = await codePrompt(prompt, source.token);
+      setFormData({ ...formData, generatedText: result, loading: false });
+    } catch (error) {
+      if (axios.isCancel(error)) {
+        console.log('Request canceled');
+      } else {
+        console.log('Error', error.message);
+      }
+    }
+    setFormData({ ...formData, loading: false });
   }
 
   return (
@@ -48,7 +66,12 @@ const CodeLookUp = () => {
                 <label htmlFor="codeEx" className="block mb-2 text-sm font-medium text-indigo-500">Describe exactly the exercice you wanna solve for better results</label>
                 <textarea minLength={3} maxLength={500} rows="6" name="codeEx" id="codeEx" value={codeEx} onChange={handleChange} className="block w-full px-4 py-2 text-sm text-gray-900 placeholder-gray-500 border border-gray-300 rounded-md shadow-sm focus:outline-0 flex-1" placeholder="Write a Python function that takes in a list of numbers and returns the sum of the even numbers in the list."></textarea>
               </div>
-              <Button loading={loading} />
+              {loading ? (
+                <p
+                  className="inline-flex cursor-pointer bg-transparent border border-red-500 text-red-500 rounded-lg hover:bg-red-700 hover:text-white font-bold py-2 px-8 hover:translate-y-[-10px] transition ease-in"
+                  onClick={() => cancelToken.cancel()}
+                > Stop Generating </p>
+              ) : (<Button loading={loading} />)}
             </form>
             {generatedText && <CopyBlock
               text={generatedText} language={language}
