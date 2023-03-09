@@ -41,7 +41,16 @@ const registerUser = asyncHandler(async (req, res) => {
     if (user) {
         delete user.password
         res.status(201).json({
-            user,
+            user: {
+                _id: user._id,
+                username: user.username,
+                googleId: user.googleId,
+                phone: user.phone,
+                email: user.email,
+                customerId: user.customerId,
+                characters: user.characters,
+                plan: user.plan,
+            },
             token: generateToken(user._id)
         });
     } else {
@@ -61,7 +70,16 @@ const login = asyncHandler(async (req, res) => {
     if (user && (await bcrypt.compare(password, user.password))) {
         delete user.password
         res.status(201).json({
-            user,
+            user: {
+                _id: user._id,
+                username: user.username,
+                googleId: user.googleId,
+                phone: user.phone,
+                email: user.email,
+                customerId: user.customerId,
+                characters: user.characters,
+                plan: user.plan,
+            },
             token: generateToken(user._id),
         });
     } else {
@@ -112,7 +130,6 @@ const checkUserAuth = asyncHandler(async (req, res) => {
         res.status(401);
         throw new Error("User doesnt Exist");
     }
-    console.log(user)
     res.json({
         user: {
             _id: user._id,

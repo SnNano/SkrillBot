@@ -8,7 +8,7 @@ let app = express.Router()// User Subscribe
 
 const subscribeStripe = async (req, res) => {
 	const domainURL = process.env.DOMAIN;
-	const { priceId, trial } = req.body
+	const { priceId, trial } = req.body;
 	try {
 		let user = await User.findOne({ _id: req.user._id })
 		let customer = user.customerId ? { customer: user.customerId } : { customer_email: user.email }
@@ -32,7 +32,7 @@ const subscribeStripe = async (req, res) => {
 		res.redirect(303, session.url);
 	} catch (e) {
 		res.status(400);
-		// console.log(e)
+		console.log(e)
 		return res.send({
 			error: {
 				message: e.message,

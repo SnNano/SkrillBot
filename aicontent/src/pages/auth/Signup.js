@@ -73,51 +73,52 @@ const Signup = () => {
     }
 
     return (
-        <div className="h-full flex justify-center items-center">
-            <div className="signTemplate h-screen w-full grid lg:grid-cols-2 grid-cols-1">
-                <LeftLoginSignup />
-                <div className="signColor flex justify-center items-center flex-col p-4">
-                    <h3 className="mb-6 text-4xl font-semibold text-center">Sign Up</h3>
-                    <form className="formWidth" onSubmit={handleSubmit}>
-                        <div className="mb-4">
-                            <label htmlFor="username" className="block mb-2 text-sm font-light">Username</label>
-                            <input type="text" value={username} onChange={handleChange} name="username" id="username" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-indigo-500 focus:border-indigo-500 block w-full p-2.5 focus:outline-none" placeholder="John Smith" required />
-                        </div>
-                        <div className="mb-4">
-                            <label htmlFor="email" className="block mb-2 text-sm font-light">Email</label>
-                            <input type="email" value={email} onChange={handleChange} name="email" id="email" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-indigo-500 focus:border-indigo-500 block w-full p-2.5 focus:outline-none" placeholder="john@gmail.com" required />
-                        </div>
-                        <div className="mb-4">
-                            <label htmlFor="password" className="block mb-2 text-sm font-light">Password</label>
-                            <input type="password" value={password} onChange={handleChange} name="password" id="password" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-indigo-500 focus:border-indigo-500 block w-full p-2.5 focus:outline-none" placeholder="Password" required />
-                        </div>
-                        <div className="mb-4">
-                            <label htmlFor="cpassword" className="block mb-2 text-sm font-light">Confirm Password</label>
-                            <input type="password" value={cpassword} onChange={handleChange} name="cpassword" id="cpassword" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-indigo-500 focus:border-indigo-500 block w-full p-2.5 focus:outline-none" placeholder="Confirm Password" required />
-                        </div>
-                        {/* <div className="mb-6">
-                            <div className="flex items-center">
-                                <input id="terms" type="checkbox" value="" className="w-4 h-4 text-indigo-700 bg-gray-100 border-gray-300 rounded focus:ring-indigo-500 focus:ring-2" />
-                                <label htmlFor="terms" className="ml-2 text-sm font-medium text-gray-900">I agree with the <a href="##" className="text-indigo-700 hover:underline">terms and conditions</a>.</label>
+        <>
+            <div className=" bg-gradient-to-r from-pink-500 to-blue-500 h-screen">
+                <div className="h-full container mx-auto px-12 flex justify-center items-center">
+                    <div className="flex items-center justify-center">
+                        <div className="max-w-xl w-[400px] relative rounded-lg bg-white shadow-md p-6">
+                            <h1 className="text-2xl text-center mt-6 mb-4 font-bold">Signup</h1>
+                            <div className="px-12">
+                                <form className="" onSubmit={handleSubmit}>
+                                    <div className="relative z-0 w-full mb-6 group">
+                                        <input autoComplete="off" type="text" value={username} onChange={handleChange} name="username" id="username" className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-pink-600 peer" placeholder=" " required />
+                                        <label htmlFor="username" className="peer-focus:font-medium absolute text-sm text-gray-500 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-pink-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"><i className="fa-regular fa-user mr-3"></i>Username</label>
+                                    </div>
+                                    <div className="relative z-0 w-full mb-6 group">
+                                        <input autoComplete="off" type="email" value={email} onChange={handleChange} name="email" id="email" className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-pink-600 peer" placeholder=" " required />
+                                        <label htmlFor="email" className="peer-focus:font-medium absolute text-sm text-gray-500 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-pink-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"><i className="fa-regular fa-envelope mr-3"></i> Email</label>
+                                    </div>
+                                    <div className="relative z-0 w-full mb-6 group">
+                                        <input type="password" value={password} onChange={handleChange} name="password" id="password" className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-pink-600 peer" placeholder=" " required />
+                                        <label htmlFor="password" className="peer-focus:font-medium absolute text-sm text-gray-500 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-pink-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"><i className="fa-solid fa-unlock mr-3"></i>Password</label>
+                                    </div>
+                                    <div className="relative z-0 w-full mb-6 group">
+                                        <input type="password" value={cpassword} onChange={handleChange} name="cpassword" id="cpassword" className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-pink-600 peer" placeholder=" " required />
+                                        <label htmlFor="cpassword" className="peer-focus:font-medium absolute text-sm text-gray-500 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-pink-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"><i className="fa-solid fa-unlock mr-3"></i>Confirm Password</label>
+                                    </div>
+                                    <button type="submit" className="inline-block rounded-full px-6 py-2.5 bg-gradient-to-r from-pink-500 to-blue-500 text-white font-medium text-xs leading-tight uppercase rounded hover:scale-90 focus:bg-gray-100 focus:outline-none focus:ring-0 active:bg-gray-200 transition duration-150 ease-in-out w-full">SIGNUP</button>
+                                    <div className="my-6 text-center text-sm text-gray-600">
+                                        <span>Or Signup with</span>
+                                    </div>
+                                    <div className="flex justify-center mb-6">
+                                        <p onClick={redirectToGoogleSSO} className="cursor-pointer flex items-center justify-center bg-transparent w-full px-4 py-2 rounded-full border border-gray-200 hover:border-gray-400">
+                                            <img src={google} alt="google logo" className="w-6 h-6 mr-3" />
+                                            <span className="text-black">Google</span>
+                                        </p>
+                                    </div>
+                                </form>
+                                <div className="mt-6">
+                                    <div className="text-sm text-center my-4">
+                                        <Link to="/login">Already have an account? Click here to <span className="text-indigo-700 font-medium">Sign up!</span></Link>
+                                    </div>
+                                </div>
                             </div>
-                        </div> */}
-                        <div className="flex justify-center ">
-                            <button className="w-full mb-3 rounded-lg px-4 py-2 bg-indigo-500 text-white text-md hover:bg-indigo-300">Sign Up</button>
                         </div>
-                        <div className="flex justify-center mb-6">
-                            <p onClick={redirectToGoogleSSO} className="cursor-pointer flex items-center justify-center bg-transparent w-full px-4 py-2 rounded-full border border-gray-200 hover:border-gray-400">
-                                <img src={google} alt="google logo" className="w-6 h-6 mr-3" />
-                                <span className="text-black">Google</span>
-                            </p>
-                        </div>
-                        <div className="text-sm text-center mt-4">
-                            <Link to="/login">Already signed up? Click here to <span className="text-indigo-700 font-medium">Log in!</span></Link>
-                        </div>
-                        <hr className="container bg-gray-400 my-4" />
-                    </form>
+                    </div>
                 </div>
             </div>
-        </div>
+        </>
     )
 }
 export default Signup

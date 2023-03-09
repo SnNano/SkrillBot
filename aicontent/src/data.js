@@ -2,6 +2,12 @@ import email from "./assets/images/email1.PNG";
 import code from "./assets/images/code1.PNG";
 import idea from "./assets/images/idea1.PNG";
 import minibot from "./assets/images/minibot1.PNG";
+import homework from "./assets/images/homework.PNG";
+import college from "./assets/images/college.PNG";
+import articleSum from "./assets/images/articleSum.PNG";
+import bio from "./assets/images/bio.PNG";
+import bookSum from "./assets/images/bookSum.PNG";
+import emailResp from "./assets/images/emailResp.PNG";
 
 
 export const data = [
@@ -174,7 +180,8 @@ export const moreData = [
         id: 6,
         icone: "fa-handshake-angle",
         title: "Homework Helper",
-        category: "qanda",
+        category: "q&a",
+        image: homework,
         text: "Unlock your writing potential.",
         link: "/questions-answers"
     },
@@ -208,6 +215,7 @@ export const moreData = [
         id: 10,
         icone: "fa-comments",
         title: "Email Responder",
+        image: emailResp,
         category: "writing",
         text: "Unlock your writing potential",
         link: "/email-responder"
@@ -216,6 +224,7 @@ export const moreData = [
         id: 11,
         icone: "fa-pen-to-square",
         title: "Bio Generator",
+        image: bio,
         category: "social media",
         text: "Unlock your writing potential",
         link: "/bio-generator"
@@ -224,6 +233,7 @@ export const moreData = [
         id: 12,
         icone: "fa-pen-to-square",
         title: "Article Summary",
+        image: articleSum,
         category: "summary",
         text: "Unlock your writing potential",
         link: "/article-summary"
@@ -232,6 +242,7 @@ export const moreData = [
         id: 13,
         icone: "fa-pen-to-square",
         title: "Book Summary",
+        image: bookSum,
         category: "summary",
         text: "Unlock our blog's potential with SkrilBats AI-powered writing.",
         link: "/book-summary"
@@ -248,6 +259,7 @@ export const moreData = [
         id: 15,
         icone: "fa-pen-to-square",
         title: "College Apps Writer",
+        image: college,
         category: "writing",
         text: "Unlock our blog's potential with SkrilBats AI-powered writing.",
         link: "/apps-writer"
@@ -280,7 +292,7 @@ export const moreData = [
         id: 20,
         icone: "fa-handshake-angle",
         title: "Ask me Anything",
-        category: "chat",
+        category: "q&a",
         image: minibot,
         link: "/ask-anything",
         text: "Avoid plagiarism and evade the detection of AI algorithms",

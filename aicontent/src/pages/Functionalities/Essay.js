@@ -5,12 +5,14 @@ import Sidebar from "../../components/layouts/Sidebar";
 import Button from "../../components/layouts/Button";
 import Content from "../../components/Content";
 import Facts from "../../components/layouts/Facts";
+import axios from 'axios';
+const { CancelToken } = axios;
 
 const Essay = () => {
 
-  const [tokenUsage, setTokenUsage] = useState(0);
   const [showModal, setShowModal] = useState(false);
-  const [prompt, setPrompt] = useState("");
+  const [content, setContent] = useState(0);
+  const [cancelToken, setCancelToken] = useState(null);
 
   const [formData, setFormData] = useState({
     tone: "", level: "elementary",
@@ -28,22 +30,49 @@ const Essay = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setFormData({ ...formData, loading: true });
+    if (cancelToken) {
+      cancelToken.cancel();
+    }
+    const source = CancelToken.source();
+    setCancelToken(source);
     setShowModal(true);
-    let prompt = `Write a 4 pages ${tone} essay discussing the importance and implications of [${message}].\nDO NOT show a table of content.\nInclude Content for each outline.
-        Write it in 10 paragraphs.\nIt should be suitable for ${level} level.\nPlease Use Roman for each outline.\n${keywords ? `Keywords: [${keywords}]` : ''}
-        \nIt should not be plagiarised, it should be original.`;
-    setPrompt(prompt);
-    const result = await chatapi([{ role: "user", content: prompt }], parseFloat(creativity));
-    setFormData({ ...formData, generatedText: result.content, loading: false });
-    setTokenUsage(generatedText.length);
+    try {
+      let prompt = `Please generate a ${tone} 2 page outlines essay on ${message} each outline has 2 bullet pointer and uses Roman numbering.\n${keywords ? `Keywords: [${keywords}]` : ''}`;
+      const result = await chatapi([{ role: "user", content: prompt }], parseFloat(creativity), source.token);
+      setFormData({ ...formData, generatedText: result.content, loading: false });
+    } catch (error) {
+      if (axios.isCancel(error)) {
+        setFormData({ ...formData, loading: false });
+        console.log('Request canceled');
+      } else {
+        console.log('Error', error.message);
+      }
+    }
     setShowModal(false);
   }
   const handleNext = async (e) => {
     e.preventDefault();
+    if (cancelToken) {
+      cancelToken.cancel();
+    }
+    const source = CancelToken.source();
+    setCancelToken(source);
     setFormData({ ...formData, loading: true });
-    const result = await chatapi([{ role: "user", content: prompt }, { role: "assistant", content: generatedText }, { role: 'user', content: `Please continue the essay by adding three more paragraphs.` }], parseFloat(creativity));
-    setFormData({ ...formData, generatedText: result.content, loading: false });
-    setTokenUsage(generatedText.length);
+    try {
+      const result = await chatapi([{ role: "assistant", content: generatedText }, {
+        role: 'user', content: `Please generate content for the outlines.`
+      }], parseFloat(creativity), source.token);
+      setContent(1);
+      setFormData({ ...formData, generatedText: result.content, loading: false });
+    } catch (error) {
+      if (axios.isCancel(error)) {
+        setFormData({ ...formData, loading: false });
+        console.log('Request canceled');
+      } else {
+        console.log('Error', error.message);
+      }
+    }
+
   }
   useEffect(() => { window.scrollTo({ top: 0, left: 0, behavior: "smooth" }); }, []);
 
@@ -54,7 +83,7 @@ const Essay = () => {
       <div className="container mt-32">
         <Facts showModal={showModal} setShowModal={setShowModal} />
         <section className="flex justify-center flex-col lg:pb-32 lg:pt-6 md:pb-12 md:pt-4 sm:py-6">
-          <div className="">
+          <div className="relative">
             <form onSubmit={handleSubmit} className="mb-6">
               <div className="mb-6 grid lg:grid-cols-2 gap-4">
                 <div>
@@ -98,16 +127,23 @@ const Essay = () => {
                 <textarea id="message" minLength="10" maxLength="300" value={message} onChange={handleChange} name="message" rows="6" className="block w-full px-4 py-2 text-sm text-gray-900 placeholder-gray-500 border border-gray-300 rounded-md shadow-sm focus:outline-0 focus:border-indigo-400 flex-1" placeholder="The more info you give the more you get quality outcome" required></textarea>
               </div>
               <div className="flex justify-center">
-                {tokenUsage >= 2000 ? (
-                  <div className="flex flex-col justify-center">
-                    <button disabled={loading} type="submit" className="rounded-md text-white text-md px-4 py-2 bg-green-400 hover:bg-green-500 focus:outline-none" onClick={handleNext}>Next</button>
-                    <p className="text-sm text-center mt-2 text-gray-700">Please Copy and Paste the current result before you click on next</p>
-                  </div>
-                ) : (<Button loading={loading} />)}
 
+                {generatedText && content === 0 ? (<div className="flex flex-col">
+                  <div className="flex flex-col justify-center items-center">
+                    <p disabled={loading} className="cursor-pointer w-[200px] text-center inline rounded-md text-white text-md px-4 py-2 bg-green-400 hover:bg-green-500 focus:outline-none" onClick={handleNext}>Generate Content</p>
+                  </div>
+                  <p className="text-sm mt-2 text-gray-700"> <span className="text-red-500 font-bold text-md mr-2 mb-2">*IMPORTANT 1*:</span> Please Copy and Paste the current result before you click on next</p>
+                  <p className="text-sm mt-2 text-gray-700"> <span className="text-red-500 font-bold text-md mr-2">*IMPORTANT 2*:</span> After the revision stage, it is imperative to utilize the Rewriter tool to guarantee that the essay is free from plagiarism and undetectable by artificial intelligence systems.
+                  </p>
+                </div>
+                ) : (<Button loading={loading} />)}
+                {loading ? (
+                  <p className="fixed bottom-10 cursor-pointer bg-red-500 border border-red-500 rounded-lg hover:bg-red-700 text-white font-bold py-2 px-8 hover:translate-y-[-10px] transition ease-in"
+                    onClick={() => cancelToken.cancel()}> Stop Generating </p>
+                ) : (<></>)}
               </div>
             </form>
-            <Content tokenUsage={tokenUsage} generatedText={generatedText} loading={loading} />
+            <Content content={content} generatedText={generatedText} loading={loading} />
           </div>
         </section>
       </div>

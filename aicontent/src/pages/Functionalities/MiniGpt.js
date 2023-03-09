@@ -54,7 +54,7 @@ const MiniGpt = () => {
         <>
             <BreadCumb header="Ask me anything" />
             <Sidebar />
-            <div className="flex h-screen antialiased text-gray-800 md:pb-24 pb-6 mt-32">
+            <div className="flex h-[500px] antialiased text-gray-800 md:pb-24 pb-6 mt-32">
                 <div className="flex flex-row h-full w-full overflow-x-hidden">
                     <div className="flex flex-col flex-auto h-full p-6">
                         <div className="flex flex-col flex-auto flex-shrink-0 rounded-2xl bg-gray-100 h-full p-4" >

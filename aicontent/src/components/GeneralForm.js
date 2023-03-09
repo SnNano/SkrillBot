@@ -75,12 +75,13 @@ const GeneralForm = ({ header, paragraph, label2, type, maxLength, minLength }) 
       setFormData({ ...formData, generatedText: result, loading: false });
     } catch (error) {
       if (axios.isCancel(error)) {
+        setFormData({ ...formData, loading: false });
         console.log('Request canceled');
       } else {
         console.log('Error', error.message);
       }
     }
-    setFormData({ ...formData, loading: false });
+
   }
   useEffect(() => { window.scrollTo({ top: 0, left: 0, behavior: "smooth" }); }, []);
 

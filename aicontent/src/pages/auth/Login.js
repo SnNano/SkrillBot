@@ -42,6 +42,7 @@ const Login = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    console.log(formData)
     await login(formData, dispatch)
   }
 
@@ -57,37 +58,44 @@ const Login = () => {
     return <GeneralSpinner />
   }
   return (
-    <div className="h-full flex justify-center items-center">
-      <div className="signTemplate h-screen w-full signTemplate grid lg:grid-cols-2 grid-cols-1">
-        <LeftLoginSignup />
-        <div className="flex justify-center items-center flex-col shadow-lg signColor p-4">
-          <h3 className="mb-6 text-4xl font-semibold text-center">Log in</h3>
-          <form className="formWidth" onSubmit={handleSubmit}>
-            <div className="mb-4">
-              <label htmlFor="email" className="block mb-2 text-sm font-light">Email</label>
-              <input type="email" value={email} onChange={handleChange} name="email" id="email" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-indigo-500 focus:border-indigo-500 block w-full p-2.5 focus:outline-none" placeholder="john@gmail.com" />
+    <>
+      <div className=" bg-gradient-to-r from-pink-500 to-blue-500 h-screen">
+        <div className="h-full container mx-auto px-12 flex justify-center items-center">
+          <div className="flex items-center justify-center">
+            <div className="max-w-xl w-[400px] relative rounded-lg bg-white shadow-md p-6">
+              <h1 className="text-2xl text-center mt-6 mb-4 font-bold">Login</h1>
+              <div className="px-12">
+                <form className="" onSubmit={handleSubmit}>
+                  <div className="relative z-0 w-full mb-6 group">
+                    <input autoComplete="off" type="email" value={email} onChange={handleChange} name="email" id="email" className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-pink-600 peer" placeholder=" " required />
+                    <label htmlFor="email" className="peer-focus:font-medium absolute text-sm text-gray-500 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-pink-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"><i className="fa-regular fa-envelope mr-3"></i> Email address</label>
+                  </div>
+                  <div className="relative z-0 w-full mb-6 group">
+                    <input type="password" value={password} onChange={handleChange} name="password" id="password" className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-pink-600 peer" placeholder=" " required />
+                    <label htmlFor="password" className="peer-focus:font-medium absolute text-sm text-gray-500 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-pink-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"><i className="fa-solid fa-unlock mr-3"></i>Password</label>
+                  </div>
+                  <button type="submit" className="inline-block rounded-full px-6 py-2.5 bg-gradient-to-r from-pink-500 to-blue-500 text-white font-medium text-xs leading-tight uppercase rounded hover:scale-90 focus:bg-gray-100 focus:outline-none focus:ring-0 active:bg-gray-200 transition duration-150 ease-in-out w-full">LOGIN</button>
+                  <div className="my-6 text-center text-sm text-gray-600">
+                    <span>Or Login with</span>
+                  </div>
+                  <div className="flex justify-center mb-6">
+                    <p onClick={redirectToGoogleSSO} className="cursor-pointer flex items-center justify-center bg-transparent w-full px-4 py-2 rounded-full border border-gray-200 hover:border-gray-400">
+                      <img src={google} alt="google logo" className="w-6 h-6 mr-3" />
+                      <span className="text-black">Google</span>
+                    </p>
+                  </div>
+                </form>
+                <div className="mt-32">
+                  <div className="text-sm text-center my-4">
+                    <Link to="/sign-up">Don't have an account? Click here to <span className="text-indigo-700 font-medium">Sign up!</span></Link>
+                  </div>
+                </div>
+              </div>
             </div>
-            <div className="mb-4">
-              <label htmlFor="password" className="block mb-2 text-sm font-light">Password</label>
-              <input type="password" value={password} onChange={handleChange} name="password" id="password" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-indigo-500 focus:border-indigo-500 block w-full p-2.5 focus:outline-none" placeholder="Password" />
-            </div>
-            <div className="mb-6 flex justify-center">
-              <button className="rounded-lg w-full mb-3 px-4 py-2 bg-indigo-500 text-white text-md hover:bg-indigo-300">Log In</button>
-            </div>
-            <div className="flex justify-center mb-6">
-              <p onClick={redirectToGoogleSSO} className="cursor-pointer flex items-center justify-center bg-transparent w-full px-4 py-2 rounded-full border border-gray-200 hover:border-gray-400">
-                <img src={google} alt="google logo" className="w-6 h-6 mr-3" />
-                <span className="text-black">Google</span>
-              </p>
-            </div>
-            <hr className="container bg-gray-400 my-4" />
-            <div className="text-sm text-center my-4">
-              <Link to="/sign-up">Don't have an account? Click here to <span className="text-indigo-700 font-medium">Sign up!</span></Link>
-            </div>
-          </form>
+          </div>
         </div>
       </div>
-    </div>
+    </>
   )
 }
 export default Login

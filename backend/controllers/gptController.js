@@ -15,7 +15,7 @@ const postPrompt = async (req, res) => {
         completion = await openai.createCompletion({
             model: "text-davinci-003",
             prompt: prompt,
-            max_tokens: 2048,
+            max_tokens: 3000,
             temperature: creativity,
             user: req.user._id
         });

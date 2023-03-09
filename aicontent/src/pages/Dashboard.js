@@ -7,7 +7,8 @@ import { moreData } from "../data";
 import minibot from "../assets/images/minibot1.PNG";
 
 const categories = [
-    "All", "Writing", "Summary", "Social Media", "Code", "Ideas", "Blog", "Copy"
+    "All", "Writing", "Summary", "Social Media", "Code",
+    "Ideas", "Blog", "Copy", "Q&A"
 ]
 
 const Dashboard = () => {
@@ -91,7 +92,7 @@ const Dashboard = () => {
                     <div className="block w-full">
                         <div className="mb-6">
                             {categories.map((item, index) => {
-                                return <button key={index} onClick={() => setSelectedCategory(item)} className={`rounded-full mr-5 py-2 px-6 border border-indigo-500 ${selectedCategory === item
+                                return <button key={index} onClick={() => setSelectedCategory(item)} className={`mb-4 rounded-full mr-5 py-2 px-6 border border-indigo-500 ${selectedCategory === item
                                     ? 'bg-indigo-500 text-white'
                                     : 'bg-white text-indigo-500 hover:text-white hover:bg-indigo-600'
                                     }`}>{item}</button>
@@ -102,7 +103,7 @@ const Dashboard = () => {
                         <div className="grid md:grid-cols-3 grid-cols-2 gap-2">
                             {filteredData.map((item, index) => {
                                 return <Link to={item.link} key={index} className="scale-90 hover:scale-100 hover:shadow-xl transition ease-in delay-150 max-w-sm bg-white border border-gray-200 rounded-[25px] shadow">
-                                    <img className="h-[250px] w-full rounded-t-[25px]" src={item.image} alt="" />
+                                    <img className="h-[290px] w-full rounded-t-[25px]" src={item.image} alt="" />
                                     <div className="p-5">
                                         <h5 className="mb-2 text-md font-bold tracking-tight text-gray-900">{item.title}</h5>
                                         <p className="mb-3 font-light text-gray-700 text-sm">{item.text}</p>

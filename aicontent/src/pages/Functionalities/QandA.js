@@ -50,10 +50,10 @@ const QandA = () => {
 
   return (
     <>
-      <BreadCumb header="Ask any educational question" paragraph="Our Al-powered homework bot is here to help." />
+      <BreadCumb header="Homework Helper" paragraph="Our Al-powered homework bot is here to help." />
       <Sidebar />
-      <section className="mt-32 flex justify-center items-center flex-col md:pb-24 pb-12">
-        <div className="relative flex flex-col min-h-screen flex-grow w-full lg:max-w-6xl bg-gray-50 shadow-xl rounded-lg overflow-hidden">
+      <section className="mt-36 flex justify-center items-center flex-col md:pb-24 pb-12">
+        <div className="relative flex flex-col h-[450px] flex-grow w-full lg:max-w-6xl bg-gray-50 shadow-xl rounded-lg overflow-hidden">
           <div ref={chatLogContainerRef} className="flex flex-col flex-grow h-0 p-4 overflow-auto">
             {chatLog.map((data, index) => {
               return <div key={index} className={`flex flex-col`}>

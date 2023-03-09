@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { UserContext } from "../App";
 import Confetti from 'react-confetti';
 
-const Content = ({ loading, generatedText, tokenUsage }) => {
+const Content = ({ loading, generatedText, content }) => {
   const [isSuccess, setIsSuccess] = useState(false);
   const [displayedLineIndex, setDisplayedLineIndex] = useState(0);
   const [displayedCharIndex, setDisplayedCharIndex] = useState(0);
@@ -68,7 +68,7 @@ const Content = ({ loading, generatedText, tokenUsage }) => {
   }
   return (
     <>
-      {visible && displayedText && <div className="left-[25%] w-full h-full fixed top-0 left-0">
+      {content === 1 && visible && displayedText && <div className="left-[25%] w-full h-full fixed top-0 left-0">
         <Confetti width={900}
           height={500} numberOfPieces={900}
           recycle={false}

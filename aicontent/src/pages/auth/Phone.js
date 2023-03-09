@@ -49,32 +49,35 @@ const Phone = () => {
     }
 
     return (
-        <div className="h-full flex justify-center items-center">
-            <div className="signTemplate h-screen w-full grid lg:grid-cols-2 grid-cols-1">
-                <LeftLoginSignup />
-                <div className="signColor flex justify-center items-center flex-col p-4">
-                    <h3 className="mb-6 text-4xl font-semibold text-center">Add Your Phone Number</h3>
-                    <form className="formWidth" onSubmit={handleSubmit}>
-                        <div className="mb-4">
-                            <PhoneInput
-                                country={'us'}
-                                enableSearch={true}
-                                value={phone}
-                                onChange={handleOnChange}
-                                inputProps={{
-                                    name: 'phone',
-                                    required: true,
-                                }}
-                                inputClass="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-indigo-500 focus:border-indigo-500 block w-[100%] p-2.5 focus:outline-none"
-                            />
+        <>
+            <div className=" bg-gradient-to-r from-pink-500 to-blue-500 h-screen">
+                <div className="h-full container mx-auto px-12 flex justify-center items-center">
+                    <div className="flex items-center justify-center">
+                        <div className="max-w-xl w-[400px] relative rounded-lg bg-white shadow-md p-6">
+                            <h1 className="text-2xl text-center mt-6 mb-4 font-bold">Please Type your phone number</h1>
+                            <div className="px-12">
+                                <form className="" onSubmit={handleSubmit}>
+                                    <div className="mb-4">
+                                        <PhoneInput
+                                            country={'us'}
+                                            enableSearch={true}
+                                            value={phone}
+                                            onChange={handleOnChange}
+                                            inputProps={{
+                                                name: 'phone',
+                                                required: true,
+                                            }}
+                                            inputClass="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-indigo-500 focus:border-indigo-500 block w-[100%] p-2.5 focus:outline-none"
+                                        />
+                                    </div>
+                                </form>
+
+                            </div>
                         </div>
-                        <div className="flex justify-center ">
-                            <button className="w-full mb-3 rounded-lg px-4 py-2 bg-indigo-500 text-white text-md hover:bg-indigo-300">Sign Up</button>
-                        </div>
-                    </form>
+                    </div>
                 </div>
             </div>
-        </div>
+        </>
     )
 }
 export default Phone

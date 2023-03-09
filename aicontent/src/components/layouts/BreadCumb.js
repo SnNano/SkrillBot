@@ -2,6 +2,7 @@ import { useEffect, useContext, useState } from "react";
 import { checkCharacters } from "../../services/userService";
 import { UserContext } from "../../App";
 import { Logout } from "../../services/userService";
+import minibot from "../../assets/images/minibot1.PNG";
 
 import { Link, useNavigate, useLocation } from "react-router-dom";
 
@@ -48,6 +49,7 @@ const BreadCumb = ({ header, paragraph }) => {
       {state.user ? <>
         <div className="flex items-center md:order-2 px-2">
           <button onClick={() => { setOpenDrop(!openDrop) }} type="button" className="w-8 h-8 outline-0 flex mr-3 text-sm bg-gray-800 rounded-full md:mr-0">
+          <img src={minibot} className="rounded-full" alt="pfp" />
           </button>
           <div className={`dropDown ${openDrop ? '' : 'hidden'} z-50 absolute right-[32px] top-[75%] text-base list-none bg-white divide-y divide-gray-100 rounded-lg shadow`}>
             <div className="px-4 py-3">
