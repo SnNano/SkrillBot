@@ -6,7 +6,6 @@ import { UserContext } from "../../App";
 import { useContext, useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import GeneralSpinner from "../../components/layouts/GeneralSpinner";
-import LeftLoginSignup from "../../components/layouts/LeftLoginSignup";
 import { addPhoneNumber } from '../../services/userService';
 import { parsePhoneNumber } from 'libphonenumber-js';
 
@@ -70,6 +69,7 @@ const Phone = () => {
                                             inputClass="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-indigo-500 focus:border-indigo-500 block w-[100%] p-2.5 focus:outline-none"
                                         />
                                     </div>
+                                    <button type="submit" className="inline-block rounded-full px-6 py-2.5 bg-gradient-to-r from-pink-500 to-blue-500 text-white font-medium text-xs leading-tight uppercase rounded hover:scale-90 focus:bg-gray-100 focus:outline-none focus:ring-0 active:bg-gray-200 transition duration-150 ease-in-out w-full">SIGNUP</button>
                                 </form>
 
                             </div>

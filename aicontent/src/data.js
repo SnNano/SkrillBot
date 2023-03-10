@@ -8,6 +8,8 @@ import articleSum from "./assets/images/articleSum.PNG";
 import bio from "./assets/images/bio.PNG";
 import bookSum from "./assets/images/bookSum.PNG";
 import emailResp from "./assets/images/emailResp.PNG";
+import adCopy from "./assets/images/adCopy.PNG";
+import salesCopy from "./assets/images/salesCopy.PNG";
 
 
 export const data = [
@@ -120,7 +122,7 @@ export const sidebarData = [
     },
     {
         id: 8,
-        icone: "fa-handshake-angle",
+        icone: "fa-square-root-variable",
         title: "Homework Helper",
         link: "/questions-answers"
     },
@@ -134,23 +136,6 @@ export const sidebarData = [
 ]
 
 export const moreData = [
-
-    {
-        id: 1,
-        icone: "fa-comments",
-        title: "Essay Writing",
-        category: "writing",
-        text: "Unlock your writing potential",
-        link: "/essay"
-    },
-    {
-        id: 2,
-        icone: "fa-pen-to-square",
-        title: "Blog Articles",
-        category: "blog",
-        text: "Unlock your writing potential",
-        link: "/blog"
-    },
     {
         id: 3,
         icone: "fa-file-lines",
@@ -164,6 +149,7 @@ export const moreData = [
         id: 4,
         icone: "fa-check",
         title: "Sales Copy",
+        image: salesCopy,
         category: "copy",
         text: "Unlock your writing potential.",
         link: "/sales-copy"
@@ -172,6 +158,7 @@ export const moreData = [
         id: 5,
         icone: "fa-book-open-reader",
         title: "Ad copy",
+        image: adCopy,
         category: "copy",
         text: "Unlock your writing potential.",
         link: "/ad-copy"
@@ -184,14 +171,6 @@ export const moreData = [
         image: homework,
         text: "Unlock your writing potential.",
         link: "/questions-answers"
-    },
-    {
-        id: 7,
-        icone: "fa-comment",
-        title: "Product Review",
-        category: "ideas",
-        text: "Unlock your writing potential.",
-        link: "/product-review"
     },
     {
         id: 8,
@@ -248,14 +227,6 @@ export const moreData = [
         link: "/book-summary"
     },
     {
-        id: 14,
-        icone: "fa-pen-to-square",
-        title: "Youtube Transcripts",
-        category: "social media",
-        text: "Unlock our blog's potential with SkrilBats AI-powered writing.",
-        link: "/youtube-transcripts"
-    },
-    {
         id: 15,
         icone: "fa-pen-to-square",
         title: "College Apps Writer",
@@ -263,30 +234,6 @@ export const moreData = [
         category: "writing",
         text: "Unlock our blog's potential with SkrilBats AI-powered writing.",
         link: "/apps-writer"
-    },
-    {
-        id: 16,
-        icone: "fa-pen-to-square",
-        title: "Youtube Scripts",
-        category: "social media",
-        text: "Unlock our blog's potential with SkrilBats AI-powered writing.",
-        link: "/youtube-scripts"
-    },
-    {
-        id: 17,
-        icone: "fa-pen-to-square",
-        title: "Rewritter",
-        category: "writing",
-        text: "Unlock our blog's potential with SkrilBats AI-powered writing.",
-        link: "/rewriter"
-    },
-    {
-        id: 19,
-        icone: "fa-comments",
-        title: "Rewritter",
-        category: "writing",
-        text: "Avoid plagiarism and evade the detection of AI algorithms",
-        link: "/rewrite-essay"
     },
     {
         id: 20,

@@ -8,7 +8,7 @@ import minibot from "../assets/images/minibot1.PNG";
 
 const categories = [
     "All", "Writing", "Summary", "Social Media", "Code",
-    "Ideas", "Blog", "Copy", "Q&A"
+    "Ideas", "Copy", "Q&A"
 ]
 
 const Dashboard = () => {

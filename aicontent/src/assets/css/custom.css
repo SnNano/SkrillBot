@@ -58,6 +58,17 @@
     -webkit-animation-delay: -0.16s;
     animation-delay: -0.16s;
   }
+
+  .mq-editable-field.mq-math-mode{
+    width: 100%;
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+    border:0;
+    background-color: #fff;
+    outline: 0;
+    padding: 1rem;
+  }
+
   
   @-webkit-keyframes sk-bouncedelay {
     0%, 80%, 100% { -webkit-transform: scale(0) }

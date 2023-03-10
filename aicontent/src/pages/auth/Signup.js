@@ -5,7 +5,6 @@ import { useContext, useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { referralCode, register } from "../../services/userService";
 import GeneralSpinner from "../../components/layouts/GeneralSpinner";
-import LeftLoginSignup from "../../components/layouts/LeftLoginSignup";
 import google from "../../assets/images/googleLogo.png";
 
 

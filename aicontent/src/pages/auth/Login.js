@@ -6,7 +6,6 @@ import { UserContext } from "../../App";
 import { useContext } from "react";
 import { login } from "../../services/userService";
 import GeneralSpinner from "../../components/layouts/GeneralSpinner";
-import LeftLoginSignup from "../../components/layouts/LeftLoginSignup";
 import google from "../../assets/images/googleLogo.png";
 
 

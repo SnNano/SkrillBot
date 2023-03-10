@@ -28,7 +28,7 @@ import ArticleSummary from "./pages/Functionalities/ArticleSummary";
 import BookSummary from "./pages/Functionalities/BookSummary";
 import YoutubeTranscripts from "./pages/Functionalities/YoutubeTranscripts";
 import YoutubeScripts from "./pages/Functionalities/YoutubeScripts";
-import Rewritter from "./pages/Functionalities/Rewritter";
+import CollegeApp from "./pages/Functionalities/CollegeApp";
 import EmailResponder from "./pages/Functionalities/EmailResponder";
 import { fetchAuthUserGoogle, fetchAuthUser } from "./services/userService";
 import MiniGpt from "./pages/Functionalities/MiniGpt";
@@ -41,12 +41,15 @@ function App() {
   const [open, setOpen] = useState(false);
   const [state, dispatch] = useReducer(authReducer, initialState);
   useEffect(() => {
-    fetchAuthUserGoogle(dispatch)
-    fetchAuthUser(dispatch)
+    const log = async () => {
+      await fetchAuthUserGoogle(dispatch)
+      await fetchAuthUser(dispatch)
+    }
+    log()
   }, [])
 
   return (
-    <div className="font-poppins">
+    <div className="font-poppins min-h-screen">
       <Router>
         {/* <Header /> */}
         <UserContext.Provider value={{ state, dispatch }}>
@@ -58,7 +61,7 @@ function App() {
                 element={
                   state.user ? (
                     state.user.user.phone ? (
-                      <div className="relative px-8 py-4 sm:ml-64 bg-gray-100 min-h-screen">
+                      <div className="relative px-8 py-4 sm:ml-64 bg-gray-100 h-full">
                         <Routes>
                           <Route path="/settings" element={<Settings />} />
                           <Route path="/billing" element={<Billing />} />
@@ -66,12 +69,12 @@ function App() {
                           <Route path="/success" element={<Dashboard />} />
                           <Route path="/rewrite-essay" element={<RewriteEssay />} />
                           <Route path="/essay" element={<Essay />} />
+                          <Route path="/college" element={<CollegeApp />} />
                           <Route path="/blog" element={<BlogArticle />} />
                           <Route path="/email" element={<Email />} />
                           <Route path="/sales-copy" element={<SalesCopy />} />
                           <Route path="/ask-anything" element={<MiniGpt />} />
                           <Route path="/ad-copy" element={<AdCopy />} />
-                          <Route path="/rewriter" element={<Rewritter />} />
                           <Route path="/questions-answers" element={<QandA />} />
                           <Route path="/bio-generator" element={<BioGenerator />} />
                           <Route path="/article-summary" element={<ArticleSummary />} />
@@ -98,7 +101,6 @@ function App() {
               <Route path="/login" element={<Login />} />
               <Route path="/" element={<Home />} />
               <Route path="*" element={<NotFound />} />
-
             </Routes>
           </SidebarContext.Provider>
         </UserContext.Provider>

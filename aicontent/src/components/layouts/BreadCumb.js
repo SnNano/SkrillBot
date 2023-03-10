@@ -17,21 +17,21 @@ const BreadCumb = ({ header, paragraph }) => {
     await Logout(state, dispatch);
     navigate("/login");
   }
-  useEffect(() => {
-    const getCharacter = async () => {
-      let data = await checkCharacters();
-      setCharacters(data)
-    }
-    getCharacter()
-    const intervalId = setInterval(checkCharacters, 5000);
-    return () => clearInterval(intervalId);
-  }, []);
-  useEffect(() => {
-    const setChar = () => { setCharacters(0) }
-    if (characters === 0 || characters < -1) {
-      setChar();
-    }
-  }, [])
+  // useEffect(() => {
+  //   const getCharacter = async () => {
+  //     let data = await checkCharacters();
+  //     setCharacters(data)
+  //   }
+  //   getCharacter()
+  //   const intervalId = setInterval(checkCharacters, 5000);
+  //   return () => clearInterval(intervalId);
+  // }, []);
+  // useEffect(() => {
+  //   const setChar = () => { setCharacters(0) }
+  //   if (characters === 0 || characters < -1) {
+  //     setChar();
+  //   }
+  // }, [])
   useEffect(() => {
     setOpenDrop(false); // close dropdown when location changes
   }, [location.pathname]);
@@ -42,14 +42,14 @@ const BreadCumb = ({ header, paragraph }) => {
     <div className="w-full flex justify-between p-4 breadbubble-element bg-white shadow-md absolute top-0 left-0">
       <div>
         <h1 className="md:text-2xl text-xl font-semibold text-gray-900 px-2 py-2">{header}</h1>
-        {characters >= -1 && <p className="text-indigo-500 md:text-md text-sm px-2">Characters {characters === -1 ? 'Unlimited' : `${characters}`}</p>}
-        {(characters < -1 || characters === 0) && <p className="text-red-600 md:text-md text-sm px-2">You reached the characters Limits Please Upgrade your plan</p>}
+        {state.user.user.characters >= -1 && <p className="text-indigo-500 md:text-md text-sm px-2">Characters {state.user.user.characters === -1 ? 'Unlimited' : `${state.user.user.characters}`}</p>}
+        {(state.user.user.characters < -1 || state.user.user.characters === 0) && <p className="text-red-600 md:text-md text-sm px-2">You reached the characters Limits Please Upgrade your plan</p>}
         <div className="font-normal text-gray-400 md:text-md text-sm py-2 px-2">{paragraph}</div>
       </div>
       {state.user ? <>
         <div className="flex items-center md:order-2 px-2">
           <button onClick={() => { setOpenDrop(!openDrop) }} type="button" className="w-8 h-8 outline-0 flex mr-3 text-sm bg-gray-800 rounded-full md:mr-0">
-          <img src={minibot} className="rounded-full" alt="pfp" />
+            <img src={minibot} className="rounded-full" alt="pfp" />
           </button>
           <div className={`dropDown ${openDrop ? '' : 'hidden'} z-50 absolute right-[32px] top-[75%] text-base list-none bg-white divide-y divide-gray-100 rounded-lg shadow`}>
             <div className="px-4 py-3">

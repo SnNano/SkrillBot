@@ -1,4 +1,4 @@
-import { chatapi, rewriteText } from "../../services/openaiService";
+import { chatapi } from "../../services/openaiService";
 import { useEffect, useState } from "react";
 import BreadCumb from "../../components/layouts/BreadCumb";
 import Sidebar from "../../components/layouts/Sidebar";

@@ -69,6 +69,8 @@ const GeneralForm = ({ header, paragraph, label2, type, maxLength, minLength }) 
       prompt = `Provide me with 10 different ${tone} ideas related to [${message}], but should be original.\n Start from 1 to 10.`;
     } else if (type === "YOUTUBE_SCRIPT") {
       prompt = `Generate a ${tone} script about [${message}].\n${keywords ? `Keywords: [${keywords}]` : ''}.`;
+    } else if (type === "COLLEGE") {
+      prompt = `Generate a ${tone} script about [${message}].\n${keywords ? `Keywords: [${keywords}]` : ''}.`;
     }
     try {
       const result = await getResponse(prompt, parseFloat(creativity), source.token);

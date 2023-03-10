@@ -1,14 +1,20 @@
 import { useEffect, useState, useRef } from "react";
+
 import BreadCumb from "../../components/layouts/BreadCumb";
 import Sidebar from "../../components/layouts/Sidebar";
 import { getResponse } from "../../services/openaiService";
 import Typewriter from 'typewriter-effect';
 import axios from 'axios';
+import { MathfieldComponent } from "react-mathlive";
+
 const { CancelToken } = axios;
 
 
 const QandA = () => {
   const [input, setInput] = useState("");
+  const [latex, setLatex] = useState("");
+  const [level, setLevel] = useState("6th-9th Grade");
+
   const messagesEndRef = useRef(null);
   const chatLogContainerRef = useRef(null);
   const [cancelToken, setCancelToken] = useState(null);
@@ -17,7 +23,7 @@ const QandA = () => {
     message: "how can I help you today?"
   }]);
 
-  const [isLoading, setIsLoading] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     chatLogContainerRef.current.scrollTop = chatLogContainerRef.current.scrollHeight;
@@ -31,7 +37,7 @@ const QandA = () => {
     }
     const source = CancelToken.source();
     setCancelToken(source);
-    let chatLogNew = [...chatLog, { user: 'Q', message: `${input}` }];
+    let chatLogNew = [...chatLog, { user: 'Q', message: `Please answer the following question for ${level ? level : '1st-6th Grade'}\n${input + " " + latex ? latex : ''}` }];
     setInput("");
     try {
       let newPrompt = chatLogNew.map((message) => message.message).join("\n");
@@ -53,11 +59,48 @@ const QandA = () => {
       <BreadCumb header="Homework Helper" paragraph="Our Al-powered homework bot is here to help." />
       <Sidebar />
       <section className="mt-36 flex justify-center items-center flex-col md:pb-24 pb-12">
-        <div className="relative flex flex-col h-[450px] flex-grow w-full lg:max-w-6xl bg-gray-50 shadow-xl rounded-lg overflow-hidden">
+        <div className="relative flex flex-col h-screen flex-grow w-full lg:max-w-6xl bg-gray-50 shadow-xl rounded-lg overflow-hidden">
+          <form onSubmit={handleSubmit} className="bg-gray-300 p-4">
+            <div className="grid md:grid-cols-2 grid-cols-1 gap-4 mb-6">
+              <div>
+                <label htmlFor="subject" className="block mb-2 text-sm font-medium text-indigo-500">Select Subject</label>
+                <select name="subject" id="subject" className="block w-full px-4 py-2 text-sm text-gray-900 placeholder-gray-500 border border-gray-300 rounded-md shadow-sm focus:outline-0 focus:border-indigo-400 flex-1">
+                  <option value="math">Math</option>
+                  <option value="physics">Physics</option>
+                  <option value="science">Science</option>
+                  <option value="history">History</option>
+                  <option value="english">English</option>
+                  <option value="chemics">Chemics</option>
+                  <option value="">Other</option>
+                </select>
+              </div>
+              <div>
+                <label htmlFor="level" className="block mb-2 text-sm font-medium text-indigo-500">Select Subject</label>
+                <select name="level" id="level" value={level} onChange={(e) => setLevel(e.target.value)} className="block w-full px-4 py-2 text-sm text-gray-900 placeholder-gray-500 border border-gray-300 rounded-md shadow-sm focus:outline-0 focus:border-indigo-400 flex-1">
+                  <option value="1st-6th Grade">1st-6th Grade</option>
+                  <option value="6th-9th Grade">6th-9th Grade</option>
+                  <option value="9th-12th Grade">9th-12th Grade</option>
+                  <option value="bachelors">Bachelors</option>
+                  <option value="masters">Masters</option>
+                  <option value="phd">Phd</option>
+                </select>
+              </div>
+            </div>
+            <input value={input}
+              onChange={(e) => setInput(e.target.value)}
+              name="input" className="mb-2 flex items-center outline-0 h-10 w-full rounded px-3 text-sm" type="text" placeholder="Type your question" />
+            <MathfieldComponent
+              latex={latex}
+              onChange={setLatex}
+              mathfieldConfig={{
+                virtualKeyboardMode: "manual"
+              }}
+            />
+          </form>
           <div ref={chatLogContainerRef} className="flex flex-col flex-grow h-0 p-4 overflow-auto">
             {chatLog.map((data, index) => {
               return <div key={index} className={`flex flex-col`}>
-                <div className={`flex w-full mt-2 space-x-3 max-w-xs ${data.user === "Q" ? 'ml-auto justify-end' : ''}`}>
+                <div className={`flex w-full mt-2 space-x-3 max-w-md ${data.user === "Q" ? 'ml-auto justify-end' : ''}`}>
                   {data.user === "A" && <div className="flex-shrink-0 h-10 w-10 rounded-full bg-gray-300"></div>}
                   <div>
                     <div className={`${data.user === "Q" ? 'bg-indigo-400 text-white' : 'bg-gray-300'} p-3 rounded-r-lg rounded-bl-lg`}>
@@ -87,11 +130,7 @@ const QandA = () => {
             </div>}
             <div ref={messagesEndRef} />
           </div>
-          <form onSubmit={handleSubmit} className="bg-gray-300 p-4">
-            <input value={input}
-              onChange={(e) => setInput(e.target.value)}
-              name="input" className="flex items-center outline-0 h-10 w-full rounded px-3 text-sm" type="text" placeholder="Type your message…" />
-          </form>
+
           {isLoading && (
             <div className="fixed bottom-[1rem] left-[5rem] w-full flex justify-center pb-4">
               <button
