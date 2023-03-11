@@ -32,26 +32,6 @@ const Settings = () => {
                             <p className="text-sm text-gray-400">Update your Settings here</p>
                         </div>
                         <hr className="bg-gray-400 my-2" />
-                        {/* <div className="p-4">
-                            <div className="grid lg:grid-cols-2 grid-cols-1 gap-4">
-                                <div>
-                                    <label htmlFor="currentEmail" className="mb-2 block text-sm font-light">Current Email</label>
-                                    <input disabled type="text" className="block rounded-md bg-white border border-gray-200 text-sm py-1 text-center w-full" placeholder={state.user.user.email} />
-                                </div>
-                                <div>
-                                    <label htmlFor="oldPassword" className="mb-2 block text-sm font-light">Old Password</label>
-                                    <input type="password" className="block rounded-md bg-white border border-gray-200 text-sm py-1 text-center w-full" placeholder={state.user.user.email} />
-                                </div>
-                                <div>
-                                    <label htmlFor="currentEmail" className="mb-2 block text-sm font-light">Current Email</label>
-                                    <input type="text" className="block rounded-md bg-white border border-gray-200 text-sm py-1 text-center w-full" placeholder={state.user.user.email} />
-                                </div>
-                                <div>
-                                    <label htmlFor="newPassword" className="mb-2 block text-sm font-light">New Password</label>
-                                    <input type="text" className="block rounded-md bg-white border border-gray-200 text-sm py-1 text-center w-full" placeholder={state.user.user.email} />
-                                </div>
-                            </div>
-                        </div> */}
                         <div className="p-4">
                             <div className="flex justify-between items-center flex-row">
                                 <h3 className="font-semibold text-gray-700 text-md mb-2">Personalization Settings</h3>
@@ -62,7 +42,7 @@ const Settings = () => {
                         <div className="p-4">
                             <div className="flex justify-between items-center flex-row">
                                 <h3 className="font-semibold text-gray-700 text-md mb-2">Email</h3>
-                                <p className="text-md font-light text-black px-4 py-2 rounded-md ">email@gmail.com</p>
+                                <p className="text-md font-light text-black px-4 py-2 rounded-md ">{state.user ? state.user.user.email : ''}</p>
                             </div>
                         </div>
                         <hr className="bg-gray-400 my-2" />

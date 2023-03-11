@@ -91,11 +91,11 @@ const GeneralForm = ({ header, paragraph, label2, type, maxLength, minLength }) 
     <>
       <BreadCumb header={header} paragraph={paragraph} />
       <Sidebar />
-      <div className="container mt-32">
+      <div className="container lg:mt-32 mt-40">
         <section className="flex justify-center flex-col lg:pb-32 lg:pt-6 md:pb-12 md:pt-4 sm:py-6">
           <div className="">
             <form onSubmit={handleSubmit} className="mb-6">
-              <div className="mb-6 grid lg:grid-cols-2 gap-4">
+              <div className="mb-6 grid md:grid-cols-2 grid-cols-1 gap-4">
                 <div>
                   <label htmlFor="tone" className="block mb-2 text-sm font-medium text-indigo-500">Select tone</label>
                   <select name="tone" id="tone" value={tone} onChange={handleChange} className="block w-full px-4 py-2 text-sm text-gray-900 placeholder-gray-500 border border-gray-300 rounded-md shadow-sm focus:outline-0 focus:border-indigo-400 flex-1">
@@ -130,7 +130,7 @@ const GeneralForm = ({ header, paragraph, label2, type, maxLength, minLength }) 
               <div className="flex justify-center">
                 {loading ? (
                   <p
-                    className="cursor-pointer bg-transparent border border-red-500 text-red-500 rounded-lg hover:bg-red-700 hover:text-white font-bold py-2 px-8 hover:translate-y-[-10px] transition ease-in"
+                    className="cursor-pointer z-12 bg-transparent border border-red-500 text-red-500 rounded-lg hover:bg-red-700 hover:text-white font-bold py-2 px-8 hover:translate-y-[-10px] transition ease-in"
                     onClick={() => cancelToken.cancel()}
                   > Stop Generating </p>
                 ) : (<Button loading={loading} />)}

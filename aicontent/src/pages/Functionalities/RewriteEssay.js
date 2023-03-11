@@ -30,7 +30,7 @@ const RewriteEssay = () => {
         <>
             <BreadCumb header="Rewritter" paragraph="Crafting content that is both polished and playful, while avoiding plagiarism and evading the detection of AI algorithms" type="ESSAY" label2="Type the subject of essay you want" />
             <Sidebar />
-            <div className="container mt-32">
+            <div className="container lg:mt-32 mt-40">
                 <section className="flex justify-center flex-col lg:pb-32 lg:pt-6 md:pb-12 md:pt-4 sm:py-6">
                     <div className="">
                         <form onSubmit={handleSubmit} className="mb-6">

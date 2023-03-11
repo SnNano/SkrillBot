@@ -1,37 +1,24 @@
 import { useEffect, useContext, useState } from "react";
-import { checkCharacters } from "../../services/userService";
 import { UserContext } from "../../App";
 import { Logout } from "../../services/userService";
 import minibot from "../../assets/images/minibot1.PNG";
 
 import { Link, useNavigate, useLocation } from "react-router-dom";
+import { SidebarContext } from "./Sidebar";
 
 
 const BreadCumb = ({ header, paragraph }) => {
   const { state, dispatch } = useContext(UserContext);
-  const [characters, setCharacters] = useState(0);
+  const { open, setOpen } = useContext(SidebarContext);
+
   const [openDrop, setOpenDrop] = useState(false);
+
   const location = useLocation();
   const navigate = useNavigate();
   const onLogout = async () => {
     await Logout(state, dispatch);
     navigate("/login");
   }
-  // useEffect(() => {
-  //   const getCharacter = async () => {
-  //     let data = await checkCharacters();
-  //     setCharacters(data)
-  //   }
-  //   getCharacter()
-  //   const intervalId = setInterval(checkCharacters, 5000);
-  //   return () => clearInterval(intervalId);
-  // }, []);
-  // useEffect(() => {
-  //   const setChar = () => { setCharacters(0) }
-  //   if (characters === 0 || characters < -1) {
-  //     setChar();
-  //   }
-  // }, [])
   useEffect(() => {
     setOpenDrop(false); // close dropdown when location changes
   }, [location.pathname]);
@@ -68,8 +55,7 @@ const BreadCumb = ({ header, paragraph }) => {
               </li>
             </ul>
           </div>
-          <button data-collapse-toggle="mobile-menu-2" type="button" className="inline-flex items-center p-2 ml-1 text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600" aria-controls="mobile-menu-2" aria-expanded="false">
-            <span className="sr-only">Open main menu</span>
+          <button onClick={() => setOpen(!open)} type="button" className="inline-flex items-center p-2 ml-1 text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 outline-0">
             <svg className="w-6 h-6" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fillRule="evenodd" d="M3 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 10a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 15a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z" clipRule="evenodd"></path></svg>
           </button>
         </div>

@@ -86,7 +86,7 @@ const Input = ({ header, paragraph, type, keywordsText }) => {
               </div>}
               {loading ? (
                 <p
-                  className="inline-flex cursor-pointer bg-transparent border border-red-500 text-red-500 rounded-lg hover:bg-red-700 hover:text-white font-bold py-2 px-8 hover:translate-y-[-10px] transition ease-in"
+                  className="inline-flex z-12 cursor-pointer bg-transparent border border-red-500 text-red-500 rounded-lg hover:bg-red-700 hover:text-white font-bold py-2 px-8 hover:translate-y-[-10px] transition ease-in"
                   onClick={() => cancelToken.cancel()}
                 > Stop Generating </p>
               ) : (<Button loading={loading} />)}

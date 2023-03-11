@@ -5,11 +5,18 @@ import { useEffect, useState } from 'react';
 const Facts = ({ showModal, setShowModal }) => {
     const [fact, setFact] = useState("");
     useEffect(() => {
-        axios
-            .get("https://uselessfacts.jsph.pl/api/v2/facts/random?language=en")
-            .then((response) => setFact(response.data.text))
-            .catch((error) => console.log(error));
-    }, []);
+        if (showModal) {
+            const intervalId = setInterval(() => {
+                axios
+                    .get("https://uselessfacts.jsph.pl/api/v2/facts/random?language=en")
+                    .then((response) => setFact(response.data.text))
+                    .catch((error) => console.log(error));
+            }, 5000); // 5000 milliseconds = 5 seconds
+            return () => clearInterval(intervalId);
+        }
+        // cleanup function to clear the interval
+    }, [showModal]);
+
 
     return (
         <>

@@ -3,7 +3,8 @@
 }
 .breadbubble-element{
     order: 1; 
-    height: 140px; 
+    height: auto;
+    /* height: 140px;  */
 }
 .dropDown{
     width: 252px;

@@ -56,7 +56,7 @@ const MiniGpt = () => {
             <Sidebar />
             <div className="flex h-[500px] antialiased text-gray-800 md:pb-24 pb-6 mt-32">
                 <div className="flex flex-row h-full w-full overflow-x-hidden">
-                    <div className="flex flex-col flex-auto h-full p-6">
+                    <div className="flex flex-col flex-auto h-full">
                         <div className="flex flex-col flex-auto flex-shrink-0 rounded-2xl bg-gray-100 h-full p-4" >
                             <div ref={chatLogContainerRef} className="flex flex-col h-full overflow-x-auto mb-4">
                                 <div className="flex flex-col h-full">

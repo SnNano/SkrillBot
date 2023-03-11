@@ -80,12 +80,11 @@ const Essay = () => {
     <>
       <BreadCumb header="Essay Writing" paragraph="Unlock your writing potential with our Al-powered essay writing tool" type="ESSAY" label2="Type the subject of essay you want" />
       <Sidebar />
-      <div className="container mt-32">
-        <Facts showModal={showModal} setShowModal={setShowModal} />
+      <div className="container lg:mt-32 mt-40">
         <section className="flex justify-center flex-col lg:pb-32 lg:pt-6 md:pb-12 md:pt-4 sm:py-6">
           <div className="relative">
             <form onSubmit={handleSubmit} className="mb-6">
-              <div className="mb-6 grid lg:grid-cols-2 gap-4">
+              <div className="mb-6 grid md:grid-cols-2 grid-cols-1 gap-4">
                 <div>
                   <label htmlFor="tone" className="block mb-2 text-sm font-medium text-indigo-500">Select tone</label>
                   <select name="tone" id="tone" value={tone} onChange={handleChange} className="block w-full px-4 py-2 text-sm text-gray-900 placeholder-gray-500 border border-gray-300 rounded-md shadow-sm focus:outline-0 focus:border-indigo-400 flex-1">
@@ -138,11 +137,12 @@ const Essay = () => {
                 </div>
                 ) : (<Button loading={loading} />)}
                 {loading ? (
-                  <p className="fixed bottom-10 cursor-pointer bg-red-500 border border-red-500 rounded-lg hover:bg-red-700 text-white font-bold py-2 px-8 hover:translate-y-[-10px] transition ease-in"
+                  <p className="fixed z-12 bottom-10 cursor-pointer bg-red-500 border border-red-500 rounded-lg hover:bg-red-700 text-white font-bold py-2 px-8 hover:translate-y-[-10px] transition ease-in"
                     onClick={() => cancelToken.cancel()}> Stop Generating </p>
                 ) : (<></>)}
               </div>
             </form>
+            <Facts showModal={showModal} setShowModal={setShowModal} />
             <Content content={content} generatedText={generatedText} loading={loading} />
           </div>
         </section>

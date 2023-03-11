@@ -15,7 +15,7 @@ const Pricing = () => {
   return (
 
     <section className="text-gray-800">
-      <div className="grid lg:grid-cols-2 gap-6 px-12 ">
+      <div className="grid md::grid-cols-2 grid-cols-1 gap-6 px-12 ">
         {state.user.user.plan !== "monthly" && <div className="mb-6 lg:mb-0">
           <div className="block rounded-lg shadow-lg bg-gray-100 w-[300px] h-full">
             <div className="p-6 border-b border-gray-300 text-center">

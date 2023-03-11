@@ -61,7 +61,7 @@ function App() {
                 element={
                   state.user ? (
                     state.user.user.phone ? (
-                      <div className="relative px-8 py-4 sm:ml-64 bg-gray-100 h-full">
+                      <div className="relative px-8 py-4 sm:ml-64 bg-gray-100 min-h-screen">
                         <Routes>
                           <Route path="/settings" element={<Settings />} />
                           <Route path="/billing" element={<Billing />} />

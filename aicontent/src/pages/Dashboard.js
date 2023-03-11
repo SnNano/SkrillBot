@@ -7,8 +7,8 @@ import { moreData } from "../data";
 import minibot from "../assets/images/minibot1.PNG";
 
 const categories = [
-    "All", "Writing", "Summary", "Social Media", "Code",
-    "Ideas", "Copy", "Q&A"
+    "All", "Writing", "Summary", "Code",
+    "Ideas", "Copy", "Q&A", "Social Media"
 ]
 
 const Dashboard = () => {
@@ -41,7 +41,7 @@ const Dashboard = () => {
 
     return (
         <>
-            <header className="border-b w-full z-30 md:bg-opacity-90 transition duration-300 ease-in-out false">
+            <header className="border-b w-full mb-6 md:mb-0 z-30 md:bg-opacity-90 transition duration-300 ease-in-out false">
                 <div className="max-w-6xl mx-auto">
                     <div className="flex items-center justify-between h-16 md:h-20">
                         <div className="flex-shrink-0">
@@ -87,20 +87,20 @@ const Dashboard = () => {
                 </div>
             </header>
             <Sidebar />
-            <div className="container">
+            <div className="container h-auto">
                 <section className="flex justify-center flex-col lg:pb-32 lg:pt-6 md:pb-12 md:pt-4 sm:py-6">
                     <div className="block w-full">
                         <div className="mb-6">
                             {categories.map((item, index) => {
-                                return <button key={index} onClick={() => setSelectedCategory(item)} className={`mb-4 rounded-full mr-5 py-2 px-6 border border-indigo-500 ${selectedCategory === item
+                                return <button key={index} onClick={() => setSelectedCategory(item)} className={`mb-4 rounded-full mr-2 py-2 px-6 border border-indigo-500 ${selectedCategory === item
                                     ? 'bg-indigo-500 text-white'
                                     : 'bg-white text-indigo-500 hover:text-white hover:bg-indigo-600'
                                     }`}>{item}</button>
                             })}
                         </div>
                     </div>
-                    <div className="grid">
-                        <div className="grid md:grid-cols-3 grid-cols-2 gap-2">
+                    <div className="flex justify-center items-center">
+                        <div className="grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-2">
                             {filteredData.map((item, index) => {
                                 return <Link to={item.link} key={index} className="scale-90 hover:scale-100 hover:shadow-xl transition ease-in delay-150 max-w-sm bg-white border border-gray-200 rounded-[25px] shadow">
                                     <img className="h-[290px] w-full rounded-t-[25px]" src={item.image} alt="" />
