@@ -89,7 +89,7 @@ const Pricing = () => {
                 <strong>$79.99</strong>
                 <small className="text-gray-500 text-sm">/year</small>
               </h3>
-              <form action={config.baseURL + "users/stripe/subscribe"} method="POST" className="flex flex-1">
+              <form action={config.baseURL + "stripe/stripe/subscribe"} method="POST" className="flex flex-1">
                 <input type="hidden" name="token" value={state.user.token} />
                 <input type="hidden" name="priceId" value={config.stripe.yearly} />
                 <button type="submit"

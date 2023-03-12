@@ -730,6 +730,10 @@ video {
   top: 100%;
 }
 
+.right-0 {
+  right: 0px;
+}
+
 .-z-10 {
   z-index: -10;
 }
@@ -2773,10 +2777,6 @@ video {
     height: 5rem;
   }
 
-  .md\:w-full {
-    width: 100%;
-  }
-
   .md\:max-w-4xl {
     max-width: 56rem;
   }
@@ -3081,10 +3081,6 @@ video {
 
   .lg\:pt-6 {
     padding-top: 1.5rem;
-  }
-
-  .lg\:text-start {
-    text-align: start;
   }
 }
 

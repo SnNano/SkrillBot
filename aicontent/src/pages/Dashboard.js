@@ -60,7 +60,7 @@ const Dashboard = () => {
                                     <button onClick={() => { setOpenDrop(!openDrop) }} className="w-8 h-8 outline-0 flex mr-3 text-sm rounded-full md:mr-0">
                                         <img src={minibot} className="rounded-full" alt="pfp" />
                                     </button>
-                                    <div className={`dropDown ${openDrop ? '' : 'hidden'} z-50 absolute right-[-2%] top-[112%] text-base list-none bg-white divide-y divide-gray-100 rounded-lg shadow`}>
+                                    <div className={`dropDown ${openDrop ? '' : 'hidden'} z-50 absolute right-0 top-[112%] text-base list-none bg-white divide-y divide-gray-100 rounded-lg shadow`}>
                                         <div className="px-4 py-3">
                                             <span className="block text-md text-gray-900">{state.user ? state.user.user.username : ''}</span>
                                             <span className="block font-medium text-sm text-gray-500 truncate">{state.user ? state.user.user.email : ''}</span>

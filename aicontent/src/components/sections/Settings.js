@@ -29,13 +29,13 @@ const Settings = () => {
         <>
             <BreadCumb header="Settings" />
             <Sidebar />
-            <div className="mt-32">
+            <div className="mt-4">
                 <div className="flex flex-col justify-center items-center p-4 pb-20">
                     <div className="flex justify-center w-full">
-                        <div className="mb-4">
-                            <Link to="/terms-of-use" className={`mb-4 rounded-full mr-2 py-2 px-6 border border-indigo-500 hover:bg-indigo-500 hover:text-white text-indigo-500 bg-white`}>Terms of use</Link>
-                            <Link to="/billing" className={`mb-4 rounded-full mr-2 py-2 px-6 border border-indigo-500 hover:bg-indigo-500 hover:text-white text-indigo-500 bg-white`}>Subscription</Link>
-                            <button onClick={onLogout} className={`mb-4 rounded-full mr-2 py-2 px-6 border border-indigo-500 hover:bg-indigo-500 hover:text-white text-indigo-500 bg-white`}>Sign out</button>
+                        <div className="mb-1">
+                            <Link to="/terms-of-use" className={`rounded-full mr-2 py-2 px-6 border border-indigo-500 hover:bg-indigo-500 hover:text-white text-indigo-500 bg-white`}>Terms of use</Link>
+                            <Link to="/billing" className={`rounded-full mr-2 py-2 px-6 border border-indigo-500 hover:bg-indigo-500 hover:text-white text-indigo-500 bg-white`}>Subscription</Link>
+                            <button onClick={onLogout} className={`rounded-full mr-2 py-2 px-6 border border-indigo-500 hover:bg-indigo-500 hover:text-white text-indigo-500 bg-white`}>Sign out</button>
 
                         </div>
                     </div>

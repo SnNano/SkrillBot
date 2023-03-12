@@ -26,7 +26,7 @@ const BreadCumb = ({ header, paragraph }) => {
     navigate('/billing'); // Navigate to the billing page
   }
   return (
-    <div className="w-full flex justify-between p-4 breadbubble-element bg-white shadow-md  top-0 left-0">
+    <div className="w-full relative flex justify-between p-4 breadbubble-element bg-white shadow-md  top-0 left-0">
       <div>
         <h1 className="md:text-2xl text-xl font-semibold text-gray-900 px-2 py-2">{header}</h1>
         {state.user.user.characters >= -1 && <p className="text-indigo-500 md:text-md text-sm px-2">Characters {state.user.user.characters === -1 ? 'Unlimited' : `${state.user.user.characters}`}</p>}

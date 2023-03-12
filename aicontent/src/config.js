@@ -1,23 +1,21 @@
 const dev = {
-	baseURL: "http://localhost:5000/api/",
-	landingPageUrl: "http://localhost:3000",
+	baseURL: "https://api.skrillbot.com/api/",
 	stripe: {
-		monthly: "price_1Melj7HqMMxYnnotTiUydIMv",
-		yearly: "price_1Meln5HqMMxYnnot5mVs0xKv"
+		monthly: "price_1MjBY1DTXsIy5WCeJiBynJRp",
+		yearly: "price_1MkvdYDTXsIy5WCeqIrVH5OS"
 	},
 };
-  
+
 const prod = {
-	baseURL: '/api/',
-	landingPageUrl: "https://app.openaitemplate.com",
+	baseURL: 'https://api.skrillbot.com/api/',
 	stripe: {
-		monthly: "price_1Melj7HqMMxYnnotTiUydIMv",
-		yearly: "price_1Meln5HqMMxYnnot5mVs0xKv"
+		monthly: "price_1MjBY1DTXsIy5WCeJiBynJRp",
+		yearly: "price_1MkvdYDTXsIy5WCeqIrVH5OS"
 	},
 };
-  
+
 const config = process.env.NODE_ENV === 'development'
 	? dev
 	: prod;
-  
+
 export default config;
