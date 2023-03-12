@@ -1,7 +1,7 @@
 import { useEffect, useContext, useState } from "react";
 import { UserContext } from "../../App";
 import { Logout } from "../../services/userService";
-import minibot from "../../assets/images/minibot1.PNG";
+import minibot from "../../assets/images/avatarprof.jpg";
 
 import { Link, useNavigate, useLocation } from "react-router-dom";
 import { SidebarContext } from "./Sidebar";
@@ -26,7 +26,7 @@ const BreadCumb = ({ header, paragraph }) => {
     navigate('/billing'); // Navigate to the billing page
   }
   return (
-    <div className="w-full flex justify-between p-4 breadbubble-element bg-white shadow-md absolute top-0 left-0">
+    <div className="w-full flex justify-between p-4 breadbubble-element bg-white shadow-md  top-0 left-0">
       <div>
         <h1 className="md:text-2xl text-xl font-semibold text-gray-900 px-2 py-2">{header}</h1>
         {state.user.user.characters >= -1 && <p className="text-indigo-500 md:text-md text-sm px-2">Characters {state.user.user.characters === -1 ? 'Unlimited' : `${state.user.user.characters}`}</p>}
@@ -35,7 +35,7 @@ const BreadCumb = ({ header, paragraph }) => {
       </div>
       {state.user ? <>
         <div className="flex items-center md:order-2 px-2">
-          <button onClick={() => { setOpenDrop(!openDrop) }} type="button" className="w-8 h-8 outline-0 flex mr-3 text-sm bg-gray-800 rounded-full md:mr-0">
+          <button onClick={() => { setOpenDrop(!openDrop) }} type="button" className="w-8 h-8 outline-0 flex mr-3 text-sm bg-transparent rounded-full md:mr-0">
             <img src={minibot} className="rounded-full" alt="pfp" />
           </button>
           <div className={`dropDown ${openDrop ? '' : 'hidden'} z-50 absolute right-[32px] top-[75%] text-base list-none bg-white divide-y divide-gray-100 rounded-lg shadow`}>

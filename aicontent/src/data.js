@@ -14,6 +14,13 @@ import salesCopy from "./assets/images/salesCopy.PNG";
 
 export const data = [
     {
+        id: 7,
+        icone: "fa-bars",
+        title: "Rewriter",
+        text: "Crafting content that is both polished and playful, while avoiding plagiarism and evading the detection of AI algorithms.",
+        link: "/rewrite-essay"
+    },
+    {
         id: 1,
         icone: "fa-comments",
         title: "Essay Writing",
@@ -24,7 +31,7 @@ export const data = [
         id: 2,
         icone: "fa-pen-to-square",
         title: "Blog Articles",
-        text: "Unlock our blog's potential with SkrilBats AI-powered writing assistant From headlines to conclusions, we harp you create engaging content quickly and easily.",
+        text: "Unlock our blog's potential with SkrillBot AI-powered writing assistant From headlines to conclusions, we harp you create engaging content quickly and easily.",
         link: "/blog"
     },
     {
@@ -56,13 +63,6 @@ export const data = [
         link: "/questions-answers"
     },
     {
-        id: 7,
-        icone: "fa-comment",
-        title: "Product Review",
-        text: "Get insightful and well-written product reviews with SkillBot. Our Al-powered service provides unbiased and in-depth reviews.",
-        link: "/product-review"
-    },
-    {
         id: 8,
         icone: "fa-lightbulb",
         title: "Ideas",
@@ -91,35 +91,37 @@ export const sidebarData = [
         link: "/essay"
     },
     {
-        id: 12,
-        icone: "fa-bars",
-        title: "Essay Rewriting",
-        link: "/rewrite-essay"
-    },
-    {
         id: 3,
         icone: "fa-pen-to-square",
         title: "Blog Articles",
         link: "/blog"
     },
     {
+        id: 6,
+        icone: "fa-book-open-reader",
+        title: "Effective Ad copy",
+        link: "/ad-copy"
+    },
+    {
+        id: 12,
+        icone: "fa-bars",
+        title: "Effective Rewriter",
+        link: "/rewrite-essay"
+    },
+    {
+        id: 5,
+        icone: "fa-check",
+        title: "AI Sales Copy",
+        link: "/sales-copy"
+    },
+
+    {
         id: 4,
         icone: "fa-file-lines",
         title: "Email Writing",
         link: "/email"
     },
-    {
-        id: 5,
-        icone: "fa-check",
-        title: "Sales Copy",
-        link: "/sales-copy"
-    },
-    {
-        id: 6,
-        icone: "fa-book-open-reader",
-        title: "Ad copy",
-        link: "/ad-copy"
-    },
+
     {
         id: 8,
         icone: "fa-square-root-variable",
@@ -211,11 +213,11 @@ export const moreData = [
     {
         id: 12,
         icone: "fa-pen-to-square",
-        title: "Article Summary",
+        title: "Summarizer",
         image: articleSum,
         category: "summary",
-        text: "Unlock your writing potential",
-        link: "/article-summary"
+        text: "Summarize Any Text",
+        link: "/summarizer"
     },
     {
         id: 13,
@@ -229,7 +231,7 @@ export const moreData = [
     {
         id: 15,
         icone: "fa-pen-to-square",
-        title: "College Apps Writer",
+        title: "College Application ",
         image: college,
         category: "writing",
         text: "Unlock our blog's potential with SkrilBats AI-powered writing.",

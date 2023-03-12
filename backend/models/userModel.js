@@ -28,17 +28,17 @@ const userSchema = mongoose.Schema({
 		required: false,
 		default: ""
 	},
-	phone: {
-		type: String,
-		required: false,
-		minlength: 10,
-		maxlength: 15,
-		index: {
-			unique: true,
-			partialFilterExpression: { email: { $type: 'string' } },
-		},
-		default: null
-	},
+	// phone: {
+	// 	type: String,
+	// 	required: false,
+	// 	minlength: 10,
+	// 	maxlength: 15,
+	// 	index: {
+	// 		unique: true,
+	// 		partialFilterExpression: { email: { $type: 'string' } },
+	// 	},
+	// 	default: null
+	// },
 	characters: {
 		type: Number,
 		default: 5000,
@@ -79,10 +79,5 @@ const userSchema = mongoose.Schema({
 		ref: "User",
 	},
 }, { timestamps: true });
-userSchema.index({ phone: 1 },
-	{
-		unique: true,
-		partialFilterExpression: { phone: { $exists: true, $gt: '' } }
-	}
-);
+
 module.exports = mongoose.model("User", userSchema);

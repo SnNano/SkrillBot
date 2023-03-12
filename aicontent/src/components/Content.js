@@ -4,8 +4,9 @@ import { useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { UserContext } from "../App";
 import Confetti from 'react-confetti';
+import Facts from "./layouts/Facts";
 
-const Content = ({ loading, generatedText, content }) => {
+const Content = ({ showModal, setShowModal, loading, generatedText }) => {
   const [isSuccess, setIsSuccess] = useState(false);
   const [displayedLineIndex, setDisplayedLineIndex] = useState(0);
   const [displayedCharIndex, setDisplayedCharIndex] = useState(0);
@@ -68,7 +69,8 @@ const Content = ({ loading, generatedText, content }) => {
   }
   return (
     <>
-      {content === 1 && visible && displayedText && <div className="left-[25%] w-full h-full fixed top-0 left-0">
+      <Facts showModal={showModal} setShowModal={setShowModal} />
+      {visible && displayedText && <div className="left-[25%] w-full h-full fixed top-0 left-0">
         <Confetti width={900}
           height={500} numberOfPieces={900}
           recycle={false}
@@ -76,7 +78,7 @@ const Content = ({ loading, generatedText, content }) => {
           tweenDuration={2000} />
       </div>}
       <div className="min-h-[20rem] flex-col p-6  border border-gray-200 rounded-lg shadow-md sm:my-4">
-        {!loading && generatedText && displayedText && <pre style={{ whiteSpace: 'pre-wrap', fontFamily: ' Arial, sans-serif' }}>{displayedText}</pre>
+        {!loading && generatedText && displayedText && <pre style={{ whiteSpace: 'pre-wrap', fontFamily: 'Times New Roman' }}>{displayedText}</pre>
         }
         {!generatedText && !loading && <div className="flex min-h-[20rem] justify-center items-center"><p className="text-2xl text-center text-gray-400">Answer will appear here.</p></div>}
         {loading && <div className="spinnerH"><Spinner /></div>}

@@ -2,14 +2,19 @@ import { UserContext } from "../../App";
 import { useContext, useEffect, useState } from "react";
 import BreadCumb from "../layouts/BreadCumb";
 import Sidebar from "../layouts/Sidebar";
-import { Link } from "react-router-dom";
-
+import { Link, useNavigate } from "react-router-dom";
+import { Logout } from "../../services/userService";
 
 
 const Settings = () => {
-    const { state } = useContext(UserContext);
+    const { state, dispatch } = useContext(UserContext);
     const [isSuccess, setIsSuccess] = useState(false);
     const [referralLink, setReferralLink] = useState('');
+    const navigate = useNavigate();
+    const onLogout = async () => {
+        await Logout(state, dispatch);
+        navigate("/login");
+    }
     useEffect(() => {
         setReferralLink(`${window.location.origin}/sign-up/${state.user.user.referralId}`);
     }, [state.user.user.referralId])
@@ -25,7 +30,15 @@ const Settings = () => {
             <BreadCumb header="Settings" />
             <Sidebar />
             <div className="mt-32">
-                <div className="flex justify-center p-4 pb-20">
+                <div className="flex flex-col justify-center items-center p-4 pb-20">
+                    <div className="flex justify-center w-full">
+                        <div className="mb-4">
+                            <Link to="/terms-of-use" className={`mb-4 rounded-full mr-2 py-2 px-6 border border-indigo-500 hover:bg-indigo-500 hover:text-white text-indigo-500 bg-white`}>Terms of use</Link>
+                            <Link to="/billing" className={`mb-4 rounded-full mr-2 py-2 px-6 border border-indigo-500 hover:bg-indigo-500 hover:text-white text-indigo-500 bg-white`}>Subscription</Link>
+                            <button onClick={onLogout} className={`mb-4 rounded-full mr-2 py-2 px-6 border border-indigo-500 hover:bg-indigo-500 hover:text-white text-indigo-500 bg-white`}>Sign out</button>
+
+                        </div>
+                    </div>
                     <div className="w-[80%] settings bg-white mt-6 rounded-lg shadow-lg">
                         <div className="p-4">
                             <h3 className="font-normal text-lg mb-2">Personal Information</h3>

@@ -11,7 +11,7 @@ const General = () => {
               return <Link to={item.link} key={index} className="bg-indigo-50 p-10 rounded-lg shadow-md">
                 <h1 className="text-2xl text-black font-bold">{item.title}</h1>
                 <h2 className="text-sm text-gray-400 my-4">{item.text}</h2>
-                <button className="inline-block bg-indigo-400 text-white py-3 px-8 rounded text-sm font-semibold hover:bg-indigo-500">Go to lesson</button>
+                <button className="inline-block bg-indigo-400 text-white py-3 px-8 rounded text-sm font-semibold hover:bg-indigo-500">Go to Generator</button>
               </Link>
             })}
           </div>

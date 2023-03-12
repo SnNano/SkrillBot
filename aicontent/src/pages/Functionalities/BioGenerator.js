@@ -3,6 +3,10 @@ import Sidebar from "../../components/layouts/Sidebar";
 import { getResponse } from "../../services/openaiService";
 import { useState } from "react";
 import Content from "../../components/Content";
+import Footer from "../../components/layouts/Footer";
+import axios from 'axios';
+const { CancelToken } = axios;
+
 
 const BioGenerator = () => {
     const [formData, setFormData] = useState({
@@ -11,6 +15,8 @@ const BioGenerator = () => {
         loading: false,
         generatedText: null
     });
+    const [cancelToken, setCancelToken] = useState(null);
+    const [showModal, setShowModal] = useState(false);
     const { topic, socialMedia, generatedText, loading } = formData;
 
     const handleChange = (e) => {
@@ -21,16 +27,32 @@ const BioGenerator = () => {
         e.preventDefault();
         let prompt;
         setFormData({ ...formData, generatedText: null, loading: true });
-        prompt = `Please generate a ${socialMedia} bio according to the following topic: [${topic}].`;
-        const result = await getResponse(prompt);
-        setFormData({ ...formData, generatedText: result, loading: false });
+        if (cancelToken) {
+            cancelToken.cancel();
+        }
+        const source = CancelToken.source();
+        setCancelToken(source);
+        setShowModal(true);
+        try {
+            prompt = `Please generate a ${socialMedia} bio according to the following topic: [${topic}].`;
+            const result = await getResponse(prompt, 0.5, source.token);
+            setFormData({ ...formData, generatedText: result, loading: false });
+        } catch (error) {
+            if (axios.isCancel(error)) {
+                setFormData({ ...formData, loading: false });
+                console.log('Request canceled');
+            } else {
+                console.log('Error', error.message);
+            }
+        }
+        setShowModal(false);
     }
 
     return (
         <>
-            <BreadCumb header="LinkedIn Bio" paragraph="Effortlessly generate high-quality LinkedIn Bio." />
+            <BreadCumb header="Bio Generatot" paragraph="Effortlessly generate high-quality Bios." />
             <Sidebar />
-            <div className="container mt-32">
+            <div className="container px-8 py-4">
                 <section className="flex justify-center flex-col lg:pb-32 lg:pt-6 md:pb-12 md:pt-4 sm:py-6">
                     <div className="grid grid-cols-1 gap-3">
                         <form onSubmit={handleSubmit}>
@@ -52,14 +74,18 @@ const BioGenerator = () => {
                                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"></path></svg>
                                     </div>
                                 </div>
-                                <input type="text" name="topic" id="topic" value={topic} onChange={handleChange} className="outline-0 block w-full p-4 text-xs md:text-sm pl-10 text-gray-900 border border-gray-300 rounded-md bg-gray-50 focus:ring-blue-500 focus:border-blue-500" placeholder="Write something about your major" />
+                                <input type="text" name="topic" id="topic" value={topic} onChange={handleChange} className="outline-0 block w-full p-4 text-xs md:text-sm pl-10 text-gray-900 border border-gray-300 rounded-md bg-gray-50 focus:ring-blue-500 focus:border-blue-500" placeholder="Topic" />
                                 <button type="submit" className="bg-blue-600 btn text-white absolute right-2.5 bottom-2.5  hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-md text-sm px-4 py-2"><span>Generate</span></button>
                             </div>
                         </form>
-                        <Content generatedText={generatedText} loading={loading} />
+                        {loading &&
+                            <p className="inline-flex my-2 cursor-pointer bg-transparent border border-red-500 text-red-500 rounded-lg hover:bg-red-700 hover:text-white font-bold py-2 px-8 hover:translate-y-[-10px] transition ease-in"
+                                onClick={() => cancelToken.cancel()} > Stop Generating </p>}
+                        <Content showModal={showModal} setShowModal={setShowModal} generatedText={generatedText} loading={loading} />
                     </div>
                 </section>
             </div>
+            <Footer />
         </>
     )
 }

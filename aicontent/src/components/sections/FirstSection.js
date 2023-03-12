@@ -16,7 +16,7 @@ const FirstSection = () => {
     }
     return (
         <>
-            <div className="pl-14 pr-12 pt-4 flex justify-between items-center">
+            <div className="md:pl-14 md:pr-12 pr-2 pt-4 flex justify-between items-center">
                 <div className="flex items-center space-x-2">
                     <img className="w-auto h-8 ml-2" src={logo} alt="Skrillbot logo" />
                 </div>
@@ -38,7 +38,7 @@ const FirstSection = () => {
                                 <h2 className="mt-6 text-lg text-gray-500 sm:text-xl">Unlock your writing potential with our Al-powered service. From essays to sales copy, create original and compelling content with ease and confidence, free from the worries of plagiarism detection.</h2>
                             </div>
                             <div className="my-10 space-y-4">
-                                <Link to="/" className="rounded-md text-white text-lg px-4 py-2 bg-indigo-400 hover:bg-indigo-500">Get Started</Link>
+                                <a href="#pricingHome" className="rounded-md text-white text-lg px-4 py-2 bg-indigo-400 hover:bg-indigo-500">Get Started</a>
                             </div>
                             <div className="mt-6">
                                 <div className="inline-flex items-center">

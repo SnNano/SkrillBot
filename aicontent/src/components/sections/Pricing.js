@@ -15,7 +15,7 @@ const Pricing = () => {
   return (
 
     <section className="text-gray-800">
-      <div className="grid md::grid-cols-2 grid-cols-1 gap-6 px-12 ">
+      <div className="grid md:grid-cols-2 grid-cols-1 gap-6 px-12 ">
         {state.user.user.plan !== "monthly" && <div className="mb-6 lg:mb-0">
           <div className="block rounded-lg shadow-lg bg-gray-100 w-[300px] h-full">
             <div className="p-6 border-b border-gray-300 text-center">
@@ -44,7 +44,7 @@ const Pricing = () => {
                     <path fill="currentColor"
                       d="M173.898 439.404l-166.4-166.4c-9.997-9.997-9.997-26.206 0-36.204l36.203-36.204c9.997-9.998 26.207-9.998 36.204 0L192 312.69 432.095 72.596c9.997-9.997 26.207-9.997 36.204 0l36.203 36.204c9.997 9.997 9.997 26.206 0 36.204l-294.4 294.401c-9.998 9.997-26.207 9.997-36.204-.001z">
                     </path>
-                  </svg>AI detection bypasser
+                  </svg>Unlimited Characters
                 </li>
                 <li className="mb-4 flex items-center">
                   <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="check"
@@ -53,7 +53,7 @@ const Pricing = () => {
                     <path fill="currentColor"
                       d="M173.898 439.404l-166.4-166.4c-9.997-9.997-9.997-26.206 0-36.204l36.203-36.204c9.997-9.998 26.207-9.998 36.204 0L192 312.69 432.095 72.596c9.997-9.997 26.207-9.997 36.204 0l36.203 36.204c9.997 9.997 9.997 26.206 0 36.204l-294.4 294.401c-9.998 9.997-26.207 9.997-36.204-.001z">
                     </path>
-                  </svg>Unique zero percent plagiarism
+                  </svg>AI Bypasser
                 </li>
                 <li className="mb-4 flex items-center">
                   <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="check"
@@ -62,8 +62,9 @@ const Pricing = () => {
                     <path fill="currentColor"
                       d="M173.898 439.404l-166.4-166.4c-9.997-9.997-9.997-26.206 0-36.204l36.203-36.204c9.997-9.998 26.207-9.998 36.204 0L192 312.69 432.095 72.596c9.997-9.997 26.207-9.997 36.204 0l36.203 36.204c9.997 9.997 9.997 26.206 0 36.204l-294.4 294.401c-9.998 9.997-26.207 9.997-36.204-.001z">
                     </path>
-                  </svg>Multiple prompt generators
+                  </svg>Beats 99.99% of all Plagiarism Detectors
                 </li>
+
                 <li className="mb-4 flex items-center">
                   <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="check"
                     className="text-indigo-600 w-4 h-4 mr-2" role="img" xmlns="http://www.w3.org/2000/svg"
@@ -71,16 +72,7 @@ const Pricing = () => {
                     <path fill="currentColor"
                       d="M173.898 439.404l-166.4-166.4c-9.997-9.997-9.997-26.206 0-36.204l36.203-36.204c9.997-9.998 26.207-9.998 36.204 0L192 312.69 432.095 72.596c9.997-9.997 26.207-9.997 36.204 0l36.203 36.204c9.997 9.997 9.997 26.206 0 36.204l-294.4 294.401c-9.998 9.997-26.207 9.997-36.204-.001z">
                     </path>
-                  </svg>Unlimited characters
-                </li>
-                <li className="mb-4 flex items-center">
-                  <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="check"
-                    className="text-indigo-600 w-4 h-4 mr-2" role="img" xmlns="http://www.w3.org/2000/svg"
-                    viewBox="0 0 512 512">
-                    <path fill="currentColor"
-                      d="M173.898 439.404l-166.4-166.4c-9.997-9.997-9.997-26.206 0-36.204l36.203-36.204c9.997-9.998 26.207-9.998 36.204 0L192 312.69 432.095 72.596c9.997-9.997 26.207-9.997 36.204 0l36.203 36.204c9.997 9.997 9.997 26.206 0 36.204l-294.4 294.401c-9.998 9.997-26.207 9.997-36.204-.001z">
-                    </path>
-                  </svg>High quality customer service
+                  </svg>Multiple Generators
                 </li>
               </ol>
             </div>
@@ -94,7 +86,7 @@ const Pricing = () => {
                 <strong>Advanced</strong>
               </p>
               <h3 className="text-2xl mb-6">
-                <strong>$99.99</strong>
+                <strong>$79.99</strong>
                 <small className="text-gray-500 text-sm">/year</small>
               </h3>
               <form action={config.baseURL + "users/stripe/subscribe"} method="POST" className="flex flex-1">
@@ -115,7 +107,7 @@ const Pricing = () => {
                     <path fill="currentColor"
                       d="M173.898 439.404l-166.4-166.4c-9.997-9.997-9.997-26.206 0-36.204l36.203-36.204c9.997-9.998 26.207-9.998 36.204 0L192 312.69 432.095 72.596c9.997-9.997 26.207-9.997 36.204 0l36.203 36.204c9.997 9.997 9.997 26.206 0 36.204l-294.4 294.401c-9.998 9.997-26.207 9.997-36.204-.001z">
                     </path>
-                  </svg>AI detection bypasser
+                  </svg>Unlimited Characters
                 </li>
                 <li className="mb-4 flex items-center">
                   <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="check"
@@ -124,7 +116,7 @@ const Pricing = () => {
                     <path fill="currentColor"
                       d="M173.898 439.404l-166.4-166.4c-9.997-9.997-9.997-26.206 0-36.204l36.203-36.204c9.997-9.998 26.207-9.998 36.204 0L192 312.69 432.095 72.596c9.997-9.997 26.207-9.997 36.204 0l36.203 36.204c9.997 9.997 9.997 26.206 0 36.204l-294.4 294.401c-9.998 9.997-26.207 9.997-36.204-.001z">
                     </path>
-                  </svg>Unique zero percent plagiarism
+                  </svg>AI Bypasser
                 </li>
                 <li className="mb-4 flex items-center">
                   <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="check"
@@ -133,8 +125,9 @@ const Pricing = () => {
                     <path fill="currentColor"
                       d="M173.898 439.404l-166.4-166.4c-9.997-9.997-9.997-26.206 0-36.204l36.203-36.204c9.997-9.998 26.207-9.998 36.204 0L192 312.69 432.095 72.596c9.997-9.997 26.207-9.997 36.204 0l36.203 36.204c9.997 9.997 9.997 26.206 0 36.204l-294.4 294.401c-9.998 9.997-26.207 9.997-36.204-.001z">
                     </path>
-                  </svg>Multiple prompt generators
+                  </svg>Beats 99.99% of all Plagiarism Detectors
                 </li>
+
                 <li className="mb-4 flex items-center">
                   <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="check"
                     className="text-indigo-600 w-4 h-4 mr-2" role="img" xmlns="http://www.w3.org/2000/svg"
@@ -142,16 +135,7 @@ const Pricing = () => {
                     <path fill="currentColor"
                       d="M173.898 439.404l-166.4-166.4c-9.997-9.997-9.997-26.206 0-36.204l36.203-36.204c9.997-9.998 26.207-9.998 36.204 0L192 312.69 432.095 72.596c9.997-9.997 26.207-9.997 36.204 0l36.203 36.204c9.997 9.997 9.997 26.206 0 36.204l-294.4 294.401c-9.998 9.997-26.207 9.997-36.204-.001z">
                     </path>
-                  </svg>Unlimited characters
-                </li>
-                <li className="mb-4 flex items-center">
-                  <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="check"
-                    className="text-indigo-600 w-4 h-4 mr-2" role="img" xmlns="http://www.w3.org/2000/svg"
-                    viewBox="0 0 512 512">
-                    <path fill="currentColor"
-                      d="M173.898 439.404l-166.4-166.4c-9.997-9.997-9.997-26.206 0-36.204l36.203-36.204c9.997-9.998 26.207-9.998 36.204 0L192 312.69 432.095 72.596c9.997-9.997 26.207-9.997 36.204 0l36.203 36.204c9.997 9.997 9.997 26.206 0 36.204l-294.4 294.401c-9.998 9.997-26.207 9.997-36.204-.001z">
-                    </path>
-                  </svg>High quality customer service
+                  </svg>Multiple Generators
                 </li>
               </ol>
             </div>

@@ -6,6 +6,7 @@ import { getResponse } from "../../services/openaiService";
 import Typewriter from 'typewriter-effect';
 import axios from 'axios';
 import { MathfieldComponent } from "react-mathlive";
+import Footer from "../../components/layouts/Footer";
 
 const { CancelToken } = axios;
 
@@ -37,10 +38,11 @@ const QandA = () => {
     }
     const source = CancelToken.source();
     setCancelToken(source);
-    let chatLogNew = [...chatLog, { user: 'Q', message: `Please answer the following question for ${level ? level : '1st-6th Grade'}\n${input + " " + latex ? latex : ''}` }];
+    let chatLogNew = [...chatLog, { user: 'Q', message: `Please answer the following question for ${level ? level : '6th-9th Grade'} ${input} ${latex ? latex : ''}` }];
     setInput("");
     try {
       let newPrompt = chatLogNew.map((message) => message.message).join("\n");
+      console.log(newPrompt)
       const result = await getResponse(newPrompt, 0.5, source.token);
       setChatLog([...chatLogNew, { user: "A", message: `${result}` }]);
       messagesEndRef.current.scrollIntoView({ behavior: "smooth" });
@@ -56,9 +58,9 @@ const QandA = () => {
 
   return (
     <>
-      <BreadCumb header="Homework Helper" paragraph="Our Al-powered homework bot is here to help." />
+      <BreadCumb header="Homework Helper" paragraph="Looking for instant answers to your questions? Our Al-powered homework bot is here to help. Just ask any question and get a reliable answer within seconds." />
       <Sidebar />
-      <section className="mt-36 flex justify-center items-center flex-col md:pb-24 pb-12">
+      <section className="px-8 mt-2 flex justify-center items-center flex-col md:pb-24 pb-12">
         <div className="relative flex flex-col h-screen flex-grow w-full lg:max-w-6xl bg-gray-50 shadow-xl rounded-lg overflow-hidden">
           <form onSubmit={handleSubmit} className="bg-gray-300 p-4">
             <div className="grid md:grid-cols-2 grid-cols-1 gap-4 mb-6">
@@ -70,7 +72,7 @@ const QandA = () => {
                   <option value="science">Science</option>
                   <option value="history">History</option>
                   <option value="english">English</option>
-                  <option value="chemics">Chemics</option>
+                  <option value="chemistry">Chemistry</option>
                   <option value="">Other</option>
                 </select>
               </div>
@@ -144,6 +146,7 @@ const QandA = () => {
 
         </div>
       </section>
+      <Footer />
     </>
   )
 }

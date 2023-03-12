@@ -41,7 +41,7 @@ const Home = () => {
                             <div className="lg:mx-auto lg:max-w-7xl lg:px-8 lg:grid lg:grid-cols-2 lg:grid-flow-col-dense lg:gap-6 xl:gap-12 2xl:gap-24">
                                 <div className="max-w-xl px-4 mx-auto sm:px-6 lg:py-32 lg:max-w-none lg:mx-0 lg:px-0 space-y-6">
                                     <div>
-                                        <h2 className="text-4xl font-extrabold tracking-tight text-gray-900">Bypasses ai plagiarism detectors<span className="text-indigo-400">.</span></h2>
+                                        <h2 className="text-4xl font-extrabold tracking-tight text-gray-900">Bypass Plagiarism and AI detection<span className="text-indigo-400">.</span></h2>
                                         <p className="mt-4 text-lg leading-relaxed text-gray-500 sm:text-xl">Our Ai algorithms ensure that your writing is unique and not flagged by plagiarism detectors, saving you time and hassle. Whether you're a student, professional, or content creator our, Ai-powered writing topics will help you produce high quality work quickly and easily.</p>
                                     </div>
                                     <div></div>

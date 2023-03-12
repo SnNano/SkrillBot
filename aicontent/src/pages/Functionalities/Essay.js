@@ -6,12 +6,12 @@ import Button from "../../components/layouts/Button";
 import Content from "../../components/Content";
 import Facts from "../../components/layouts/Facts";
 import axios from 'axios';
+import Footer from "../../components/layouts/Footer";
 const { CancelToken } = axios;
 
 const Essay = () => {
 
   const [showModal, setShowModal] = useState(false);
-  const [content, setContent] = useState(0);
   const [cancelToken, setCancelToken] = useState(null);
 
   const [formData, setFormData] = useState({
@@ -37,7 +37,7 @@ const Essay = () => {
     setCancelToken(source);
     setShowModal(true);
     try {
-      let prompt = `Please generate a ${tone} 2 page outlines essay on ${message} each outline has 2 bullet pointer and uses Roman numbering.\n${keywords ? `Keywords: [${keywords}]` : ''}`;
+      let prompt = `Please generate a ${tone} long essay on ${message}. It should use Roman numbering.\n${keywords ? `Keywords: [${keywords}]` : ''}`;
       const result = await chatapi([{ role: "user", content: prompt }], parseFloat(creativity), source.token);
       setFormData({ ...formData, generatedText: result.content, loading: false });
     } catch (error) {
@@ -50,37 +50,37 @@ const Essay = () => {
     }
     setShowModal(false);
   }
-  const handleNext = async (e) => {
-    e.preventDefault();
-    if (cancelToken) {
-      cancelToken.cancel();
-    }
-    const source = CancelToken.source();
-    setCancelToken(source);
-    setFormData({ ...formData, loading: true });
-    try {
-      const result = await chatapi([{ role: "assistant", content: generatedText }, {
-        role: 'user', content: `Please generate content for the outlines.`
-      }], parseFloat(creativity), source.token);
-      setContent(1);
-      setFormData({ ...formData, generatedText: result.content, loading: false });
-    } catch (error) {
-      if (axios.isCancel(error)) {
-        setFormData({ ...formData, loading: false });
-        console.log('Request canceled');
-      } else {
-        console.log('Error', error.message);
-      }
-    }
+  // const handleNext = async (e) => {
+  //   e.preventDefault();
+  //   if (cancelToken) {
+  //     cancelToken.cancel();
+  //   }
+  //   const source = CancelToken.source();
+  //   setCancelToken(source);
+  //   setFormData({ ...formData, loading: true });
+  //   try {
+  //     const result = await chatapi([{ role: "assistant", content: generatedText }, {
+  //       role: 'user', content: `Please generate content for the outlines.`
+  //     }], parseFloat(creativity), source.token);
+  //     setContent(1);
+  //     setFormData({ ...formData, generatedText: result.content, loading: false });
+  //   } catch (error) {
+  //     if (axios.isCancel(error)) {
+  //       setFormData({ ...formData, loading: false });
+  //       console.log('Request canceled');
+  //     } else {
+  //       console.log('Error', error.message);
+  //     }
+  //   }
 
-  }
+  // }
   useEffect(() => { window.scrollTo({ top: 0, left: 0, behavior: "smooth" }); }, []);
 
   return (
     <>
-      <BreadCumb header="Essay Writing" paragraph="Unlock your writing potential with our Al-powered essay writing tool" type="ESSAY" label2="Type the subject of essay you want" />
+      <BreadCumb header="Essay Writing" paragraph="Unlock your writing potential with our Al-powered essay writing tool. Say goodbye to writer's block and hello to top-notch, plagiarism-free essays in record time." />
       <Sidebar />
-      <div className="container lg:mt-32 mt-40">
+      <div className="container px-8 py-4">
         <section className="flex justify-center flex-col lg:pb-32 lg:pt-6 md:pb-12 md:pt-4 sm:py-6">
           <div className="relative">
             <form onSubmit={handleSubmit} className="mb-6">
@@ -109,7 +109,7 @@ const Essay = () => {
                 </div>
                 <div>
                   <label htmlFor="keywords" className="block mb-2 text-sm font-medium text-indigo-500">Keywords</label>
-                  <input name="keywords" id="keywords" value={keywords} onChange={handleChange} className="block w-full px-4 py-2 text-sm text-gray-900 placeholder-gray-500 border border-gray-300 rounded-md shadow-sm focus:outline-0 focus:border-indigo-400 flex-1" placeholder="keywords should be separated by a comma" />
+                  <input name="keywords" id="keywords" value={keywords} onChange={handleChange} className="block w-full px-4 py-2 text-sm text-gray-900 placeholder-gray-500 border border-gray-300 rounded-md shadow-sm focus:outline-0 focus:border-indigo-400 flex-1" placeholder="Ex. Name, place, location, and etc." />
                 </div>
                 <div>
                   <label htmlFor="level" className="block mb-2 text-sm font-medium text-indigo-500">Select level</label>
@@ -126,14 +126,13 @@ const Essay = () => {
                 <textarea id="message" minLength="10" maxLength="300" value={message} onChange={handleChange} name="message" rows="6" className="block w-full px-4 py-2 text-sm text-gray-900 placeholder-gray-500 border border-gray-300 rounded-md shadow-sm focus:outline-0 focus:border-indigo-400 flex-1" placeholder="The more info you give the more you get quality outcome" required></textarea>
               </div>
               <div className="flex justify-center">
-
-                {generatedText && content === 0 ? (<div className="flex flex-col">
-                  <div className="flex flex-col justify-center items-center">
+                {generatedText ? (<div className="flex flex-col items-center justify-center">
+                  <Button loading={loading} />
+                  {/* <div className="flex flex-col justify-center items-center">
                     <p disabled={loading} className="cursor-pointer w-[200px] text-center inline rounded-md text-white text-md px-4 py-2 bg-green-400 hover:bg-green-500 focus:outline-none" onClick={handleNext}>Generate Content</p>
-                  </div>
-                  <p className="text-sm mt-2 text-gray-700"> <span className="text-red-500 font-bold text-md mr-2 mb-2">*IMPORTANT 1*:</span> Please Copy and Paste the current result before you click on next</p>
-                  <p className="text-sm mt-2 text-gray-700"> <span className="text-red-500 font-bold text-md mr-2">*IMPORTANT 2*:</span> After the revision stage, it is imperative to utilize the Rewriter tool to guarantee that the essay is free from plagiarism and undetectable by artificial intelligence systems.
-                  </p>
+                  </div> */}
+                  <p className="text-sm mt-2 text-center text-gray-700">
+                    <span className="text-red-500 font-bold text-md mr-2">*IMPORTANT*:</span>If you want to avoid Plagiarism and AI detection, Use Rewriter.</p>
                 </div>
                 ) : (<Button loading={loading} />)}
                 {loading ? (
@@ -143,10 +142,11 @@ const Essay = () => {
               </div>
             </form>
             <Facts showModal={showModal} setShowModal={setShowModal} />
-            <Content content={content} generatedText={generatedText} loading={loading} />
+            <Content generatedText={generatedText} loading={loading} />
           </div>
         </section>
       </div>
+      <Footer />
     </>
   )
 }

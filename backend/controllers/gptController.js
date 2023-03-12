@@ -87,7 +87,9 @@ const postChatgpt = async (req, res) => {
         messages: prompt,
         temperature: creativity
     });
-
+    // let output = `${completion.data.choices[0].message}`
+    outputLength = completion.data.choices[0].message.content.length
+    await updateUserCharacter(req, res, outputLength)
     res.json({ result: completion.data.choices[0].message });
 }
 

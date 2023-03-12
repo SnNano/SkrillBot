@@ -6,6 +6,7 @@ import Sidebar from "../../components/layouts/Sidebar";
 import { chatapi } from "../../services/openaiService";
 import Typewriter from 'typewriter-effect';
 import axios from 'axios';
+import Footer from "../../components/layouts/Footer";
 const { CancelToken } = axios;
 
 
@@ -52,9 +53,9 @@ const MiniGpt = () => {
 
     return (
         <>
-            <BreadCumb header="Ask me anything" />
+            <BreadCumb header="Ask me anything" paragraph="Get inspired with endless topic ideas and questions, and let our AI technology help you create unique and engaging content." />
             <Sidebar />
-            <div className="flex h-[500px] antialiased text-gray-800 md:pb-24 pb-6 mt-32">
+            <div className="flex h-[75vh] antialiased text-gray-800 md:pb-24 pb-6 px-8">
                 <div className="flex flex-row h-full w-full overflow-x-hidden">
                     <div className="flex flex-col flex-auto h-full">
                         <div className="flex flex-col flex-auto flex-shrink-0 rounded-2xl bg-gray-100 h-full p-4" >
@@ -137,6 +138,7 @@ const MiniGpt = () => {
                     </div>
                 </div>
             </div>
+            <Footer />
         </>
     )
 }

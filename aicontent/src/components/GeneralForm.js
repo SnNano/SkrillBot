@@ -1,23 +1,23 @@
 import Button from "./layouts/Button";
 import Content from "./Content";
-import { getResponse, rewriteText } from "../services/openaiService";
+import { getResponse } from "../services/openaiService";
 import { useEffect, useState } from "react";
 import PropTypes from 'prop-types';
 import Sidebar from "./layouts/Sidebar";
 import BreadCumb from "./layouts/BreadCumb";
 import axios from 'axios';
+import Footer from "./layouts/Footer";
 const { CancelToken } = axios;
 
 const GeneralForm = ({ header, paragraph, label2, type, maxLength, minLength }) => {
 
   const [formData, setFormData] = useState({
-    tone: "",
-    creativity: 0.5,
-    message: "",
-    keywords: "",
-    loading: false,
-    generatedText: null
+    tone: "", creativity: 0.5,
+    message: "", keywords: "",
+    loading: false, generatedText: null
   });
+
+  const [showModal, setShowModal] = useState(false);
   const [cancelToken, setCancelToken] = useState(null);
 
   const { tone, creativity, keywords, message, generatedText, loading } = formData;
@@ -35,6 +35,7 @@ const GeneralForm = ({ header, paragraph, label2, type, maxLength, minLength }) 
     }
     const source = CancelToken.source();
     setCancelToken(source);
+    setShowModal(true);
     if (type === "ESSAY") {
       prompt = `Write a ${tone} essay discussing the importance and implications of [${message}]. 
         Provide examples, research, and arguments to support your position. 
@@ -83,7 +84,7 @@ const GeneralForm = ({ header, paragraph, label2, type, maxLength, minLength }) 
         console.log('Error', error.message);
       }
     }
-
+    setShowModal(false);
   }
   useEffect(() => { window.scrollTo({ top: 0, left: 0, behavior: "smooth" }); }, []);
 
@@ -91,7 +92,7 @@ const GeneralForm = ({ header, paragraph, label2, type, maxLength, minLength }) 
     <>
       <BreadCumb header={header} paragraph={paragraph} />
       <Sidebar />
-      <div className="container lg:mt-32 mt-40">
+      <div className="container px-8 py-4">
         <section className="flex justify-center flex-col lg:pb-32 lg:pt-6 md:pb-12 md:pt-4 sm:py-6">
           <div className="">
             <form onSubmit={handleSubmit} className="mb-6">
@@ -136,10 +137,11 @@ const GeneralForm = ({ header, paragraph, label2, type, maxLength, minLength }) 
                 ) : (<Button loading={loading} />)}
               </div>
             </form>
-            <Content generatedText={generatedText} loading={loading} />
+            <Content showModal={showModal} setShowModal={setShowModal} generatedText={generatedText} loading={loading} />
           </div>
         </section>
       </div>
+      <Footer />
     </>
   )
 }

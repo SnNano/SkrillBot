@@ -25,7 +25,7 @@ const Signup = () => {
         if (state.isError) {
             toast.error(state.message);
         }
-        if (state.isSuccess || (state.user && state.user.user.phone)) {
+        if (state.isSuccess || (state.user)) {
             navigate('/dashboard');
         }
 
@@ -51,7 +51,7 @@ const Signup = () => {
             const userData = { username, email, password };
             const response = await register(userData, dispatch);
             if (response) {
-                navigate("/complete-signup");
+                navigate("/dashboard");
             }
             if (referralId) {
                 await referralCode(referralId);
@@ -98,7 +98,7 @@ const Signup = () => {
                                     </div>
                                     <button type="submit" className="inline-block rounded-full px-6 py-2.5 bg-gradient-to-r from-pink-500 to-blue-500 text-white font-medium text-xs leading-tight uppercase rounded hover:scale-90 focus:bg-gray-100 focus:outline-none focus:ring-0 active:bg-gray-200 transition duration-150 ease-in-out w-full">SIGNUP</button>
                                     <div className="my-6 text-center text-sm text-gray-600">
-                                        <span>Or Signup with</span>
+                                        <span>Or Sign up with</span>
                                     </div>
                                     <div className="flex justify-center mb-6">
                                         <p onClick={redirectToGoogleSSO} className="cursor-pointer flex items-center justify-center bg-transparent w-full px-4 py-2 rounded-full border border-gray-200 hover:border-gray-400">
@@ -109,7 +109,7 @@ const Signup = () => {
                                 </form>
                                 <div className="mt-6">
                                     <div className="text-sm text-center my-4">
-                                        <Link to="/login">Already have an account? Click here to <span className="text-indigo-700 font-medium">Sign up!</span></Link>
+                                        <Link to="/login">Already have an account? Click here to <span className="text-indigo-700 font-medium">Login!</span></Link>
                                     </div>
                                 </div>
                             </div>

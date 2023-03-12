@@ -6,19 +6,18 @@ import PropTypes from 'prop-types';
 import Sidebar from "./layouts/Sidebar";
 import BreadCumb from "./layouts/BreadCumb";
 import axios from 'axios';
+import Footer from "./layouts/Footer";
 const { CancelToken } = axios;
 
 
 const Input = ({ header, paragraph, type, keywordsText }) => {
 
   const [formData, setFormData] = useState({
-    name: "",
-    creativity: 0.5,
-    youtubeUrl: "",
-    message: "",
-    loading: false,
-    generatedText: null
+    name: "", creativity: 0.5,
+    youtubeUrl: "", message: "",
+    loading: false, generatedText: null
   });
+  const [showModal, setShowModal] = useState(false);
   const [cancelToken, setCancelToken] = useState(null);
 
   const { name, youtubeUrl, creativity, keywords, generatedText, loading } = formData;
@@ -36,6 +35,7 @@ const Input = ({ header, paragraph, type, keywordsText }) => {
     }
     const source = CancelToken.source();
     setCancelToken(source);
+    setShowModal(true);
     if (type === "PRODUCT_REVIEW") {
       prompt = `Write a product review based on these notes:\nName:${name}\nKeywords:[${keywords}]\nReview:\nUse emojis and markdown to bold important points.`;
     } else if (type === "YOUTUBE_SUM") {
@@ -51,14 +51,14 @@ const Input = ({ header, paragraph, type, keywordsText }) => {
         console.log('Error', error.message);
       }
     }
-    setFormData({ ...formData, loading: false });
+    setShowModal(false);
   }
 
   return (
     <>
       <BreadCumb header={header} paragraph={paragraph} />
       <Sidebar />
-      <div className="container mt-32">
+      <div className="container px-8 py-4">
         <section className="flex justify-center flex-col lg:pb-32 lg:pt-6 md:pb-12 md:pt-4 sm:py-6">
           <div className="grid grid-cols-1 gap-3">
             <form onSubmit={handleSubmit} className="mb-6">
@@ -91,10 +91,11 @@ const Input = ({ header, paragraph, type, keywordsText }) => {
                 > Stop Generating </p>
               ) : (<Button loading={loading} />)}
             </form>
-            <Content generatedText={generatedText} loading={loading} />
+            <Content showModal={showModal} setShowModal={setShowModal} generatedText={generatedText} loading={loading} />
           </div>
         </section>
       </div>
+      <Footer />
     </>
   )
 }

@@ -20,10 +20,10 @@ const Sidebar = () => {
           <Link to="/" className="flex items-center ml-4">
             <img className="w-auto h-8" src={logo} alt="Skrillbot logo" />
           </Link>
-          <ul className="space-y-2 mt-6">
+          <ul className="flex flex-col mt-6 text-justify">
             {sidebarData.map((item) => {
               return <li key={item.id}>
-                <Link to={item.link} onClick={() => fetchAuthUser(dispatch)} className={` ${state.user.user.characters < -1 ? 'pointer-events' : ''} flex my-6 items-center p-2 text-sm font-normal text-gray-900 rounded-lg hover:bg-indigo-500 hover:text-white`}>
+                <Link to={item.link} onClick={() => fetchAuthUser(dispatch)} className={` ${state.user.user.characters < -1 ? 'pointer-events' : ''} flex my-2 items-center p-2 text-sm font-normal text-gray-900 rounded-lg hover:bg-indigo-500 hover:text-white`}>
                   <i className={`text-gray-600 fa-solid ${item.icone}`}></i>
                   <span className="ml-3">{item.title}</span>
                 </Link>

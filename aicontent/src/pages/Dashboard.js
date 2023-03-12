@@ -1,10 +1,11 @@
-import Sidebar from "../components/layouts/Sidebar";
+import Sidebar, { SidebarContext } from "../components/layouts/Sidebar";
 import { Link, useNavigate } from "react-router-dom";
 import { UserContext } from "../App";
 import { useContext, useEffect, useState } from "react";
 import { checkCharacters, Logout } from "../services/userService";
 import { moreData } from "../data";
-import minibot from "../assets/images/minibot1.PNG";
+import minibot from "../assets/images/avatarprof.jpg";
+import Footer from "../components/layouts/Footer";
 
 const categories = [
     "All", "Writing", "Summary", "Code",
@@ -13,6 +14,7 @@ const categories = [
 
 const Dashboard = () => {
     const { state, dispatch } = useContext(UserContext);
+    const { open, setOpen } = useContext(SidebarContext);
     const [characters, setCharacters] = useState(0);
     const [openDrop, setOpenDrop] = useState(false);
     const [selectedCategory, setSelectedCategory] = useState("All");
@@ -41,7 +43,7 @@ const Dashboard = () => {
 
     return (
         <>
-            <header className="border-b w-full mb-6 md:mb-0 z-30 md:bg-opacity-90 transition duration-300 ease-in-out false">
+            <header className="px-4 border-b w-full mb-6 md:mb-0 z-30 md:bg-opacity-90 transition duration-300 ease-in-out false">
                 <div className="max-w-6xl mx-auto">
                     <div className="flex items-center justify-between h-16 md:h-20">
                         <div className="flex-shrink-0">
@@ -51,11 +53,11 @@ const Dashboard = () => {
                         </div>
                         <nav className="flex flex-grow relative">
                             <ul className="flex flex-grow justify-end flex-wrap items-center">
-                                <div className="mr-6">
-                                    <span className="text-indigo-500">{state.user ? (characters === -1 ? 'Unlimited' : `${characters}`) : ''}</span> characters
+                                <div className="mr-6 hidden md:flex">
+                                    <span className="text-indigo-500 mr-2">{state.user ? (characters === -1 ? 'Unlimited' : `${characters}`) : ''}</span> characters
                                 </div>
                                 <div className="flex items-center md:order-2 px-2">
-                                    <button onClick={() => { setOpenDrop(!openDrop) }} className="w-8 h-8 outline-0 flex mr-3 text-sm bg-gray-800 rounded-full md:mr-0">
+                                    <button onClick={() => { setOpenDrop(!openDrop) }} className="w-8 h-8 outline-0 flex mr-3 text-sm rounded-full md:mr-0">
                                         <img src={minibot} className="rounded-full" alt="pfp" />
                                     </button>
                                     <div className={`dropDown ${openDrop ? '' : 'hidden'} z-50 absolute right-[-2%] top-[112%] text-base list-none bg-white divide-y divide-gray-100 rounded-lg shadow`}>
@@ -75,7 +77,7 @@ const Dashboard = () => {
                                             </li>
                                         </ul>
                                     </div>
-                                    <button data-collapse-toggle="mobile-menu-2" type="button" className="inline-flex items-center p-2 ml-1 text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200" aria-controls="mobile-menu-2" aria-expanded="false">
+                                    <button onClick={() => setOpen(!open)} type="button" className="inline-flex items-center p-2 ml-1 text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200" aria-controls="mobile-menu-2" aria-expanded="false">
                                         <span className="sr-only">Open main menu</span>
                                         <svg className="w-6 h-6" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fillRule="evenodd" d="M3 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 10a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 15a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z" clipRule="evenodd"></path></svg>
                                     </button>
@@ -88,7 +90,7 @@ const Dashboard = () => {
             </header>
             <Sidebar />
             <div className="container h-auto">
-                <section className="flex justify-center flex-col lg:pb-32 lg:pt-6 md:pb-12 md:pt-4 sm:py-6">
+                <section className="flex justify-center flex-col lg:pb-32 lg:pt-6 md:pb-12 md:pt-4 sm:py-6 px-4">
                     <div className="block w-full">
                         <div className="mb-6">
                             {categories.map((item, index) => {
@@ -111,23 +113,11 @@ const Dashboard = () => {
                                 </Link>
                             })}
                         </div>
-                        {/* <div className="w-full">
-                            {characters < -1 && <div className="mb-4 w-full bg-red-300 text-center rounded-[25px] shadow">
-                                <div className="p-5">
-                                    <h5 className="mb-2 text-md font-bold tracking-tight mb-3">You reached the characters Limits</h5>
-                                    <Link to="/billing" className="bg-indigo-500 px-4 py-2 text-md my-3">Upgrade plan</Link>
-                                </div>
-                            </div>}
-                            <div className="w-full bg-white border border-gray-200 rounded-[25px] shadow">
-                                <div className="p-5">
-                                    <h5 className="mb-2 text-md font-bold tracking-tight text-gray-900">Upcoming Tools</h5>
-                                    <p className="mb-3 font-light text-gray-700 text-sm">holalalal</p>
-                                </div>
-                            </div>
-                        </div> */}
+
                     </div>
                 </section>
             </div>
+            <Footer />
         </>
     )
 }

@@ -10,7 +10,9 @@
     width: 252px;
     max-height: 475px;
 }
-
+body{
+  background-color: rgb(243 244 246 /1);
+}
 .bubble-element{
     z-index: 2;  
     width: calc(100% - 20px);
