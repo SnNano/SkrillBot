@@ -18,7 +18,8 @@ require("./controllers/auth/passportGoogleSSO");
 connectDB();
 
 var corsOptions = {
-  origin: `https://skrillbot.com`,
+  //origin: `https://skrillbot.com`,
+  origin: `http://localhost:3000`,
   credentials: true,
   optionsSuccessStatus: 200 // some legacy browsers (IE11, various SmartTVs) choke on 204
 }

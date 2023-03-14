@@ -1,9 +1,6 @@
 import { UserContext } from "../../App";
 import { useContext, useState } from "react";
-import BreadCumb from "../layouts/BreadCumb";
 import Sidebar from "../layouts/Sidebar";
-import { Link } from "react-router-dom";
-import Pricing from "./Pricing";
 import Modal from "../layouts/Modal";
 
 

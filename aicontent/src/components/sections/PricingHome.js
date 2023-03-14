@@ -6,20 +6,6 @@ const PricingHome = () => {
             <div className="max-w-xl mb-10 md:mx-auto sm:text-center lg:max-w-2xl md:mb-12">
                 <h2 className="max-w-lg mb-6 font-sans text-3xl font-bold leading-none tracking-tight text-gray-900 sm:text-4xl md:mx-auto">
                     <span className="relative inline-block">
-                        <svg viewBox="0 0 52 24" fill="currentColor"
-                            className="absolute top-0 left-0 z-0 hidden w-32 -mt-8 -ml-20 text-gray-400 lg:w-32 lg:-ml-28 lg:-mt-10 sm:block"
-                        >
-                            <defs>
-                                <pattern id="7e5e8ff8-1960-4094-a63a-2a0c0f922d69"
-                                    x="0" y="0"
-                                    width=".135" height=".30" >
-                                    <circle cx="1" cy="1" r=".7" />
-                                </pattern>
-                            </defs>
-                            <rect
-                                fill="url(#7e5e8ff8-1960-4094-a63a-2a0c0f922d69)"
-                                width="52" height="24" />
-                        </svg>
                         <span className="text-indigo-500">Pricing</span>
                     </span>
                 </h2>
@@ -57,7 +43,7 @@ const PricingHome = () => {
                             <div className="text-gray-700">/ mo</div>
                         </div>
                         <div className="mt-2 space-y-3">
-                            <div className="text-gray-700">5000 characters</div>
+                            <div className="text-gray-700">Unlimited characters</div>
                             <div className="text-gray-700">AI Bypasser</div>
                             <div className="text-gray-700">Beats 99.99% of all Plagiarism Detectors</div>
                             <div className="text-gray-700">Multiple Generators</div>
@@ -82,7 +68,7 @@ const PricingHome = () => {
                             <div className="text-gray-700">/ year</div>
                         </div>
                         <div className="mt-2 space-y-3">
-                            <div className="text-gray-700">5000 characters</div>
+                            <div className="text-gray-700">Unlimited characters</div>
                             <div className="text-gray-700">AI Bypasser</div>
                             <div className="text-gray-700">Beats 99.99% of all Plagiarism Detectors</div>
                             <div className="text-gray-700">Multiple Generators</div>

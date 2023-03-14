@@ -9,18 +9,18 @@ import axios from 'axios';
 import Footer from "./layouts/Footer";
 const { CancelToken } = axios;
 
-const GeneralForm = ({ header, paragraph, label2, type, maxLength, minLength }) => {
+const GeneralForm = ({ header, paragraph, keywordP, label2, type, maxLength, minLength }) => {
 
   const [formData, setFormData] = useState({
     tone: "", creativity: 0.5,
-    message: "", keywords: "",
+    message: "", keywords: "", genre: "paragraph",
     loading: false, generatedText: null
   });
 
   const [showModal, setShowModal] = useState(false);
   const [cancelToken, setCancelToken] = useState(null);
 
-  const { tone, creativity, keywords, message, generatedText, loading } = formData;
+  const { tone, genre, creativity, keywords, message, generatedText, loading } = formData;
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -48,16 +48,16 @@ const GeneralForm = ({ header, paragraph, label2, type, maxLength, minLength }) 
       End the email with a polite closing such as 'Have a great day'. 
       ${keywords ? `Keywords: [${keywords}]` : ''}".`
     } else if (type === "FULL_BLOG") {
-      prompt = `Write a comprehensive blog post on [${message}].
-      The post should be well-researched, informative, and engaging.
-      The post should be more than 900 words.
+      prompt = `Write a full blog post on [${message}].
+      The post should be well-researched.
+      The post should be more than 900 words. It should not have outlines write just a normal blog post.
       The tone of the post should be [${tone}], thought-provoking, encouraging readers to further explore the topic and consider its impact on people.
       It should not be plagiarised, it should be original.
       \n${keywords ? `Keywords: [${keywords}]` : ''}\nPlease use numbers for the outlines.`;
     } else if (type === "SALES_COPY") {
       prompt = `Write a ${tone} sales copy that highlights the key features and benefits of [${message}]. Address the pain points of your target audience, explain how your product/service solves their problems, and demonstrate its value proposition. Use persuasive language, testimonials, and social proof to convince potential customers to make a purchase.\nKeywords:[${keywords}].`;
     } else if (type === "ARTICLE_SUM") {
-      prompt = `"Please summarize the following article in 8 bullet points:
+      prompt = `"Please summarize the following article in ${genre}:
                 [${message}]\nTone should be [${tone}]     
                 \n${keywords ? `Keywords: [${keywords}]` : ''}.`;
     } else if (type === "AD_COPY") {
@@ -119,10 +119,18 @@ const GeneralForm = ({ header, paragraph, label2, type, maxLength, minLength }) 
                     <option value="1">Max</option>
                   </select>
                 </div>
+
               </div>
+              {(type === "ARTICLE_SUM") && <div className="mb-6">
+                <label htmlFor="genre" className="block mb-2 text-sm font-medium text-indigo-500">Select tone</label>
+                <select name="genre" id="genre" value={genre} onChange={handleChange} className="block w-full px-4 py-2 text-sm text-gray-900 placeholder-gray-500 border border-gray-300 rounded-md shadow-sm focus:outline-0 focus:border-indigo-400 flex-1">
+                  <option value="bullet points">Bullet points</option>
+                  <option value="paragraph">Paragraph</option>
+                </select>
+              </div>}
               <div className="mb-6">
                 <label htmlFor="keywords" className="block mb-2 text-sm font-medium text-indigo-500">Keywords</label>
-                <input name="keywords" id="keywords" value={keywords} onChange={handleChange} className="block w-full px-4 py-2 text-sm text-gray-900 placeholder-gray-500 border border-gray-300 rounded-md shadow-sm focus:outline-0 focus:border-indigo-400 flex-1" placeholder="keywords should be separated by a comma" />
+                <input name="keywords" id="keywords" value={keywords} onChange={handleChange} className="block w-full px-4 py-2 text-sm text-gray-900 placeholder-gray-500 border border-gray-300 rounded-md shadow-sm focus:outline-0 focus:border-indigo-400 flex-1" placeholder={keywordP} />
               </div>
               <div className="mb-6">
                 <label htmlFor="message" className="block mb-2 text-md font-medium text-indigo-500">{label2}</label>
@@ -130,7 +138,7 @@ const GeneralForm = ({ header, paragraph, label2, type, maxLength, minLength }) 
               </div>
               <div className="flex justify-center">
                 {loading ? (
-                  <p
+                  <p style={{ zIndex: '80' }}
                     className="cursor-pointer z-12 bg-transparent border border-red-500 text-red-500 rounded-lg hover:bg-red-700 hover:text-white font-bold py-2 px-8 hover:translate-y-[-10px] transition ease-in"
                     onClick={() => cancelToken.cancel()}
                   > Stop Generating </p>

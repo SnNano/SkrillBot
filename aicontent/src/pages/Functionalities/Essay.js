@@ -1,4 +1,4 @@
-import { chatapi } from "../../services/openaiService";
+import { chatapi, getResponse } from "../../services/openaiService";
 import { useEffect, useState } from "react";
 import BreadCumb from "../../components/layouts/BreadCumb";
 import Sidebar from "../../components/layouts/Sidebar";
@@ -6,6 +6,8 @@ import Button from "../../components/layouts/Button";
 import Content from "../../components/Content";
 import Facts from "../../components/layouts/Facts";
 import axios from 'axios';
+import { Helmet } from "react-helmet-async";
+
 import Footer from "../../components/layouts/Footer";
 const { CancelToken } = axios;
 
@@ -37,7 +39,10 @@ const Essay = () => {
     setCancelToken(source);
     setShowModal(true);
     try {
-      let prompt = `Please generate a ${tone} long essay on ${message}. It should use Roman numbering.\n${keywords ? `Keywords: [${keywords}]` : ''}`;
+      let prompt = `Write ${tone} a long essay on ${message}.
+      ${keywords ? `Keywords: [${keywords}]` : ''}\nIt should not have outlines.
+      It should not be plagiarised, it should be original. It should have more than 2000 words.`;
+      //const result = await getResponse(prompt, parseFloat(creativity), source.token);
       const result = await chatapi([{ role: "user", content: prompt }], parseFloat(creativity), source.token);
       setFormData({ ...formData, generatedText: result.content, loading: false });
     } catch (error) {
@@ -78,6 +83,9 @@ const Essay = () => {
 
   return (
     <>
+      <Helmet>
+        <title>SkrillBot | Essay Writer</title>
+      </Helmet>
       <BreadCumb header="Essay Writing" paragraph="Unlock your writing potential with our Al-powered essay writing tool. Say goodbye to writer's block and hello to top-notch, plagiarism-free essays in record time." />
       <Sidebar />
       <div className="container px-8 py-4">
@@ -123,7 +131,7 @@ const Essay = () => {
               </div>
               <div className="mb-6">
                 <label htmlFor="message" className="block mb-2 text-md font-medium text-indigo-500">Essay topic</label>
-                <textarea id="message" minLength="10" maxLength="300" value={message} onChange={handleChange} name="message" rows="6" className="block w-full px-4 py-2 text-sm text-gray-900 placeholder-gray-500 border border-gray-300 rounded-md shadow-sm focus:outline-0 focus:border-indigo-400 flex-1" placeholder="The more info you give the more you get quality outcome" required></textarea>
+                <textarea id="message" minLength="10" maxLength="300" value={message} onChange={handleChange} name="message" rows="6" className="block w-full px-4 py-2 text-sm text-gray-900 placeholder-gray-500 border border-gray-300 rounded-md shadow-sm focus:outline-0 focus:border-indigo-400 flex-1" placeholder="The more context the better!" required></textarea>
               </div>
               <div className="flex justify-center">
                 {generatedText ? (<div className="flex flex-col items-center justify-center">
@@ -136,7 +144,7 @@ const Essay = () => {
                 </div>
                 ) : (<Button loading={loading} />)}
                 {loading ? (
-                  <p className="fixed z-12 bottom-10 cursor-pointer bg-red-500 border border-red-500 rounded-lg hover:bg-red-700 text-white font-bold py-2 px-8 hover:translate-y-[-10px] transition ease-in"
+                  <p style={{ zIndex: '80' }} className="fixed z-12 bottom-10 cursor-pointer bg-red-500 border border-red-500 rounded-lg hover:bg-red-700 text-white font-bold py-2 px-8 hover:translate-y-[-10px] transition ease-in"
                     onClick={() => cancelToken.cancel()}> Stop Generating </p>
                 ) : (<></>)}
               </div>

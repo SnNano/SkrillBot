@@ -55,7 +55,7 @@ const EmailResponder = () => {
                                 <textarea id="topic" minLength={10} maxLength={600} value={topic} onChange={handleChange} name="topic" rows="6" className="block w-full px-4 py-2 text-sm text-gray-900 placeholder-gray-500 border border-gray-300 rounded-md shadow-sm focus:outline-0 focus:border-indigo-400 flex-1" placeholder="The Email" required></textarea>
                             </div>
                             {loading ? (
-                                <p className="inline-flex cursor-pointer bg-transparent border border-red-500 text-red-500 rounded-lg hover:bg-red-700 hover:text-white font-bold py-2 px-8 hover:translate-y-[-10px] transition ease-in"
+                                <p style={{ zIndex: '80' }} className="inline-flex cursor-pointer bg-transparent border border-red-500 text-red-500 rounded-lg hover:bg-red-700 hover:text-white font-bold py-2 px-8 hover:translate-y-[-10px] transition ease-in"
                                     onClick={() => cancelToken.cancel()} > Stop Generating </p>
                             ) : (<Button loading={loading} />)}
                         </form>

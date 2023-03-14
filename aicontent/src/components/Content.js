@@ -29,7 +29,7 @@ const Content = ({ showModal, setShowModal, loading, generatedText }) => {
       if (line && displayedCharIndex < line.length) {
         const intervalId = setInterval(() => {
           setDisplayedCharIndex(displayedCharIndex + 1);
-        }, 20);
+        }, 5);
         return () => clearInterval(intervalId);
       } else if (displayedLineIndex < newText.length - 1) {
         setDisplayedLineIndex(displayedLineIndex + 1);
@@ -78,7 +78,7 @@ const Content = ({ showModal, setShowModal, loading, generatedText }) => {
           tweenDuration={2000} />
       </div>}
       <div className="min-h-[20rem] flex-col p-6  border border-gray-200 rounded-lg shadow-md sm:my-4">
-        {!loading && generatedText && displayedText && <pre style={{ whiteSpace: 'pre-wrap', fontFamily: 'Times New Roman' }}>{displayedText}</pre>
+        {!loading && generatedText && displayedText && <pre style={{ whiteSpace: 'pre-wrap', fontFamily: 'Times New Roman', fontSize: '18px' }}>{displayedText}</pre>
         }
         {!generatedText && !loading && <div className="flex min-h-[20rem] justify-center items-center"><p className="text-2xl text-center text-gray-400">Answer will appear here.</p></div>}
         {loading && <div className="spinnerH"><Spinner /></div>}

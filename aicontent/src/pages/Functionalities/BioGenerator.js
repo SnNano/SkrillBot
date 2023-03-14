@@ -79,7 +79,7 @@ const BioGenerator = () => {
                             </div>
                         </form>
                         {loading &&
-                            <p className="inline-flex my-2 cursor-pointer bg-transparent border border-red-500 text-red-500 rounded-lg hover:bg-red-700 hover:text-white font-bold py-2 px-8 hover:translate-y-[-10px] transition ease-in"
+                            <p style={{ zIndex: '80' }} className="inline-flex my-2 cursor-pointer bg-transparent border border-red-500 text-red-500 rounded-lg hover:bg-red-700 hover:text-white font-bold py-2 px-8 hover:translate-y-[-10px] transition ease-in"
                                 onClick={() => cancelToken.cancel()} > Stop Generating </p>}
                         <Content showModal={showModal} setShowModal={setShowModal} generatedText={generatedText} loading={loading} />
                     </div>

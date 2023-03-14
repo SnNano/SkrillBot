@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset
+      xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9
+            http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
+<!-- created with Free Online Sitemap Generator www.xml-sitemaps.com -->
+<url>
+  <loc>https://skrillbot.com/</loc>
+  <priority>1.0</priority>
+  <lastmod>2023-03-09T10:35:29+00:00</lastmod>
+</url>
+<url>
+  <loc>http://skrillbot.com/terms-of-use</loc>
+  <priority>1.0</priority>
+  <lastmod>2023-03-09</lastmod>
+</url>
+<url>
+  <loc>http://skrillbot.com/login</loc>
+  <priority>1.0</priority>
+  <lastmod>2023-03-09</lastmod>
+</url>
+<url>
+  <loc>http://skrillbot.com/sign-up</loc>
+  <priority>1.0</priority>
+  <lastmod>2023-03-09</lastmod>
+</url>
+<url>
+  <loc>http://skrillbot.com/privacy-policy</loc>
+  <priority>1.0</priority>
+  <lastmod>2023-03-09</lastmod>
+</url>
+
+
+</urlset>

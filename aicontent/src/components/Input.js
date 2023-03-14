@@ -85,7 +85,7 @@ const Input = ({ header, paragraph, type, keywordsText }) => {
                 <input name="youtubeUrl" id="youtubeUrl" value={youtubeUrl} onChange={handleChange} className="block w-full px-4 py-2 text-sm text-gray-900 placeholder-gray-500 border border-gray-300 rounded-md shadow-sm focus:outline-0 flex-1" placeholder="Youtube Title/Subject" />
               </div>}
               {loading ? (
-                <p
+                <p style={{ zIndex: '80' }}
                   className="inline-flex z-12 cursor-pointer bg-transparent border border-red-500 text-red-500 rounded-lg hover:bg-red-700 hover:text-white font-bold py-2 px-8 hover:translate-y-[-10px] transition ease-in"
                   onClick={() => cancelToken.cancel()}
                 > Stop Generating </p>

@@ -2,6 +2,7 @@ import { UserContext } from "../../App";
 import { useContext, useEffect, useState } from "react";
 import BreadCumb from "../layouts/BreadCumb";
 import Sidebar from "../layouts/Sidebar";
+import Footer from "../layouts/Footer";
 import { Link, useNavigate } from "react-router-dom";
 import { Logout } from "../../services/userService";
 
@@ -71,6 +72,7 @@ const Settings = () => {
                     </div>
                 </div>
             </div>
+            <Footer />
         </>
     )
 }

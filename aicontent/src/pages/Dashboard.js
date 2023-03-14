@@ -1,11 +1,12 @@
 import Sidebar, { SidebarContext } from "../components/layouts/Sidebar";
 import { Link, useNavigate } from "react-router-dom";
 import { UserContext } from "../App";
-import { useContext, useEffect, useState } from "react";
-import { checkCharacters, Logout } from "../services/userService";
+import { useContext, useState } from "react";
+import { Logout } from "../services/userService";
 import { moreData } from "../data";
 import minibot from "../assets/images/avatarprof.jpg";
 import Footer from "../components/layouts/Footer";
+import { Helmet } from "react-helmet-async";
 
 const categories = [
     "All", "Writing", "Summary", "Code",
@@ -15,18 +16,9 @@ const categories = [
 const Dashboard = () => {
     const { state, dispatch } = useContext(UserContext);
     const { open, setOpen } = useContext(SidebarContext);
-    const [characters, setCharacters] = useState(0);
     const [openDrop, setOpenDrop] = useState(false);
     const [selectedCategory, setSelectedCategory] = useState("All");
-    useEffect(() => {
-        const getCharacter = async () => {
-            let data = await checkCharacters();
-            setCharacters(data)
-        }
-        getCharacter()
-        const intervalId = setInterval(checkCharacters, 5000);
-        return () => clearInterval(intervalId);
-    }, []);
+
     const navigate = useNavigate();
     // Filter data based on selected category
     const filteredData = selectedCategory === "All"
@@ -43,6 +35,9 @@ const Dashboard = () => {
 
     return (
         <>
+            <Helmet>
+                <title>SkrillBot | Dashboard</title>
+            </Helmet>
             <header className="px-4 border-b w-full mb-6 md:mb-0 z-30 md:bg-opacity-90 transition duration-300 ease-in-out false">
                 <div className="max-w-6xl mx-auto">
                     <div className="flex items-center justify-between h-16 md:h-20">
@@ -54,7 +49,7 @@ const Dashboard = () => {
                         <nav className="flex flex-grow relative">
                             <ul className="flex flex-grow justify-end flex-wrap items-center">
                                 <div className="mr-6 hidden md:flex">
-                                    <span className="text-indigo-500 mr-2">{state.user ? (characters === -1 ? 'Unlimited' : `${characters}`) : ''}</span> characters
+                                    <span className="text-indigo-500 mr-2">{state.user.user.characters >= -1 ? (state.user.user.characters === -1 ? 'Unlimited' : `${state.user.user.characters}`) : ''}</span> characters
                                 </div>
                                 <div className="flex items-center md:order-2 px-2">
                                     <button onClick={() => { setOpenDrop(!openDrop) }} className="w-8 h-8 outline-0 flex mr-3 text-sm rounded-full md:mr-0">

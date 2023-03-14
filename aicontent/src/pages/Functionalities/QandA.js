@@ -30,6 +30,11 @@ const QandA = () => {
     chatLogContainerRef.current.scrollTop = chatLogContainerRef.current.scrollHeight;
   }, [chatLog, isLoading]);
 
+  const removeIsVisible = () => {
+    const tag = document.querySelector('.keyboard-layer');
+    tag.classList.remove('is-visible');
+  }
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     setIsLoading(true);
@@ -55,11 +60,11 @@ const QandA = () => {
     }
     setIsLoading(false);
   }
-
+  // is-visible keyboard-layer
   return (
     <>
       <BreadCumb header="Homework Helper" paragraph="Looking for instant answers to your questions? Our Al-powered homework bot is here to help. Just ask any question and get a reliable answer within seconds." />
-      <Sidebar />
+      <Sidebar removeIsVisible={removeIsVisible} />
       <section className="px-8 mt-2 flex justify-center items-center flex-col md:pb-24 pb-12">
         <div className="relative flex flex-col h-screen flex-grow w-full lg:max-w-6xl bg-gray-50 shadow-xl rounded-lg overflow-hidden">
           <form onSubmit={handleSubmit} className="bg-gray-300 p-4">

@@ -139,12 +139,21 @@ export const sidebarData = [
 
 export const moreData = [
     {
+        id: 17,
+        icone: "fa-file-lines",
+        title: "Essay Writing",
+        image: email,
+        category: "writing",
+        text: "Unlock your writing potential with our Al- powered essay writing tool.Say goodbye to writer's block and hello to top-notch, plagiarism-free essays in record time.",
+        link: "/essay"
+    },
+    {
         id: 3,
         icone: "fa-file-lines",
         title: "Email Writing",
         image: email,
         category: "writing",
-        text: "Unlock your writing potential.",
+        text: "Unlock the power of persuasive email writing with Skrillbot. Our Al-powered tools provide you with unique and effective email content that captures attention and drives engagement.",
         link: "/email"
     },
     {
@@ -153,7 +162,7 @@ export const moreData = [
         title: "Sales Copy",
         image: salesCopy,
         category: "copy",
-        text: "Unlock your writing potential.",
+        text: "Boost your sales with Skrillbot's Al-powered copywriting service. From compelling headlines to persuasive calls-to-action, our algorithms generate copy that converts.",
         link: "/sales-copy"
     },
     {
@@ -162,7 +171,7 @@ export const moreData = [
         title: "Ad copy",
         image: adCopy,
         category: "copy",
-        text: "Unlock your writing potential.",
+        text: "Transform your ad copy from mediocre to amazing with SkrillBot's Al-powered writing assistant. Say goodbye to the guesswork and hello to increased conversions.",
         link: "/ad-copy"
     },
     {
@@ -171,7 +180,7 @@ export const moreData = [
         title: "Homework Helper",
         category: "q&a",
         image: homework,
-        text: "Unlock your writing potential.",
+        text: "Looking for instant answers to your questions? Our Al-powered homework bot is here to help. Just ask any question and get a reliable answer within seconds.",
         link: "/questions-answers"
     },
     {
@@ -180,7 +189,7 @@ export const moreData = [
         title: "Ideas",
         image: idea,
         category: "ideas",
-        text: "Unlock your writing potential.",
+        text: "Spark your imagination with SkrillBot. Our Al-powered tool generates endless ideas to help you create anything from blog posts to business plans.",
         link: "/ideas"
     },
     {
@@ -189,7 +198,7 @@ export const moreData = [
         title: "Code Generator",
         image: code,
         category: "code",
-        text: "Unlock your writing potential.",
+        text: "Effortlessly generate high-quality code with our Al-powered code generator. Save time and focus on what matters most - bringing your ideas to life.",
         link: "/code-generator"
     },
     {
@@ -234,8 +243,8 @@ export const moreData = [
         title: "College Application ",
         image: college,
         category: "writing",
-        text: "Unlock our blog's potential with SkrilBats AI-powered writing.",
-        link: "/apps-writer"
+        text: "Unlock our blog's potential with SkrillBot AI-powered writing.",
+        link: "/college"
     },
     {
         id: 20,

@@ -85,6 +85,7 @@ const postChatgpt = async (req, res) => {
     const completion = await openai.createChatCompletion({
         model: "gpt-3.5-turbo",
         messages: prompt,
+        max_tokens: 3600,
         temperature: creativity
     });
     // let output = `${completion.data.choices[0].message}`
@@ -96,7 +97,7 @@ const postChatgpt = async (req, res) => {
 const updateUserCharacter = async (req, res, outputLength) => {
     let user = await User.findOne({ _id: req.user._id })
     // check if user has free plan
-    if (user.plan === "free") {
+    if (user.plan === "free" || user.plan === "canceled") {
         user.characters = user.characters - outputLength
         user.charactersUsed = user.charactersUsed + user.characters
         await user.save()

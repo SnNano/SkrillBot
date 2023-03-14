@@ -3,6 +3,7 @@ import Button from "../../components/layouts/Button";
 import { codePrompt } from "../../services/openaiService";
 import { useState } from "react";
 import { CopyBlock, dracula } from "react-code-blocks";
+import { Helmet } from "react-helmet-async";
 
 import PropTypes from 'prop-types';
 import Sidebar from "../../components/layouts/Sidebar";
@@ -56,6 +57,9 @@ const CodeLookUp = () => {
 
   return (
     <>
+      <Helmet>
+        <title>SkrillBot | Code Generator</title>
+      </Helmet>
       <BreadCumb header="Code Generator" paragraph="Effortlessly generate high-quality code with our Al-powered code generator. Save time and focus on what matters most - bringing your ideas to life" />
       <Sidebar />
       <div className="container px-8 py-4">
@@ -64,14 +68,14 @@ const CodeLookUp = () => {
             <form onSubmit={handleSubmit}>
               <div className="mb-6">
                 <label htmlFor="language" className="block mb-2 text-sm font-medium text-indigo-500">Language (Javascript, java, cpp)</label>
-                <input maxLength={100} minLength={1} name="language" id="language" value={language} onChange={handleChange} className="block w-full px-4 py-2 text-sm text-gray-900 placeholder-gray-500 border border-gray-300 rounded-md shadow-sm focus:outline-0 flex-1" placeholder="Language (Javascript, java, cpp)" required />
+                <input maxLength={100} minLength={1} name="language" id="language" value={language} onChange={handleChange} className="block w-full px-4 py-2 text-sm text-gray-900 placeholder-gray-500 border border-gray-300 rounded-md shadow-sm focus:outline-0 flex-1" placeholder="Languages (Java, Python, C++, and etc." required />
               </div>
               <div className="mb-6">
                 <label htmlFor="codeEx" className="block mb-2 text-sm font-medium text-indigo-500">Describe exactly the exercice you wanna solve for better results</label>
                 <textarea minLength={3} maxLength={500} rows="6" name="codeEx" id="codeEx" value={codeEx} onChange={handleChange} className="block w-full px-4 py-2 text-sm text-gray-900 placeholder-gray-500 border border-gray-300 rounded-md shadow-sm focus:outline-0 flex-1" placeholder="Write a Python function that takes in a list of numbers and returns the sum of the even numbers in the list."></textarea>
               </div>
               {loading ? (
-                <p
+                <p style={{ zIndex: '80' }}
                   className="inline-flex cursor-pointer bg-transparent border border-red-500 text-red-500 rounded-lg hover:bg-red-700 hover:text-white font-bold py-2 px-8 hover:translate-y-[-10px] transition ease-in"
                   onClick={() => cancelToken.cancel()}
                 > Stop Generating </p>

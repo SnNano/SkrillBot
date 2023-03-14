@@ -35,6 +35,7 @@ import MiniGpt from "./pages/Functionalities/MiniGpt";
 import RewriteEssay from "./pages/Functionalities/RewriteEssay";
 import TermsOfUse from "./components/sections/TermsOfUse";
 import PrivacyPolicy from "./components/sections/PrivacyPolicy";
+import RefundPolicy from "./components/sections/RefundPolicy";
 
 export const UserContext = createContext();
 
@@ -90,6 +91,7 @@ function App() {
                 }
               />
               <Route path="/sign-up" element={<Signup />} />
+              <Route path="/refund-policy" element={<RefundPolicy />} />
               {/* <Route path="/complete-signup" element={state.user ? <Phone /> : <Navigate to="/sign-up" />} /> */}
               <Route path="/sign-up/:referralId" element={<Signup />} />
               <Route path="/login" element={<Login />} />

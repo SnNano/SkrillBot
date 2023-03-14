@@ -6,6 +6,7 @@ import { useNavigate } from "react-router-dom";
 import { referralCode, register } from "../../services/userService";
 import GeneralSpinner from "../../components/layouts/GeneralSpinner";
 import google from "../../assets/images/googleLogo.png";
+import { Helmet } from "react-helmet-async";
 
 
 const Signup = () => {
@@ -73,6 +74,11 @@ const Signup = () => {
 
     return (
         <>
+            <Helmet>
+                <title>SkrillBot | Sign up</title>
+                <meta name="description" content="Join the Future of Writing and Coding with Skrillbot | Sign Up for Free and Get Instant Access to AI-Powered Services" />
+                <meta rel="canonical" href="/sign-up" />
+            </Helmet>
             <div className=" bg-gradient-to-r from-pink-500 to-blue-500 h-screen">
                 <div className="h-full container mx-auto px-12 flex justify-center items-center">
                     <div className="flex items-center justify-center">
@@ -96,6 +102,12 @@ const Signup = () => {
                                         <input type="password" value={cpassword} onChange={handleChange} name="cpassword" id="cpassword" className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-pink-600 peer" placeholder=" " required />
                                         <label htmlFor="cpassword" className="peer-focus:font-medium absolute text-sm text-gray-500 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-pink-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"><i className="fa-solid fa-unlock mr-3"></i>Confirm Password</label>
                                     </div>
+
+                                    <div className="flex items-center">
+                                        <input id="link-checkbox" type="checkbox" value="" className="w-4 h-4 text-indigo-600 bg-gray-100 border-gray-300 rounded focus:ring-indigo-500 focus:ring-2 dark:bg-gray-700 " required />
+                                        <label htmlFor="link-checkbox" className="ml-2 text-sm font-medium text-gray-900">I agree with the <Link to="terms-of-use" className="text-indigo-600 hover:underline">terms and conditions</Link>.</label>
+                                    </div>
+
                                     <button type="submit" className="inline-block rounded-full px-6 py-2.5 bg-gradient-to-r from-pink-500 to-blue-500 text-white font-medium text-xs leading-tight uppercase rounded hover:scale-90 focus:bg-gray-100 focus:outline-none focus:ring-0 active:bg-gray-200 transition duration-150 ease-in-out w-full">SIGNUP</button>
                                     <div className="my-6 text-center text-sm text-gray-600">
                                         <span>Or Sign up with</span>

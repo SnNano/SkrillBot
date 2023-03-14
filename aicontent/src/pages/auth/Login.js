@@ -7,6 +7,7 @@ import { useContext } from "react";
 import { login } from "../../services/userService";
 import GeneralSpinner from "../../components/layouts/GeneralSpinner";
 import google from "../../assets/images/googleLogo.png";
+import { Helmet } from "react-helmet-async";
 
 
 const Login = () => {
@@ -41,7 +42,6 @@ const Login = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log(formData)
     await login(formData, dispatch)
   }
 
@@ -58,6 +58,11 @@ const Login = () => {
   }
   return (
     <>
+      <Helmet>
+        <title>SkrillBot | Login</title>
+        <meta name="description" content="Securely Access Skrillbot's Writing and Coding Services | Login to Your Account and Get Started Today" />
+        <meta rel="canonical" href="/login" />
+      </Helmet>
       <div className=" bg-gradient-to-r from-pink-500 to-blue-500 h-screen">
         <div className="h-full container mx-auto px-12 flex justify-center items-center">
           <div className="flex items-center justify-center">

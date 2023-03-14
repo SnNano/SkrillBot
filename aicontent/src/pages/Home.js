@@ -12,7 +12,7 @@ import PricingHome from "../components/sections/PricingHome";
 const Home = () => {
     <Helmet>
         <title>SkrillBot</title>
-        <meta name="description" content="Skrillbot is a website that uses AI to automate homework assignments, reducing stress,saving time and helping students improve their understanding." />
+        <meta name="description" content="Revolutionize Your Writing and Coding with Skrillbot's AI-Powered Services | Get High-Quality Content and Homework Help in Minutes" />
         <meta rel="canonical" href="/" />
     </Helmet>
     useEffect(() => { window.scrollTo({ top: 0, left: 0, behavior: "smooth" }); }, []);

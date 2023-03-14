@@ -1,16 +1,16 @@
 const dev = {
-	baseURL: "https://api.skrillbot.com/api/",
+	baseURL: "http://localhost:5000/api/",
 	stripe: {
-		monthly: "price_1MjBY1DTXsIy5WCeJiBynJRp",
-		yearly: "price_1MkvdYDTXsIy5WCeqIrVH5OS"
+		monthly: "price_1MkybFDTXsIy5WCekelXeRiA",
+		yearly: "price_1MkybFDTXsIy5WCew4FbegDc"
 	},
 };
 
 const prod = {
 	baseURL: 'https://api.skrillbot.com/api/',
 	stripe: {
-		monthly: "price_1MjBY1DTXsIy5WCeJiBynJRp",
-		yearly: "price_1MkvdYDTXsIy5WCeqIrVH5OS"
+		monthly: "price_1MkybFDTXsIy5WCekelXeRiA",
+		yearly: "price_1MkybFDTXsIy5WCew4FbegDc"
 	},
 };
 
