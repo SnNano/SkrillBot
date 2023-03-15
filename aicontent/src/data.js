@@ -4,7 +4,7 @@ import idea from "./assets/images/idea1.PNG";
 import minibot from "./assets/images/minibot1.PNG";
 import homework from "./assets/images/homework.PNG";
 import college from "./assets/images/college.PNG";
-import articleSum from "./assets/images/articleSum.PNG";
+import articleSum from "./assets/images/summarizer.png";
 import bio from "./assets/images/bio.PNG";
 import bookSum from "./assets/images/bookSum.PNG";
 import emailResp from "./assets/images/emailResp.PNG";
