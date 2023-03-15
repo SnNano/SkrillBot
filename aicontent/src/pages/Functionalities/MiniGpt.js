@@ -7,6 +7,8 @@ import { chatapi } from "../../services/openaiService";
 import Typewriter from 'typewriter-effect';
 import axios from 'axios';
 import Footer from "../../components/layouts/Footer";
+import { Helmet } from "react-helmet-async";
+
 const { CancelToken } = axios;
 
 
@@ -53,6 +55,9 @@ const MiniGpt = () => {
 
     return (
         <>
+            <Helmet>
+            <title>SkrillBot | Ask me anything</title>
+            </Helmet>
             <BreadCumb header="Ask me anything" paragraph="Get inspired with endless topic ideas and questions, and let our AI technology help you create unique and engaging content." />
             <Sidebar />
             <div className="flex h-[75vh] antialiased text-gray-800 md:pb-24 pb-6 px-8">
@@ -65,8 +70,8 @@ const MiniGpt = () => {
                                         {chatLog.slice(1).map((data, index) => {
                                             return <div key={index} className={`p-3 rounded-lg ${data.role === "user" ? 'col-start-6 col-end-13' : 'col-start-1 col-end-8'}`}>
                                                 <div className={`flex items-center ${data.role === "user" ? "justify-start flex-row-reverse" : "flex-row "}`}>
-                                                    {data.role === "assistant" && <div className={`flex items-center justify-center h-10 w-10 rounded-full bg-indigo-500 flex-shrink-0`}> A </div>}
-                                                    {data.role === "user" && <div className={`flex items-center justify-center h-10 w-10 rounded-full bg-indigo-500 flex-shrink-0`}> A </div>}
+                                                    {data.role === "assistant" && <div className={`flex items-center justify-center h-10 w-10 rounded-full bg-indigo-500 flex-shrink-0`}> SK </div>}
+                                                    {data.role === "user" && <div className={`flex items-center justify-center h-10 w-10 rounded-full bg-indigo-500 flex-shrink-0`}> SK </div>}
                                                     <div>
                                                         <div className={`${data.role === "user" ? 'bg-indigo-100 mr-3' : 'bg-white ml-3'} relative  text-sm py-2 px-4 shadow rounded-xl`}>
                                                             {data.role === "assistant" ? (

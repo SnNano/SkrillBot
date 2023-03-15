@@ -6,6 +6,8 @@ import Content from "../../components/Content";
 import Button from "../../components/layouts/Button";
 import axios from 'axios';
 import Footer from "../../components/layouts/Footer";
+import { Helmet } from "react-helmet-async";
+
 const { CancelToken } = axios;
 
 const EmailResponder = () => {
@@ -44,7 +46,10 @@ const EmailResponder = () => {
 
     return (
         <>
-            <BreadCumb header="Email Responder" paragraph="Effortlessly generate high-quality Email Responses." />
+            <Helmet>
+                <title>SkrillBot | Email Responder</title>
+            </Helmet>
+            <BreadCumb header="Email Responder" paragraph="Craft personalized and professional email responses effortlessly." />
             <Sidebar />
             <div className="container px-8 py-4">
                 <section className="flex justify-center flex-col lg:pb-32 lg:pt-6 md:pb-12 md:pt-4 sm:py-6">

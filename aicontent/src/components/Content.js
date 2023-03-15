@@ -77,10 +77,10 @@ const Content = ({ showModal, setShowModal, loading, generatedText }) => {
           colors={['#FF0080', '#00FFFF', '#FFA500', '#ffff00', '#39FF14']}
           tweenDuration={2000} />
       </div>}
-      <div className="min-h-[20rem] flex-col p-6  border border-gray-200 rounded-lg shadow-md sm:my-4">
-        {!loading && generatedText && displayedText && <pre style={{ whiteSpace: 'pre-wrap', fontFamily: 'Times New Roman', fontSize: '18px' }}>{displayedText}</pre>
+      <div className="min-h-[10rem] flex-col p-6  border border-gray-200 rounded-lg shadow-md sm:my-4">
+        {!loading && generatedText && displayedText && <pre style={{ whiteSpace: 'pre-wrap', fontFamily: 'Times New Roman', fontSize: '20px' }}>{displayedText}</pre>
         }
-        {!generatedText && !loading && <div className="flex min-h-[20rem] justify-center items-center"><p className="text-2xl text-center text-gray-400">Answer will appear here.</p></div>}
+        {!generatedText && !loading && <div className="flex min-h-[10rem] justify-center items-center"><p className="text-2xl text-center text-gray-400">Answer will appear here.</p></div>}
         {loading && <div className="spinnerH"><Spinner /></div>}
         {!loading && generatedText &&
           <div className="cursor-pointer text-indigo-500 font-semibold mt-4 text-md hover:text-indigo-500" onClick={copyToClip}><i className="fa-regular fa-copy"></i>

@@ -6,6 +6,8 @@ import { getResponse } from "../../services/openaiService";
 import Typewriter from 'typewriter-effect';
 import axios from 'axios';
 import { MathfieldComponent } from "react-mathlive";
+import { Helmet } from "react-helmet-async";
+
 import Footer from "../../components/layouts/Footer";
 
 const { CancelToken } = axios;
@@ -32,7 +34,11 @@ const QandA = () => {
 
   const removeIsVisible = () => {
     const tag = document.querySelector('.keyboard-layer');
+    if(tag){
     tag.classList.remove('is-visible');
+    } else {
+      console.log("k")
+    }
   }
 
   const handleSubmit = async (e) => {
@@ -63,6 +69,9 @@ const QandA = () => {
   // is-visible keyboard-layer
   return (
     <>
+      <Helmet>
+        <title>SkrillBot | Homework Helper</title>
+      </Helmet>
       <BreadCumb header="Homework Helper" paragraph="Looking for instant answers to your questions? Our Al-powered homework bot is here to help. Just ask any question and get a reliable answer within seconds." />
       <Sidebar removeIsVisible={removeIsVisible} />
       <section className="px-8 mt-2 flex justify-center items-center flex-col md:pb-24 pb-12">

@@ -36,19 +36,25 @@ import RewriteEssay from "./pages/Functionalities/RewriteEssay";
 import TermsOfUse from "./components/sections/TermsOfUse";
 import PrivacyPolicy from "./components/sections/PrivacyPolicy";
 import RefundPolicy from "./components/sections/RefundPolicy";
+import AuthVerify from "./services/AuthVerify";
+import { Logout } from "./services/userService";
 
 export const UserContext = createContext();
 
 function App() {
   const [open, setOpen] = useState(false);
   const [state, dispatch] = useReducer(authReducer, initialState);
-  useEffect(() => {
-    const log = async () => {
-      await fetchAuthUserGoogle(dispatch)
-      await fetchAuthUser(dispatch)
+  
+    useEffect(() => {
+      const log = async () => {
+        await fetchAuthUserGoogle(dispatch)
+        await fetchAuthUser(dispatch)
+      }
+      log()
+    }, [])
+      const onLogout = async () => {
+        await Logout(state, dispatch);
     }
-    log()
-  }, [])
 
   return (
     <div className="font-poppins min-h-screen">
@@ -100,6 +106,7 @@ function App() {
               <Route path="/" element={<Home />} />
               <Route path="*" element={<NotFound />} />
             </Routes>
+            <AuthVerify logout={onLogout} />
           </SidebarContext.Provider>
         </UserContext.Provider>
       </Router>

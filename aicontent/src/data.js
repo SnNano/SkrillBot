@@ -10,6 +10,8 @@ import bookSum from "./assets/images/bookSum.PNG";
 import emailResp from "./assets/images/emailResp.PNG";
 import adCopy from "./assets/images/adCopy.PNG";
 import salesCopy from "./assets/images/salesCopy.PNG";
+import essay from "./assets/images/essay.png";
+import rewriter from "./assets/images/rewriter.png";
 
 
 export const data = [
@@ -142,10 +144,19 @@ export const moreData = [
         id: 17,
         icone: "fa-file-lines",
         title: "Essay Writing",
-        image: email,
+        image: essay,
         category: "writing",
         text: "Unlock your writing potential with our Al- powered essay writing tool.Say goodbye to writer's block and hello to top-notch, plagiarism-free essays in record time.",
         link: "/essay"
+    },
+    {
+        id: 18,
+        icone: "fa-bars",
+        title: "Effective Rewriter",
+        image: rewriter,
+        category: "writing",
+        text: "Crafting content that is both polished and playful, while avoiding plagiarism and evading the detection of AI algorithms.",
+        link: "/rewrite-essay"
     },
     {
         id: 3,
@@ -207,7 +218,7 @@ export const moreData = [
         title: "Email Responder",
         image: emailResp,
         category: "writing",
-        text: "Unlock your writing potential",
+        text: "Craft personalized and professional email responses effortlessly.",
         link: "/email-responder"
     },
     {
@@ -216,7 +227,7 @@ export const moreData = [
         title: "Bio Generator",
         image: bio,
         category: "social media",
-        text: "Unlock your writing potential",
+        text: "Create engaging and unique biographical profiles in a snap.",
         link: "/bio-generator"
     },
     {
@@ -225,7 +236,7 @@ export const moreData = [
         title: "Summarizer",
         image: articleSum,
         category: "summary",
-        text: "Summarize Any Text",
+        text: "Condense lengthy content into succinct, easy-to-understand summaries.",
         link: "/summarizer"
     },
     {
@@ -234,7 +245,7 @@ export const moreData = [
         title: "Book Summary",
         image: bookSum,
         category: "summary",
-        text: "Unlock our blog's potential with SkrilBats AI-powered writing.",
+        text: "Discover the essence of your favorite books in a single, concise sentence.",
         link: "/book-summary"
     },
     {
@@ -243,7 +254,7 @@ export const moreData = [
         title: "College Application ",
         image: college,
         category: "writing",
-        text: "Unlock our blog's potential with SkrillBot AI-powered writing.",
+        text: "Streamline your college application process with tailored advice and guidance.",
         link: "/college"
     },
     {
@@ -253,6 +264,6 @@ export const moreData = [
         category: "q&a",
         image: minibot,
         link: "/ask-anything",
-        text: "Avoid plagiarism and evade the detection of AI algorithms",
+        text: "Get quick, well-informed answers to any question on your mind.",
     },
 ]

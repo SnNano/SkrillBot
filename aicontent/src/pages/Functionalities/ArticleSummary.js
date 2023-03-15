@@ -7,7 +7,7 @@ const ArticleSummary = () => {
             <Helmet>
                 <title>SkrillBot | Summarizer</title>
             </Helmet>
-            <GeneralForm header="Summarizer" paragraph="Summarize Any Text." maxLength={500} minLength={10} type="ARTICLE_SUM" btnText="Generate" label2="Copy your text here" />
+            <GeneralForm header="Summarizer" paragraph="Condense lengthy content into succinct, easy-to-understand summaries." maxLength={500} minLength={10} type="ARTICLE_SUM" btnText="Generate" label2="Copy your text here" />
         </>
     )
 }

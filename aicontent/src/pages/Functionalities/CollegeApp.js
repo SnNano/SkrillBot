@@ -7,6 +7,8 @@ import Content from "../../components/Content";
 import Button from "../../components/layouts/Button";
 import axios from 'axios';
 import Footer from "../../components/layouts/Footer";
+import { Helmet } from "react-helmet-async";
+
 const { CancelToken } = axios;
 
 const CollegeApp = () => {
@@ -47,7 +49,10 @@ const CollegeApp = () => {
 
     return (
         <>
-            <BreadCumb header="College Application" paragraph="Effortlessly generate high-quality College application essays." />
+            <Helmet>
+                <title>SkrillBot | College Application</title>
+            </Helmet>
+            <BreadCumb header="College Application" paragraph="Streamline your college application process with tailored advice and guidance." />
             <Sidebar />
             <div className="container px-8 py-4">
                 <section className="flex justify-center flex-col lg:pb-32 lg:pt-6 md:pb-12 md:pt-4 sm:py-6">

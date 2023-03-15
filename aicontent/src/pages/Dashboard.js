@@ -86,7 +86,7 @@ const Dashboard = () => {
             <Sidebar />
             <div className="container h-auto">
                 <section className="flex justify-center flex-col lg:pb-32 lg:pt-6 md:pb-12 md:pt-4 sm:py-6 px-4">
-                    <div className="block w-full">
+                    <div className="flex w-full justify-center items-center">
                         <div className="mb-6">
                             {categories.map((item, index) => {
                                 return <button key={index} onClick={() => setSelectedCategory(item)} className={`mb-4 rounded-full mr-2 py-2 px-6 border border-indigo-500 ${selectedCategory === item
@@ -96,12 +96,12 @@ const Dashboard = () => {
                             })}
                         </div>
                     </div>
-                    <div className="flex justify-center items-center">
-                        <div className="grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-2">
+                    <div className="flex">
+                        <div className="grid lg:grid-cols-4 md:grid-cols-2 grid-cols-1 gap-2">
                             {filteredData.map((item, index) => {
                                 return <Link to={item.link} key={index} className="scale-90 hover:scale-100 hover:shadow-xl transition ease-in delay-150 max-w-sm bg-white border border-gray-200 rounded-[25px] shadow">
-                                    <img className="h-[290px] w-full rounded-t-[25px]" src={item.image} alt="" />
-                                    <div className="p-5">
+                                    <img className="w-32 h-32 p-4 rounded-t-[25px]" src={item.image} alt="" />
+                                    <div className="px-5">
                                         <h5 className="mb-2 text-md font-bold tracking-tight text-gray-900">{item.title}</h5>
                                         <p className="mb-3 font-light text-gray-700 text-sm">{item.text}</p>
                                     </div>

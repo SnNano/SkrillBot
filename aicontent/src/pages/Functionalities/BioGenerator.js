@@ -5,6 +5,8 @@ import { useState } from "react";
 import Content from "../../components/Content";
 import Footer from "../../components/layouts/Footer";
 import axios from 'axios';
+import { Helmet } from "react-helmet-async";
+
 const { CancelToken } = axios;
 
 
@@ -50,7 +52,10 @@ const BioGenerator = () => {
 
     return (
         <>
-            <BreadCumb header="Bio Generatot" paragraph="Effortlessly generate high-quality Bios." />
+            <Helmet>
+                <title>SkrillBot | Bio Generator</title>
+            </Helmet>
+            <BreadCumb header="Bio Generator" paragraph="Create engaging and unique biographical profiles in a snap." />
             <Sidebar />
             <div className="container px-8 py-4">
                 <section className="flex justify-center flex-col lg:pb-32 lg:pt-6 md:pb-12 md:pt-4 sm:py-6">
