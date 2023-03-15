@@ -10,7 +10,7 @@ router.post("/phone-number", protect, updatePhone);
 router.get("/:referralId", referralCode);
 router.get("/auth/user", isUserAuthenticated, checkGoogleAuth);
 router.get("/auth/refresh", protect, checkUserAuth);
-router.get("/auth/logout", isUserAuthenticated, logout);
+router.get("/auth/logout", logout);
 
 
 module.exports = router;

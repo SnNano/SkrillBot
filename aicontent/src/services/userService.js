@@ -52,6 +52,7 @@ export const fetchAuthUser = async (dispatch) => {
         'x-access-token': getToken()
       }
     });
+    console.log(response.data)
     dispatch({ type: "LOGIN_USER", payload: response.data });
     localStorage.setItem("user", JSON.stringify(response.data));
   } catch (error) {
@@ -61,6 +62,7 @@ export const fetchAuthUser = async (dispatch) => {
 }
 
 export const Logout = async (state, dispatch) => {
+  console.log(state.user.user.googleId)
   if (state.user.user.googleId || state.user.user.facebookId) {
     await axios.get(process.env.REACT_APP_BACKEND_URL + "users/auth/logout", { withCredentials: true });
   }

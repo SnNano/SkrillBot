@@ -17,7 +17,7 @@ const Essay = () => {
   const [cancelToken, setCancelToken] = useState(null);
 
   const [formData, setFormData] = useState({
-    tone: "", level: "elementary", pov:"1st Person",
+    tone: "", level: "elementary", pov: "1st Person",
     creativity: 0.5, message: "",
     keywords: "", loading: false,
     generatedText: null
@@ -43,8 +43,8 @@ const Essay = () => {
       ${keywords ? `Keywords: [${keywords}]` : ''}\nIt should not have outlines.\n The Point of view that you should follow is: ${pov} pov.
       It should not be plagiarised, it should be original. It should have more than 21000 words.
       It is important to include MLA citations with reliable sources only such as .org, .gov, .edu and etc. no .com sites`;
-      const result = await getResponse(prompt, parseFloat(creativity), source.token);
-      //const result = await chatapi([{ role: "user", content: prompt }], parseFloat(creativity), source.token);
+      //const result = await getResponse(prompt, parseFloat(creativity), source.token);
+      const result = await chatapi([{ role: "user", content: prompt }], parseFloat(creativity), source.token);
       setFormData({ ...formData, generatedText: result.content, loading: false });
     } catch (error) {
       if (axios.isCancel(error)) {
@@ -118,7 +118,7 @@ const Essay = () => {
                     <option value="3rd Person">3rd Person</option>
                   </select>
                 </div>
-               
+
                 <div>
                   <label htmlFor="level" className="block mb-2 text-sm font-medium text-indigo-500">Select level</label>
                   <select name="level" id="level" value={level} onChange={handleChange} className="block w-full px-4 py-2 text-sm text-gray-900 placeholder-gray-500 border border-gray-300 rounded-md shadow-sm focus:outline-0 focus:border-indigo-400 flex-1">
@@ -130,15 +130,15 @@ const Essay = () => {
                 </div>
               </div>
               <div className="mb-6">
-                  <label htmlFor="creativity" className="block mb-2 text-sm font-medium text-indigo-500">Creativity level (The higher the creativity level the less factual it gets)</label>
-                  <select name="creativity" id="creativity" value={creativity} onChange={handleChange} className="block w-full px-4 py-2 text-sm text-gray-900 placeholder-gray-500 border border-gray-300 rounded-md shadow-sm focus:outline-0 focus:border-indigo-400 flex-1">
-                    <option value="0">None</option>
-                    <option value="0.3">Low</option>
-                    <option value="0.5">Medium (recommended)</option>
-                    <option value="0.7">High</option>
-                    <option value="1">Max</option>
-                  </select>
-                </div>
+                <label htmlFor="creativity" className="block mb-2 text-sm font-medium text-indigo-500">Creativity level (The higher the creativity level the less factual it gets)</label>
+                <select name="creativity" id="creativity" value={creativity} onChange={handleChange} className="block w-full px-4 py-2 text-sm text-gray-900 placeholder-gray-500 border border-gray-300 rounded-md shadow-sm focus:outline-0 focus:border-indigo-400 flex-1">
+                  <option value="0">None</option>
+                  <option value="0.3">Low</option>
+                  <option value="0.5">Medium (recommended)</option>
+                  <option value="0.7">High</option>
+                  <option value="1">Max</option>
+                </select>
+              </div>
               <div className="mb-6">
                 <label htmlFor="message" className="block mb-2 text-md font-medium text-indigo-500">Essay topic</label>
                 <textarea id="message" minLength="10" maxLength="300" value={message} onChange={handleChange} name="message" rows="4" className="block w-full px-4 py-2 text-sm text-gray-900 placeholder-gray-500 border border-gray-300 rounded-md shadow-sm focus:outline-0 focus:border-indigo-400 flex-1" placeholder="The more context the better!" required></textarea>
