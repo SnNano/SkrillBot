@@ -51,7 +51,7 @@ const PricingHome = () => {
                         </div>
                     </div>
                     <div>
-                        <Link to="/login" className="inline-flex items-center justify-center w-full h-12 px-6 mt-6 font-medium tracking-wide text-white transition duration-200 bg-indigo-500 rounded shadow-md hover:bg-gray-900 focus:shadow-outline focus:outline-none"> Subscribe </Link>
+                        <Link to="/billing" className="inline-flex items-center justify-center w-full h-12 px-6 mt-6 font-medium tracking-wide text-white transition duration-200 bg-indigo-500 rounded shadow-md hover:bg-gray-900 focus:shadow-outline focus:outline-none"> Subscribe </Link>
 
                     </div>
                 </div>
@@ -76,7 +76,7 @@ const PricingHome = () => {
                         </div>
                     </div>
                     <div>
-                        <Link to="/login" className="inline-flex items-center justify-center w-full h-12 px-6 mt-6 font-medium tracking-wide text-white transition duration-200 bg-indigo-500 rounded shadow-md hover:bg-gray-900 focus:shadow-outline focus:outline-none">
+                        <Link to="/billing" className="inline-flex items-center justify-center w-full h-12 px-6 mt-6 font-medium tracking-wide text-white transition duration-200 bg-indigo-500 rounded shadow-md hover:bg-gray-900 focus:shadow-outline focus:outline-none">
                             Subscribe
                         </Link>
 

@@ -2,7 +2,7 @@ import { Link, useParams } from "react-router-dom"
 import { toast } from 'react-toastify';
 import { UserContext } from "../../App";
 import { useContext, useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import { referralCode, register } from "../../services/userService";
 import GeneralSpinner from "../../components/layouts/GeneralSpinner";
 import google from "../../assets/images/googleLogo.png";
@@ -21,17 +21,20 @@ const Signup = () => {
     });
     const { username, email, password, cpassword } = formData;
     const navigate = useNavigate();
+    const location = useLocation();
+    const { from } = location.state || { from: { pathname: '/dashboard' } };
+
 
     useEffect(() => {
         if (state.isError) {
             toast.error(state.message);
         }
         if (state.isSuccess || (state.user)) {
-            navigate('/dashboard');
+            // navigate(location.state?.from || '/dashboard', { replace: true });
         }
 
         dispatch({ type: "RESET" });
-    }, [state.isError, state.isSuccess, state.isLoading, state.message, navigate, state.user, dispatch]);
+    }, [location, state.isError, state.isSuccess, state.isLoading, state.message, navigate, state.user, dispatch]);
 
     // setForm data values
     const handleChange = (e) => {
@@ -52,7 +55,7 @@ const Signup = () => {
             const userData = { username, email, password };
             const response = await register(userData, dispatch);
             if (response) {
-                navigate("/dashboard");
+                navigate(from, { replace: true });
             }
             if (referralId) {
                 await referralCode(referralId);

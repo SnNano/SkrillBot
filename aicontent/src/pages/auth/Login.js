@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom"
+import { Link, useLocation } from "react-router-dom"
 import { useState, useEffect } from "react";
 import { toast } from 'react-toastify';
 import { useNavigate } from "react-router-dom";
@@ -14,7 +14,8 @@ const Login = () => {
 
   const navigate = useNavigate();
   const { state, dispatch } = useContext(UserContext);
-
+  const location = useLocation();
+  const { from } = location.state || { from: { pathname: '/dashboard' } };
   const [formData, setFormData] = useState({
     email: "",
     password: ""
@@ -27,7 +28,7 @@ const Login = () => {
       toast.error(state.message);
     }
     if (state.user || state.isSuccess) {
-      navigate("/dashboard");
+      //navigate("/dashboard");
     }
     dispatch({ type: "RESET" });
   }, [state.isError, state.isLoading, state.isSuccess, state.user, state.message, navigate, dispatch]);
@@ -43,6 +44,7 @@ const Login = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     await login(formData, dispatch)
+    navigate(from, { replace: true });
   }
 
   const redirectToGoogleSSO = async () => {

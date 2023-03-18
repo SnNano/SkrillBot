@@ -8,6 +8,14 @@ export const getResponse = async (prompt, creativity, cancelToken) => {
     });
     return response.data.result;
 }
+export const getEssay = async (prompt, creativity, cancelToken) => {
+    const response = await axios.post(process.env.REACT_APP_BACKEND_URL + "essay", { prompt, creativity }, {
+        headers: {
+            'x-access-token': getToken()
+        }, cancelToken: cancelToken
+    });
+    return response.data.result;
+}
 
 export const rewriteText = async (prompt, cancelToken) => {
     const response = await axios.post(process.env.REACT_APP_BACKEND_URL + "rewrite", { prompt }, {

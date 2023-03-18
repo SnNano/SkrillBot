@@ -43,6 +43,42 @@ const postPrompt = async (req, res) => {
     await updateUserCharacter(req, res, outputLength)
     res.status(200).json({ result: output })
 }
+const getEssay = async (req, res) => {
+    const { prompt, creativity } = req.body;
+    let completion;
+    try {
+        completion = await openai.createCompletion({
+            model: "text-davinci-003",
+            prompt: prompt,
+            max_tokens: 3000,
+            temperature: creativity,
+            user: req.user._id,
+            stream: true
+        });
+    } catch (error) {
+        res.status(401);
+        console.log(error);
+        throw new Error("You should type a prompt");
+    }
+    let output = `${completion.data.choices[0].text}`
+
+    // remove the first character from output
+    output = output.substring(1, output.length)
+
+    // If the output string ends with one or more hashtags, remove all of them
+    if (output.endsWith('"')) {
+        output = output.substring(0, output.length - 1)
+    }
+
+    // remove a single new line at the end of output if there is one
+    if (output.endsWith('\n')) {
+        output = output.substring(0, output.length - 1)
+    }
+
+    outputLength = output.length
+    await updateUserCharacter(req, res, outputLength)
+    res.status(200).json({ result: output })
+}
 
 
 const codePrompt = async (req, res) => {
@@ -104,4 +140,4 @@ const updateUserCharacter = async (req, res, outputLength) => {
     }
 }
 
-module.exports = { postPrompt, codePrompt, postChatgpt }
+module.exports = { postPrompt, codePrompt, postChatgpt, getEssay }

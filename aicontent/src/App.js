@@ -44,17 +44,17 @@ export const UserContext = createContext();
 function App() {
   const [open, setOpen] = useState(false);
   const [state, dispatch] = useReducer(authReducer, initialState);
-  
-    useEffect(() => {
-      const log = async () => {
-        await fetchAuthUserGoogle(dispatch)
-        await fetchAuthUser(dispatch)
-      }
-      log()
-    }, [])
-      const onLogout = async () => {
-        await Logout(state, dispatch);
+
+  useEffect(() => {
+    const log = async () => {
+      await fetchAuthUserGoogle(dispatch)
+      await fetchAuthUser(dispatch)
     }
+    log()
+  }, [])
+  const onLogout = async () => {
+    await Logout(state, dispatch);
+  }
 
   return (
     <div className="font-poppins min-h-screen">
@@ -93,7 +93,7 @@ function App() {
                         <Route path="/code-generator" element={<CodeLookUp />} />
                       </Routes>
                     </div>
-                  ) : (<Navigate to="/login" />)
+                  ) : (<Navigate to="/login" state={{ from: '/billing' }} replace />)
                 }
               />
               <Route path="/sign-up" element={<Signup />} />
@@ -113,5 +113,6 @@ function App() {
     </div>
   );
 }
+
 
 export default App;

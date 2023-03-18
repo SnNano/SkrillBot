@@ -32,6 +32,8 @@ export const addPhoneNumber = async (data, dispatch) => {
   }
 }
 
+
+
 export const referralCode = async (referralId) => {
   await axios.get(process.env.REACT_APP_BACKEND_URL + 'users/' + referralId);
 }

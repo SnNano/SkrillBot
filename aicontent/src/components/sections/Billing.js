@@ -13,7 +13,10 @@ const Billing = () => {
             {/* <BreadCumb header="Profile" /> */}
             <Sidebar />
             <div className="mt-32">
-                <div className="flex justify-center p-4 pb-20">
+                <div className="flex flex-col justify-center items-center p-4 pb-20">
+                    {state.user && state.user.user.characters < -1 && <div className="card px-4 py-2">
+                        <p className="text-red-500 text-lg">You have reached the characters limits. Please upgrade to get unlimited characters.</p>
+                    </div>}
                     <div className="w-[80%] settings bg-white mt-6 rounded-lg shadow-lg">
                         <div className="p-4">
                             <h3 className="font-normal text-lg mb-2">Subscription</h3>
