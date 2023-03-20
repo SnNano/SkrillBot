@@ -1,11 +1,21 @@
 const dotenv = require("dotenv").config();
 const axios = require("axios");
 const FormData = require('form-data');
+const asyncHandler = require("express-async-handler");
 
 
-const rewriteText = async (req, res) => {
+const rewriteText = asyncHandler(async (req, res) => {
 
     const { prompt } = req.body;
+    const user = User.findOne({ _id: req.user._id });
+    if (!user) {
+        res.status(401)
+        throw new Error("User doesn't exist")
+    }
+    if (user.characters < -1 || user.characters === 0) {
+        res.status(401)
+        throw new Error("You reached the characters limit Please Upgrade your plan");
+    }
     let apiKey = process.env.SPIN_API_KEY;
     let email = process.env.SPIN_EMAIL;
     let api_url = "http://www.spinrewriter.com/action/api";
@@ -35,7 +45,7 @@ const rewriteText = async (req, res) => {
         .catch(error => {
             console.error(error);
         });
-}
+})
 
 
 module.exports = { rewriteText }

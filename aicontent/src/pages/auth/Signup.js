@@ -30,7 +30,7 @@ const Signup = () => {
             toast.error(state.message);
         }
         if (state.isSuccess || (state.user)) {
-            // navigate(location.state?.from || '/dashboard', { replace: true });
+            navigate(location.state?.from || '/dashboard', { replace: true });
         }
 
         dispatch({ type: "RESET" });

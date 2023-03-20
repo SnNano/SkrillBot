@@ -8,8 +8,17 @@ const configuration = new Configuration({
 });
 const openai = new OpenAIApi(configuration);
 
-const postPrompt = async (req, res) => {
+const postPrompt = asyncHandler(async (req, res) => {
     const { prompt, creativity } = req.body;
+    const user = User.findOne({ _id: req.user._id });
+    if (!user) {
+        res.status(401)
+        throw new Error("User doesn't exist")
+    }
+    if (user.characters < -1 || user.characters === 0) {
+        res.status(401)
+        throw new Error("You reached the characters limit Please Upgrade your plan");
+    }
     let completion;
     try {
         completion = await openai.createCompletion({
@@ -42,9 +51,18 @@ const postPrompt = async (req, res) => {
     outputLength = output.length
     await updateUserCharacter(req, res, outputLength)
     res.status(200).json({ result: output })
-}
-const getEssay = async (req, res) => {
+})
+const getEssay = asyncHandler(async (req, res) => {
     const { prompt, creativity } = req.body;
+    const user = User.findOne({ _id: req.user._id });
+    if (!user) {
+        res.status(401)
+        throw new Error("User doesn't exist")
+    }
+    if (user.characters < -1 || user.characters === 0) {
+        res.status(401)
+        throw new Error("You reached the characters limit Please Upgrade your plan");
+    }
     let completion;
     try {
         completion = await openai.createCompletion({
@@ -78,11 +96,20 @@ const getEssay = async (req, res) => {
     outputLength = output.length
     await updateUserCharacter(req, res, outputLength)
     res.status(200).json({ result: output })
-}
+})
 
 
-const codePrompt = async (req, res) => {
+const codePrompt = asyncHandler(async (req, res) => {
     const { prompt } = req.body;
+    const user = User.findOne({ _id: req.user._id });
+    if (!user) {
+        res.status(401)
+        throw new Error("User doesn't exist")
+    }
+    if (user.characters < -1 || user.characters === 0) {
+        res.status(401)
+        throw new Error("You reached the characters limit Please Upgrade your plan");
+    }
     let completion;
     try {
         completion = await openai.createCompletion({
@@ -114,10 +141,19 @@ const codePrompt = async (req, res) => {
     outputLength = output.length
     await updateUserCharacter(req, res, outputLength)
     res.status(200).json({ result: output })
-}
+})
 
-const postChatgpt = async (req, res) => {
+const postChatgpt = asyncHandler(async (req, res) => {
     const { prompt, creativity } = req.body;
+    const user = User.findOne({ _id: req.user._id });
+    if (!user) {
+        res.status(401)
+        throw new Error("User doesn't exist")
+    }
+    if (user.characters < -1 || user.characters === 0) {
+        res.status(401)
+        throw new Error("You reached the characters limit Please Upgrade your plan");
+    }
     const completion = await openai.createChatCompletion({
         model: "gpt-3.5-turbo",
         messages: prompt,
@@ -128,7 +164,7 @@ const postChatgpt = async (req, res) => {
     outputLength = completion.data.choices[0].message.content.length
     await updateUserCharacter(req, res, outputLength)
     res.json({ result: completion.data.choices[0].message });
-}
+})
 
 const updateUserCharacter = async (req, res, outputLength) => {
     let user = await User.findOne({ _id: req.user._id })

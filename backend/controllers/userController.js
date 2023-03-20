@@ -49,6 +49,7 @@ const registerUser = asyncHandler(async (req, res) => {
                 customerId: user.customerId,
                 characters: user.characters,
                 plan: user.plan,
+                referralId: user.referralId
             },
             token: generateToken(user._id)
         });
@@ -77,6 +78,7 @@ const login = asyncHandler(async (req, res) => {
                 customerId: user.customerId,
                 characters: user.characters,
                 plan: user.plan,
+                referralId: user.referralId
             },
             token: generateToken(user._id),
         });
@@ -117,6 +119,7 @@ const checkGoogleAuth = (req, res) => {
             email: req.user.email,
             characters: req.user.characters,
             plan: req.user.plan,
+            referralId: user.referralId
         },
         token: generateToken(req.user._id)
     });
@@ -136,6 +139,7 @@ const checkUserAuth = asyncHandler(async (req, res) => {
             customerId: user.customerId,
             characters: user.characters,
             plan: user.plan,
+            referralId: user.referralId
         },
         token: generateToken(user._id)
     });
