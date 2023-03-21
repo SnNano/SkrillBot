@@ -2,12 +2,15 @@ const dotenv = require("dotenv").config();
 const axios = require("axios");
 const FormData = require('form-data');
 const asyncHandler = require("express-async-handler");
+const User = require("../models/userModel");
 
 
 const rewriteText = asyncHandler(async (req, res) => {
 
     const { prompt } = req.body;
-    const user = User.findOne({ _id: req.user._id });
+    console.log(req.user._id)
+
+    const user = await User.findOne({ _id: req.user._id.toString() });
     if (!user) {
         res.status(401)
         throw new Error("User doesn't exist")
@@ -39,13 +42,22 @@ const rewriteText = asyncHandler(async (req, res) => {
     }
     await axios.post(api_url, form, {
         headers: form.getHeaders()
-    }).then(response => {
-        res.json({ result: response.data.response })
+    }).then(async response => {
+        outputLength = response.data.response.length;
+        await updateUserCharacter(user, outputLength)
+        res.json({ result: response.data.response, userCharacters: user.characters })
     })
         .catch(error => {
             console.error(error);
         });
 })
-
+const updateUserCharacter = async (user, outputLength) => {
+    // check if user has free plan
+    if (user.plan === "free" || user.plan === "canceled") {
+        user.characters = user.characters - outputLength
+        user.charactersUsed = user.charactersUsed + user.characters
+        await user.save()
+    }
+}
 
 module.exports = { rewriteText }

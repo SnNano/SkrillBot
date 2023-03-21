@@ -1,5 +1,5 @@
 import { useEffect, useContext, useState } from "react";
-import { UserContext } from "../../App";
+import { RemainingWordsContext, UserContext } from "../../App";
 import { Logout } from "../../services/userService";
 import minibot from "../../assets/images/avatarprof.jpg";
 
@@ -10,6 +10,7 @@ import { SidebarContext } from "./Sidebar";
 const BreadCumb = ({ header, paragraph }) => {
   const { state, dispatch } = useContext(UserContext);
   const { open, setOpen } = useContext(SidebarContext);
+  const { remainingWords } = useContext(RemainingWordsContext);
 
   const [openDrop, setOpenDrop] = useState(false);
 
@@ -22,15 +23,15 @@ const BreadCumb = ({ header, paragraph }) => {
   useEffect(() => {
     setOpenDrop(false); // close dropdown when location changes
   }, [location.pathname]);
-  if (state.user && (state.user.user.characters < -1 || state.user.user.characters === 0)) {
+  if (state.user && (remainingWords < -1 || remainingWords === 0)) {
     navigate('/billing'); // Navigate to the billing page
   }
   return (
     <div className="w-full relative flex justify-between p-4 breadbubble-element bg-white shadow-md  top-0 left-0">
       <div>
         <h1 className="md:text-2xl text-xl font-semibold text-gray-900 px-2 py-2">{header}</h1>
-        {state.user.user.characters >= -1 && <p className="text-indigo-500 md:text-md text-sm px-2">Characters {state.user.user.characters === -1 ? 'Unlimited' : `${state.user.user.characters}`}</p>}
-        {(state.user.user.characters < -1 || state.user.user.characters === 0) && <p className="text-red-600 md:text-md text-sm px-2">You reached the characters Limits Please Upgrade your plan</p>}
+        {remainingWords >= -1 && <p className="text-indigo-500 md:text-md text-sm px-2">Characters {remainingWords === -1 ? 'Unlimited' : `${remainingWords}`}</p>}
+        {(remainingWords < -1 || remainingWords === 0) && <p className="text-red-600 md:text-md text-sm px-2">You reached the characters Limits Please Upgrade your plan</p>}
         <div className="font-normal text-gray-400 md:text-md text-sm py-2 px-2">{paragraph}</div>
       </div>
       {state.user ? <>

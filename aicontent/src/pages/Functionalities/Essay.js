@@ -1,5 +1,5 @@
-import { chatapi, getResponse } from "../../services/openaiService";
-import { useEffect, useState } from "react";
+import { chatapi } from "../../services/openaiService";
+import { useEffect, useState, useContext } from "react";
 import BreadCumb from "../../components/layouts/BreadCumb";
 import Sidebar from "../../components/layouts/Sidebar";
 import Button from "../../components/layouts/Button";
@@ -7,15 +7,18 @@ import Content from "../../components/Content";
 import Facts from "../../components/layouts/Facts";
 import axios from 'axios';
 import { Helmet } from "react-helmet-async";
-
+import { RemainingWordsContext } from "../../App";
 import Footer from "../../components/layouts/Footer";
+import { useNavigate } from "react-router-dom";
+
 const { CancelToken } = axios;
 
 const Essay = () => {
 
   const [showModal, setShowModal] = useState(false);
   const [cancelToken, setCancelToken] = useState(null);
-
+  const { setRemainingWords } = useContext(RemainingWordsContext);
+  const navigate = useNavigate();
   const [formData, setFormData] = useState({
     tone: "", level: "elementary", pov: "1st Person",
     creativity: 0.5, message: "",
@@ -45,7 +48,13 @@ const Essay = () => {
       It is important to include MLA citations with reliable sources only such as .org, .gov, .edu and etc. no .com sites`;
       //const result = await getResponse(prompt, parseFloat(creativity), source.token);
       const result = await chatapi([{ role: "user", content: prompt }], parseFloat(creativity), source.token);
-      setFormData({ ...formData, generatedText: result.content, loading: false });
+      setFormData({ ...formData, generatedText: result.result.content, loading: false });
+      setRemainingWords(result.userCharacters);
+      if (result.userCharacters) {
+        setRemainingWords(result.userCharacters);
+      } else {
+        navigate("/billing")
+      }
     } catch (error) {
       if (axios.isCancel(error)) {
         setFormData({ ...formData, loading: false });

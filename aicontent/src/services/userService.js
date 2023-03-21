@@ -6,6 +6,7 @@ export const register = async (userData, dispatch) => {
     const response = await axios.post(process.env.REACT_APP_BACKEND_URL + "users", userData);
     dispatch({ type: "REGISTER_USER", payload: response.data });
     localStorage.setItem("user", JSON.stringify(response.data));
+    return response.data;
   } catch (error) {
     dispatch({ type: "ERROR", payload: error.response.data.message });
   }
@@ -16,6 +17,7 @@ export const login = async (userData, dispatch) => {
     const response = await axios.post(process.env.REACT_APP_BACKEND_URL + "users/login", userData);
     dispatch({ type: "LOGIN_USER", payload: response.data });
     localStorage.setItem("user", JSON.stringify(response.data));
+    return response.data;
   } catch (error) {
     dispatch({ type: "ERROR", payload: error.response.data.message });
   }
@@ -54,7 +56,6 @@ export const fetchAuthUser = async (dispatch) => {
         'x-access-token': getToken()
       }
     });
-    console.log(response.data)
     dispatch({ type: "LOGIN_USER", payload: response.data });
     localStorage.setItem("user", JSON.stringify(response.data));
   } catch (error) {

@@ -1,7 +1,7 @@
 import Button from "../../components/layouts/Button";
 // import ContentCode from "../../components/ContentCode";
 import { codePrompt } from "../../services/openaiService";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { CopyBlock, dracula } from "react-code-blocks";
 import { Helmet } from "react-helmet-async";
 
@@ -11,6 +11,8 @@ import BreadCumb from "../../components/layouts/BreadCumb";
 import axios from 'axios';
 import Facts from "../../components/layouts/Facts";
 import Footer from "../../components/layouts/Footer";
+import { RemainingWordsContext } from "../../App";
+import { useNavigate } from "react-router-dom";
 const { CancelToken } = axios;
 
 
@@ -24,8 +26,10 @@ const CodeLookUp = () => {
     generatedText: null
   });
   const { codeEx, language, generatedText, loading } = formData;
+  const { setRemainingWords } = useContext(RemainingWordsContext);
   const [cancelToken, setCancelToken] = useState(null);
   const [showModal, setShowModal] = useState(false);
+  const navigate = useNavigate();
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   }
@@ -43,7 +47,12 @@ const CodeLookUp = () => {
     prompt = `Please generate the following code: [${codeEx}] in [${language}].`;
     try {
       const result = await codePrompt(prompt, source.token);
-      setFormData({ ...formData, generatedText: result, loading: false });
+      setFormData({ ...formData, generatedText: result.result, loading: false });
+      if (result.userCharacters) {
+        setRemainingWords(result.userCharacters);
+      } else {
+        navigate("/billing")
+      }
     } catch (error) {
       if (axios.isCancel(error)) {
         setFormData({ ...formData, loading: false });

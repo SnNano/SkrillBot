@@ -1,15 +1,17 @@
 import { rewriteText } from "../../services/openaiService";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import BreadCumb from "../../components/layouts/BreadCumb";
 import Sidebar from "../../components/layouts/Sidebar";
 import Button from "../../components/layouts/Button";
 import Content from "../../components/Content";
 import axios from 'axios';
 import Footer from "../../components/layouts/Footer";
+import { RemainingWordsContext } from "../../App";
+import { useNavigate } from "react-router-dom";
 const { CancelToken } = axios;
 
 const RewriteEssay = () => {
-
+    const navigate = useNavigate();
     const [formData, setFormData] = useState({
         message: "", loading: false,
         generatedText: null
@@ -17,6 +19,8 @@ const RewriteEssay = () => {
     const [showModal, setShowModal] = useState(false);
     const [cancelToken, setCancelToken] = useState(null);
     const { message, generatedText, loading } = formData;
+
+    const { setRemainingWords } = useContext(RemainingWordsContext);
 
     const handleChange = (e) => {
         setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -30,7 +34,13 @@ const RewriteEssay = () => {
         setShowModal(true);
         try {
             const rewritten = await rewriteText(message, source.token);
-            setFormData({ ...formData, generatedText: rewritten, loading: false });
+            setFormData({ ...formData, generatedText: rewritten.result, loading: false });
+            if (rewritten.userCharacters) {
+                setRemainingWords(rewritten.userCharacters);
+            } else {
+                navigate("/billing")
+            }
+
         } catch (error) {
             if (axios.isCancel(error)) {
                 setFormData({ ...formData, loading: false });

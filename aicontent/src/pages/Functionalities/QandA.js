@@ -1,4 +1,4 @@
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useState, useRef, useContext } from "react";
 
 import BreadCumb from "../../components/layouts/BreadCumb";
 import Sidebar from "../../components/layouts/Sidebar";
@@ -7,8 +7,10 @@ import Typewriter from 'typewriter-effect';
 import axios from 'axios';
 import { MathfieldComponent } from "react-mathlive";
 import { Helmet } from "react-helmet-async";
-
+import { RemainingWordsContext } from "../../App";
 import Footer from "../../components/layouts/Footer";
+import { useNavigate } from "react-router-dom";
+
 
 const { CancelToken } = axios;
 
@@ -17,6 +19,8 @@ const QandA = () => {
   const [input, setInput] = useState("");
   const [latex, setLatex] = useState("");
   const [level, setLevel] = useState("6th-9th Grade");
+
+  const { setRemainingWords } = useContext(RemainingWordsContext);
 
   const messagesEndRef = useRef(null);
   const chatLogContainerRef = useRef(null);
@@ -27,15 +31,15 @@ const QandA = () => {
   }]);
 
   const [isLoading, setIsLoading] = useState(false);
-
+  const navigate = useNavigate();
   useEffect(() => {
     chatLogContainerRef.current.scrollTop = chatLogContainerRef.current.scrollHeight;
   }, [chatLog, isLoading]);
 
   const removeIsVisible = () => {
     const tag = document.querySelector('.keyboard-layer');
-    if(tag){
-    tag.classList.remove('is-visible');
+    if (tag) {
+      tag.classList.remove('is-visible');
     } else {
       console.log("k")
     }
@@ -55,7 +59,13 @@ const QandA = () => {
       let newPrompt = chatLogNew.map((message) => message.message).join("\n");
       console.log(newPrompt)
       const result = await getResponse(newPrompt, 0.5, source.token);
-      setChatLog([...chatLogNew, { user: "A", message: `${result}` }]);
+      setChatLog([...chatLogNew, { user: "A", message: `${result.result}` }]);
+      if (result.userCharacters) {
+        setRemainingWords(result.userCharacters);
+      } else {
+        navigate("/billing")
+      }
+
       messagesEndRef.current.scrollIntoView({ behavior: "smooth" });
     } catch (error) {
       if (axios.isCancel(error)) {

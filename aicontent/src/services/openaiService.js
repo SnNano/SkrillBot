@@ -6,7 +6,7 @@ export const getResponse = async (prompt, creativity, cancelToken) => {
             'x-access-token': getToken()
         }, cancelToken: cancelToken
     });
-    return response.data.result;
+    return response.data;
 }
 export const getEssay = async (prompt, creativity, cancelToken) => {
     const response = await axios.post(process.env.REACT_APP_BACKEND_URL + "essay", { prompt, creativity }, {
@@ -14,7 +14,7 @@ export const getEssay = async (prompt, creativity, cancelToken) => {
             'x-access-token': getToken()
         }, cancelToken: cancelToken
     });
-    return response.data.result;
+    return response.data;
 }
 
 export const rewriteText = async (prompt, cancelToken) => {
@@ -23,7 +23,7 @@ export const rewriteText = async (prompt, cancelToken) => {
             'x-access-token': getToken()
         }, cancelToken: cancelToken
     });
-    return response.data.result;
+    return response.data;
 }
 
 export const chatapi = async (prompt, creativity, cancelToken) => {
@@ -33,7 +33,7 @@ export const chatapi = async (prompt, creativity, cancelToken) => {
             'x-access-token': getToken()
         }, cancelToken: cancelToken
     });
-    return response.data.result;
+    return response.data;
 }
 
 export const codePrompt = async (prompt, cancelToken) => {
@@ -43,7 +43,7 @@ export const codePrompt = async (prompt, cancelToken) => {
                 'x-access-token': getToken()
             }, cancelToken: cancelToken
         });
-    return response.data.result;
+    return response.data;
 }
 
 export const getRandomUser = async () => {

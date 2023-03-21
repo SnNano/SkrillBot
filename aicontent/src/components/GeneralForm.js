@@ -1,15 +1,19 @@
 import Button from "./layouts/Button";
 import Content from "./Content";
+import { useNavigate } from "react-router-dom";
+
 import { getResponse } from "../services/openaiService";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
 import PropTypes from 'prop-types';
 import Sidebar from "./layouts/Sidebar";
 import BreadCumb from "./layouts/BreadCumb";
 import axios from 'axios';
 import Footer from "./layouts/Footer";
+import { RemainingWordsContext } from "../App";
 const { CancelToken } = axios;
 
 const GeneralForm = ({ header, paragraph, keywordP, label2, type, maxLength, minLength }) => {
+  const { setRemainingWords } = useContext(RemainingWordsContext);
 
   const [formData, setFormData] = useState({
     tone: "", creativity: 0.5,
@@ -25,7 +29,7 @@ const GeneralForm = ({ header, paragraph, keywordP, label2, type, maxLength, min
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   }
-
+  const navigate = useNavigate();
   const handleSubmit = async (e) => {
     e.preventDefault();
     let prompt;
@@ -75,7 +79,12 @@ const GeneralForm = ({ header, paragraph, keywordP, label2, type, maxLength, min
     }
     try {
       const result = await getResponse(prompt, parseFloat(creativity), source.token);
-      setFormData({ ...formData, generatedText: result, loading: false });
+      setFormData({ ...formData, generatedText: result.result, loading: false });
+      if (result.userCharacters) {
+        setRemainingWords(result.userCharacters);
+      } else {
+        navigate("/billing")
+      }
     } catch (error) {
       if (axios.isCancel(error)) {
         setFormData({ ...formData, loading: false });

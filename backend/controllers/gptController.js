@@ -9,8 +9,9 @@ const configuration = new Configuration({
 const openai = new OpenAIApi(configuration);
 
 const postPrompt = asyncHandler(async (req, res) => {
+    const id = req.user._id;
     const { prompt, creativity } = req.body;
-    const user = User.findOne({ _id: req.user._id });
+    const user = await User.findOne({ _id: id });
     if (!user) {
         res.status(401)
         throw new Error("User doesn't exist")
@@ -48,13 +49,16 @@ const postPrompt = asyncHandler(async (req, res) => {
         output = output.substring(0, output.length - 1)
     }
 
-    outputLength = output.length
-    await updateUserCharacter(req, res, outputLength)
-    res.status(200).json({ result: output })
+    outputLength = output.length;
+    await updateUserCharacter(user, outputLength);
+    res.status(200).json({ result: output, userCharacters: user.characters })
 })
+
 const getEssay = asyncHandler(async (req, res) => {
+    const id = req.user._id;
     const { prompt, creativity } = req.body;
-    const user = User.findOne({ _id: req.user._id });
+    const user = await User.findOne({ _id: id });
+    console.log(user)
     if (!user) {
         res.status(401)
         throw new Error("User doesn't exist")
@@ -94,14 +98,15 @@ const getEssay = asyncHandler(async (req, res) => {
     }
 
     outputLength = output.length
-    await updateUserCharacter(req, res, outputLength)
-    res.status(200).json({ result: output })
+    await updateUserCharacter(user, outputLength)
+    res.status(200).json({ result: output, userCharacters: user.characters })
 })
 
 
 const codePrompt = asyncHandler(async (req, res) => {
     const { prompt } = req.body;
-    const user = User.findOne({ _id: req.user._id });
+    const id = req.user._id.toString();
+    const user = await User.findOne({ _id: id });
     if (!user) {
         res.status(401)
         throw new Error("User doesn't exist")
@@ -139,13 +144,14 @@ const codePrompt = asyncHandler(async (req, res) => {
     }
 
     outputLength = output.length
-    await updateUserCharacter(req, res, outputLength)
-    res.status(200).json({ result: output })
+    await updateUserCharacter(user, outputLength)
+    res.status(200).json({ result: output, userCharacters: user.characters })
 })
 
 const postChatgpt = asyncHandler(async (req, res) => {
     const { prompt, creativity } = req.body;
-    const user = User.findOne({ _id: req.user._id });
+    const id = req.user._id;
+    const user = await User.findOne({ _id: id });
     if (!user) {
         res.status(401)
         throw new Error("User doesn't exist")
@@ -160,14 +166,14 @@ const postChatgpt = asyncHandler(async (req, res) => {
         max_tokens: 3600,
         temperature: creativity
     });
-    // let output = `${completion.data.choices[0].message}`
+
     outputLength = completion.data.choices[0].message.content.length
-    await updateUserCharacter(req, res, outputLength)
-    res.json({ result: completion.data.choices[0].message });
+    await updateUserCharacter(user, outputLength)
+    res.json({ result: completion.data.choices[0].message, userCharacters: user.characters });
 })
 
-const updateUserCharacter = async (req, res, outputLength) => {
-    let user = await User.findOne({ _id: req.user._id })
+const updateUserCharacter = async (user, outputLength) => {
+    console.log(user)
     // check if user has free plan
     if (user.plan === "free" || user.plan === "canceled") {
         user.characters = user.characters - outputLength

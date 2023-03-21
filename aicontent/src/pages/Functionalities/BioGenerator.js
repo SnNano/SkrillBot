@@ -1,22 +1,26 @@
 import BreadCumb from "../../components/layouts/BreadCumb";
 import Sidebar from "../../components/layouts/Sidebar";
 import { getResponse } from "../../services/openaiService";
-import { useState } from "react";
+import { useState, useContext } from "react";
 import Content from "../../components/Content";
 import Footer from "../../components/layouts/Footer";
 import axios from 'axios';
 import { Helmet } from "react-helmet-async";
+import { RemainingWordsContext } from "../../App";
+import { useNavigate } from "react-router-dom";
 
 const { CancelToken } = axios;
 
 
 const BioGenerator = () => {
+    const { setRemainingWords } = useContext(RemainingWordsContext);
     const [formData, setFormData] = useState({
         topic: "",
         socialMedia: "",
         loading: false,
         generatedText: null
     });
+    const navigate = useNavigate();
     const [cancelToken, setCancelToken] = useState(null);
     const [showModal, setShowModal] = useState(false);
     const { topic, socialMedia, generatedText, loading } = formData;
@@ -38,7 +42,13 @@ const BioGenerator = () => {
         try {
             prompt = `Please generate a ${socialMedia} bio according to the following topic: [${topic}].`;
             const result = await getResponse(prompt, 0.5, source.token);
-            setFormData({ ...formData, generatedText: result, loading: false });
+            setFormData({ ...formData, generatedText: result.result, loading: false });
+            if (result.userCharacters) {
+                setRemainingWords(result.userCharacters);
+            } else {
+                navigate("/billing")
+            }
+
         } catch (error) {
             if (axios.isCancel(error)) {
                 setFormData({ ...formData, loading: false });

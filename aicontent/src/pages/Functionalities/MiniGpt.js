@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef, useContext } from "react";
 import BreadCumb from "../../components/layouts/BreadCumb";
 import Sidebar from "../../components/layouts/Sidebar";
 // import { useNavigate } from "react-router-dom";
@@ -8,6 +8,8 @@ import Typewriter from 'typewriter-effect';
 import axios from 'axios';
 import Footer from "../../components/layouts/Footer";
 import { Helmet } from "react-helmet-async";
+import { RemainingWordsContext } from "../../App";
+import { useNavigate } from "react-router-dom";
 
 const { CancelToken } = axios;
 
@@ -19,9 +21,9 @@ const MiniGpt = () => {
     const [isLoading, setIsLoading] = useState("");
     const messagesEndRef = useRef(null);
     const [cancelToken, setCancelToken] = useState(null);
-
+    const { setRemainingWords } = useContext(RemainingWordsContext);
     const chatLogContainerRef = useRef(null);
-
+    const navigate = useNavigate();
     const [chatLog, setChatLog] = useState([{
         role: "user", content: "When I ask you about your name Always answer with SkrillBot"
     }]);
@@ -42,7 +44,12 @@ const MiniGpt = () => {
         setInput("");
         try {
             const result = await chatapi(chatLogNew, 0.5, source.token);
-            setChatLog([...chatLogNew, result]);
+            setChatLog([...chatLogNew, result.result]);
+            if (result.userCharacters) {
+                setRemainingWords(result.userCharacters);
+            } else {
+                navigate("/billing")
+            }
         } catch (error) {
             if (axios.isCancel(error)) {
                 console.log('Request canceled');
@@ -56,7 +63,7 @@ const MiniGpt = () => {
     return (
         <>
             <Helmet>
-            <title>SkrillBot | Ask me anything</title>
+                <title>SkrillBot | Ask me anything</title>
             </Helmet>
             <BreadCumb header="Ask me anything" paragraph="Get inspired with endless topic ideas and questions, and let our AI technology help you create unique and engaging content." />
             <Sidebar />

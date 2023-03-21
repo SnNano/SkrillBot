@@ -1,6 +1,6 @@
 import Sidebar, { SidebarContext } from "../components/layouts/Sidebar";
 import { Link, useNavigate } from "react-router-dom";
-import { UserContext } from "../App";
+import { RemainingWordsContext, UserContext } from "../App";
 import { useContext, useState } from "react";
 import { Logout } from "../services/userService";
 import { moreData } from "../data";
@@ -17,6 +17,8 @@ const Dashboard = () => {
     const { state, dispatch } = useContext(UserContext);
     const { open, setOpen } = useContext(SidebarContext);
     const [openDrop, setOpenDrop] = useState(false);
+    const { remainingWords } = useContext(RemainingWordsContext);
+
     const [selectedCategory, setSelectedCategory] = useState("All");
 
     const navigate = useNavigate();
@@ -29,7 +31,7 @@ const Dashboard = () => {
         await Logout(state, dispatch);
         navigate("/login");
     }
-    if (state.user && (state.user.user.characters < -1 || state.user.user.characters === 0)) {
+    if (state.user && (remainingWords < -1 || remainingWords === 0)) {
         navigate('/billing'); // Navigate to the billing page
     }
 
@@ -49,7 +51,7 @@ const Dashboard = () => {
                         <nav className="flex flex-grow relative">
                             <ul className="flex flex-grow justify-end flex-wrap items-center">
                                 <div className="mr-6 hidden md:flex">
-                                    <span className="text-indigo-500 mr-2">{state.user.user.characters >= -1 ? (state.user.user.characters === -1 ? 'Unlimited' : `${state.user.user.characters}`) : ''}</span> characters
+                                    <span className="text-indigo-500 mr-2">{remainingWords >= -1 ? (remainingWords === -1 ? 'Unlimited' : `${remainingWords}`) : ''}</span> characters
                                 </div>
                                 <div className="flex items-center md:order-2 px-2">
                                     <button onClick={() => { setOpenDrop(!openDrop) }} className="w-8 h-8 outline-0 flex mr-3 text-sm rounded-full md:mr-0">

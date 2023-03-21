@@ -2,12 +2,14 @@
 import BreadCumb from "../../components/layouts/BreadCumb";
 import Sidebar from "../../components/layouts/Sidebar";
 import { getResponse } from "../../services/openaiService";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import Content from "../../components/Content";
 import Button from "../../components/layouts/Button";
 import axios from 'axios';
 import Footer from "../../components/layouts/Footer";
 import { Helmet } from "react-helmet-async";
+import { RemainingWordsContext } from "../../App";
+import { useNavigate } from "react-router-dom";
 
 const { CancelToken } = axios;
 
@@ -15,7 +17,9 @@ const CollegeApp = () => {
     const [formData, setFormData] = useState({
         topic: "", loading: false, generatedText: null
     });
+    const navigate = useNavigate();
     const { topic, generatedText, loading } = formData;
+    const { setRemainingWords } = useContext(RemainingWordsContext);
     const [showModal, setShowModal] = useState(false);
     const [cancelToken, setCancelToken] = useState(null);
     const handleChange = (e) => {
@@ -35,7 +39,12 @@ const CollegeApp = () => {
         try {
             prompt = `Please write a college application essay for: [${topic}].\nIt should be original.\nWithout Plagiarism.`;
             const result = await getResponse(prompt, 0.5, source.token);
-            setFormData({ ...formData, generatedText: result, loading: false });
+            setFormData({ ...formData, generatedText: result.result, loading: false });
+            if (result.userCharacters) {
+                setRemainingWords(result.userCharacters);
+            } else {
+                navigate("/billing")
+            }
         } catch (error) {
             if (axios.isCancel(error)) {
                 setFormData({ ...formData, loading: false });
