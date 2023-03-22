@@ -1,6 +1,8 @@
 const express = require("express");
 const dotenv = require("dotenv").config();
 const cookieSession = require("cookie-session");
+const bodyParser = require('body-parser')
+const { webhookPost } = require("./stripe/index");
 
 const passport = require("passport");
 // const session = require('express-session');
@@ -25,8 +27,11 @@ var corsOptions = {
 }
 
 app.use(cors(corsOptions));
-app.use(express.json());
+// app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
+
+
+
 app.use((req, res, next) => {
   if (req.originalUrl === '/api/stripe/webhook') {
     next();
@@ -34,6 +39,9 @@ app.use((req, res, next) => {
     express.json()(req, res, next);
   }
 });
+
+app.post('/api/stripe/webhook', express.raw({ type: 'application/json' }), webhookPost);
+
 app.use(
   cookieSession({
     maxAge: 24 * 60 * 60 * 1000,

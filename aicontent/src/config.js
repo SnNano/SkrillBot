@@ -1,8 +1,8 @@
 const dev = {
 	baseURL: "http://localhost:5000/api/",
 	stripe: {
-		monthly: "price_1MkybFDTXsIy5WCekelXeRiA",
-		yearly: "price_1MkybFDTXsIy5WCew4FbegDc"
+		monthly: "price_1Melj7HqMMxYnnotTiUydIMv",
+		yearly: "price_1Meln5HqMMxYnnot5mVs0xKv"
 	},
 };
 
@@ -13,6 +13,21 @@ const prod = {
 		yearly: "price_1MkybFDTXsIy5WCew4FbegDc"
 	},
 };
+// const dev = {
+// 	baseURL: "http://localhost:5000/api/",
+// 	stripe: {
+// 		monthly: "price_1MkybFDTXsIy5WCekelXeRiA",
+// 		yearly: "price_1MkybFDTXsIy5WCew4FbegDc"
+// 	},
+// };
+
+// const prod = {
+// 	baseURL: 'https://api.skrillbot.com/api/',
+// 	stripe: {
+// 		monthly: "price_1MkybFDTXsIy5WCekelXeRiA",
+// 		yearly: "price_1MkybFDTXsIy5WCew4FbegDc"
+// 	},
+// };
 
 const config = process.env.NODE_ENV === 'development'
 	? dev

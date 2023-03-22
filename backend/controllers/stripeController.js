@@ -26,9 +26,9 @@ const subscribeStripe = async (req, res) => {
 			],
 			subscription_data,
 			success_url: `${domainURL}success?session_id={CHECKOUT_SESSION_ID}`,
-			cancel_url: `${domainURL}/failed`
+			cancel_url: `${domainURL}`
 		});
-		updateUser(user, priceId);
+
 		res.redirect(303, session.url);
 	} catch (e) {
 		res.status(400);
@@ -41,16 +41,7 @@ const subscribeStripe = async (req, res) => {
 	}
 };
 
-const updateUser = async (user, priceId) => {
-	if (priceId === process.env.STRIPE_PRODUCT_MONTHLY) {
-		user.characters = -1;
-		user.plan = "monthly";
-	} else if (priceId === process.env.STRIPE_PRODUCT_YEARLY) {
-		user.characters = -1;
-		user.plan = "yearly";
-	}
-	await user.save();
-}
+
 
 app.post('/stripe/customer-portal', async (req, res) => {
 	try {
