@@ -1,4 +1,5 @@
 import { chatapi } from "../../services/openaiService";
+import { updateCharacters } from "../../services/userService";
 import { useEffect, useState, useContext } from "react";
 import BreadCumb from "../../components/layouts/BreadCumb";
 import Sidebar from "../../components/layouts/Sidebar";
@@ -49,7 +50,7 @@ const Essay = () => {
       //const result = await getResponse(prompt, parseFloat(creativity), source.token);
       const result = await chatapi([{ role: "user", content: prompt }], parseFloat(creativity), source.token);
       setFormData({ ...formData, generatedText: result.result.content, loading: false });
-      setRemainingWords(result.userCharacters);
+      await updateCharacters();
       if (result.userCharacters) {
         setRemainingWords(result.userCharacters);
       } else {

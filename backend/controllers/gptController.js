@@ -173,11 +173,10 @@ const postChatgpt = asyncHandler(async (req, res) => {
 })
 
 const updateUserCharacter = async (user, outputLength) => {
-    console.log(user)
     // check if user has free plan
     if (user.plan === "free" || user.plan === "canceled") {
         user.characters = user.characters - outputLength
-        user.charactersUsed = user.charactersUsed + user.characters
+        user.charactersUsed = user.charactersUsed + outputLength
         await user.save()
     }
 }

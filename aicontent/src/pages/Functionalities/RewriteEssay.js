@@ -8,6 +8,9 @@ import axios from 'axios';
 import Footer from "../../components/layouts/Footer";
 import { RemainingWordsContext } from "../../App";
 import { useNavigate } from "react-router-dom";
+import { updateCharacters } from "../../services/userService";
+
+
 const { CancelToken } = axios;
 
 const RewriteEssay = () => {
@@ -35,6 +38,7 @@ const RewriteEssay = () => {
         try {
             const rewritten = await rewriteText(message, source.token);
             setFormData({ ...formData, generatedText: rewritten.result, loading: false });
+            await updateCharacters();
             if (rewritten.userCharacters) {
                 setRemainingWords(rewritten.userCharacters);
             } else {

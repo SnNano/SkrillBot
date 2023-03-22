@@ -1,6 +1,7 @@
 import Button from "./layouts/Button";
 import Content from "./Content";
 import { useNavigate } from "react-router-dom";
+import { updateCharacters } from "../services/userService";
 
 import { getResponse } from "../services/openaiService";
 import { useEffect, useState, useContext } from "react";
@@ -80,6 +81,7 @@ const GeneralForm = ({ header, paragraph, keywordP, label2, type, maxLength, min
     try {
       const result = await getResponse(prompt, parseFloat(creativity), source.token);
       setFormData({ ...formData, generatedText: result.result, loading: false });
+      await updateCharacters();
       if (result.userCharacters) {
         setRemainingWords(result.userCharacters);
       } else {

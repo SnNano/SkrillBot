@@ -18,8 +18,7 @@ const Signup = () => {
 
     const [formData, setFormData] = useState({
         username: '', email: '',
-        password: '',
-        cpassword: ''
+        password: '', cpassword: ''
     });
     const { username, email, password, cpassword } = formData;
     const navigate = useNavigate();
@@ -55,13 +54,10 @@ const Signup = () => {
             });
         } else {
             const userData = { username, email, password };
-            const response = await register(userData, dispatch);
+            const response = await register(userData, dispatch, referralId);
             setRemainingWords(response.user.characters);
             if (response) {
                 navigate(from, { replace: true });
-            }
-            if (referralId) {
-                await referralCode(referralId);
             }
         }
     }

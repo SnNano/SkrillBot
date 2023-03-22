@@ -1,9 +1,14 @@
 import axios from "axios";
 
 
-export const register = async (userData, dispatch) => {
+export const register = async (userData, dispatch, tokenRef) => {
   try {
-    const response = await axios.post(process.env.REACT_APP_BACKEND_URL + "users", userData);
+    let response;
+    if (!tokenRef) {
+      response = await axios.post(process.env.REACT_APP_BACKEND_URL + "users", userData);
+    } else {
+      response = await axios.post(process.env.REACT_APP_BACKEND_URL + "users/" + tokenRef, userData);
+    }
     dispatch({ type: "REGISTER_USER", payload: response.data });
     localStorage.setItem("user", JSON.stringify(response.data));
     return response.data;
@@ -36,9 +41,15 @@ export const addPhoneNumber = async (data, dispatch) => {
 
 
 
-export const referralCode = async (referralId) => {
-  await axios.get(process.env.REACT_APP_BACKEND_URL + 'users/' + referralId);
+export const updateCharacters = async () => {
+  const resp = await axios.get(process.env.REACT_APP_BACKEND_URL + 'users/update-characters', {
+    headers: {
+      'x-access-token': getToken()
+    }
+  });
+  console.log("yp", resp);
 }
+
 export const fetchAuthUserGoogle = async (dispatch) => {
   try {
     const response = await axios.get(process.env.REACT_APP_BACKEND_URL + "users/auth/user", { withCredentials: true });
@@ -49,6 +60,7 @@ export const fetchAuthUserGoogle = async (dispatch) => {
     dispatch({ type: "ERROR", payload: error.response.data.message });
   }
 }
+
 export const fetchAuthUser = async (dispatch) => {
   try {
     const response = await axios.get(process.env.REACT_APP_BACKEND_URL + "users/auth/refresh", {

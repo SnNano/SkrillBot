@@ -1,4 +1,5 @@
 import { useEffect, useState, useRef, useContext } from "react";
+import { updateCharacters } from "../../services/userService";
 
 import BreadCumb from "../../components/layouts/BreadCumb";
 import Sidebar from "../../components/layouts/Sidebar";
@@ -60,6 +61,7 @@ const QandA = () => {
       console.log(newPrompt)
       const result = await getResponse(newPrompt, 0.5, source.token);
       setChatLog([...chatLogNew, { user: "A", message: `${result.result}` }]);
+      await updateCharacters();
       if (result.userCharacters) {
         setRemainingWords(result.userCharacters);
       } else {

@@ -8,6 +8,7 @@ import axios from 'axios';
 import { Helmet } from "react-helmet-async";
 import { RemainingWordsContext } from "../../App";
 import { useNavigate } from "react-router-dom";
+import { updateCharacters } from "../../services/userService";
 
 const { CancelToken } = axios;
 
@@ -43,6 +44,7 @@ const BioGenerator = () => {
             prompt = `Please generate a ${socialMedia} bio according to the following topic: [${topic}].`;
             const result = await getResponse(prompt, 0.5, source.token);
             setFormData({ ...formData, generatedText: result.result, loading: false });
+            await updateCharacters();
             if (result.userCharacters) {
                 setRemainingWords(result.userCharacters);
             } else {

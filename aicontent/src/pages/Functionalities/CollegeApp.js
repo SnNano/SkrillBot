@@ -10,6 +10,7 @@ import Footer from "../../components/layouts/Footer";
 import { Helmet } from "react-helmet-async";
 import { RemainingWordsContext } from "../../App";
 import { useNavigate } from "react-router-dom";
+import { updateCharacters } from "../../services/userService";
 
 const { CancelToken } = axios;
 
@@ -40,6 +41,7 @@ const CollegeApp = () => {
             prompt = `Please write a college application essay for: [${topic}].\nIt should be original.\nWithout Plagiarism.`;
             const result = await getResponse(prompt, 0.5, source.token);
             setFormData({ ...formData, generatedText: result.result, loading: false });
+            await updateCharacters();
             if (result.userCharacters) {
                 setRemainingWords(result.userCharacters);
             } else {

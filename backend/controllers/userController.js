@@ -9,6 +9,8 @@ const jwt = require("jsonwebtoken");
 // @access  Public
 const registerUser = asyncHandler(async (req, res) => {
     const { username, email, password } = req.body;
+    const referralId = req.params.referralId;
+
     if (!username || !email || !password) {
         res.status(401);
         throw new Error("Fields should not be empty");
@@ -19,12 +21,6 @@ const registerUser = asyncHandler(async (req, res) => {
         res.status(401);
         throw new Error("Email already exists");
     }
-    // // Checking if phone number exists
-    // const phoneExists = await User.findOne({ phone: phone });
-    // if (phoneExists) {
-    //     res.status(401);
-    //     throw new Error("User already exists");
-    // }
 
     const customer = await stripe.customers.create({
         email: `${req.body.email}`,
@@ -38,6 +34,11 @@ const registerUser = asyncHandler(async (req, res) => {
         username: username, email: email,
         password: hashedPassword, customerId: customer.id,
     });
+    if (referralId) {
+        const referredBy = await User.findOne({ referralId: req.params.referralId });
+        user.referredBy = referredBy;
+        user.save();
+    }
     if (user) {
         delete user.password
         res.status(201).json({
@@ -48,6 +49,8 @@ const registerUser = asyncHandler(async (req, res) => {
                 email: user.email,
                 customerId: user.customerId,
                 characters: user.characters,
+                charactersUsed: user.charactersUsed,
+                charctersUpdated: user.charctersUpdated,
                 plan: user.plan,
                 referralId: user.referralId
             },
@@ -77,6 +80,8 @@ const login = asyncHandler(async (req, res) => {
                 email: user.email,
                 customerId: user.customerId,
                 characters: user.characters,
+                charctersUpdated: user.charctersUpdated,
+                charactersUsed: user.charactersUsed,
                 plan: user.plan,
                 referralId: user.referralId
             },
@@ -91,18 +96,33 @@ const login = asyncHandler(async (req, res) => {
 // @desc   referral
 // @route  POST /api/users/:referralId
 // @access  Public
-const referralCode = asyncHandler(async (req, res) => {
-    const referredBy = await User.findOne({ referralId: req.params.referralId });
-    if (!referredBy) {
-        // handle invalid referral code or self-referral
-        res.status(400).json({ error: 'Invalid referral code' });
-    } else {
-        // give some reward to referredBy and referredTo
-        referredBy.characters = referredBy.characters + 5000;
-        await referredBy.save();
-        console.log("Rewards added successfully'")
-        res.json({ message: 'Rewards added successfully' });
+// const referralCode = asyncHandler(async (req, res) => {
+//     const referredBy = await User.findOne({ referralId: req.params.referralId });
+//     if (!referredBy) {
+//         // handle invalid referral code or self-referral
+//         res.status(400).json({ error: 'Invalid referral code' });
+//     } else {
+//         // give some reward to referredBy and referredTo
+//         referredBy.characters = referredBy.characters + 5000;
+//         await referredBy.save();
+//         console.log("Rewards added successfully'")
+//         res.json({ message: 'Rewards added successfully' });
+//     }
+// });
+
+const updateCharacters = asyncHandler(async (req, res) => {
+    const user = await User.findOne({ _id: req.user._id });
+
+    if (user.charactersUsed >= 2000 && user.referredBy) {
+        const referrer = await User.findOne({ _id: user.referredBy });
+        console.log(referrer)
+        if (!referrer.charctersUpdated) {
+            referrer.characters += 5000;
+            referrer.charctersUpdated = true;
+            await referrer.save();
+        }
     }
+    res.send({ message: 'Characters updated successfully' });
 });
 
 // @desc   google auth
@@ -118,6 +138,8 @@ const checkGoogleAuth = (req, res) => {
             customerId: req.user.customerId,
             email: req.user.email,
             characters: req.user.characters,
+            charctersUpdated: req.user.charctersUpdated,
+            charactersUsed: req.user.charactersUsed,
             plan: req.user.plan,
             referralId: user.referralId
         },
@@ -138,6 +160,8 @@ const checkUserAuth = asyncHandler(async (req, res) => {
             email: user.email,
             customerId: user.customerId,
             characters: user.characters,
+            charctersUpdated: user.charctersUpdated,
+            charactersUsed: user.charactersUsed,
             plan: user.plan,
             referralId: user.referralId
         },
@@ -184,6 +208,6 @@ const generateToken = (id) => {
 
 module.exports = {
     registerUser, checkUserAuth,
-    login, checkGoogleAuth,
-    referralCode, logout, updatePhone
+    login, checkGoogleAuth, updateCharacters,
+    logout, updatePhone
 }

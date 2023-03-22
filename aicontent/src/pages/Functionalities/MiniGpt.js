@@ -1,8 +1,8 @@
 import { useState, useEffect, useRef, useContext } from "react";
 import BreadCumb from "../../components/layouts/BreadCumb";
 import Sidebar from "../../components/layouts/Sidebar";
-// import { useNavigate } from "react-router-dom";
-// import { UserContext } from "../../App";
+import { updateCharacters } from "../../services/userService";
+
 import { chatapi } from "../../services/openaiService";
 import Typewriter from 'typewriter-effect';
 import axios from 'axios';
@@ -45,6 +45,7 @@ const MiniGpt = () => {
         try {
             const result = await chatapi(chatLogNew, 0.5, source.token);
             setChatLog([...chatLogNew, result.result]);
+            await updateCharacters();
             if (result.userCharacters) {
                 setRemainingWords(result.userCharacters);
             } else {

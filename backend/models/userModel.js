@@ -73,11 +73,14 @@ const userSchema = mongoose.Schema({
 		maxLength: 100,
 		default: uuidv4,
 	},
-	referrerPaid: { type: Boolean, default: false }, // has the referral been given credits yet?
-	referrer: {
+	referredBy: {
 		type: mongoose.Schema.Types.ObjectId,
 		ref: "User",
 	},
+	charctersUpdated: {
+		type: Boolean,
+		default: false
+	}
 }, { timestamps: true });
 
 module.exports = mongoose.model("User", userSchema);

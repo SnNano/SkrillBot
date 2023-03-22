@@ -9,6 +9,7 @@ import Footer from "../../components/layouts/Footer";
 import { Helmet } from "react-helmet-async";
 import { RemainingWordsContext } from "../../App";
 import { useNavigate } from "react-router-dom";
+import { updateCharacters } from "../../services/userService";
 
 const { CancelToken } = axios;
 
@@ -37,6 +38,7 @@ const EmailResponder = () => {
             prompt = `Generate a response to the following email: [${topic}].\nThe response should be professional, clear, and concise.`;
             const result = await getResponse(prompt, 0.5, source.token);
             setFormData({ ...formData, generatedText: result.result, loading: false });
+            await updateCharacters();
             if (result.userCharacters) {
                 setRemainingWords(result.userCharacters);
             } else {

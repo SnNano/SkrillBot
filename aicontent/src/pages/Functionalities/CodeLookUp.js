@@ -4,6 +4,7 @@ import { codePrompt } from "../../services/openaiService";
 import { useContext, useState } from "react";
 import { CopyBlock, dracula } from "react-code-blocks";
 import { Helmet } from "react-helmet-async";
+import { updateCharacters } from "../../services/userService";
 
 import PropTypes from 'prop-types';
 import Sidebar from "../../components/layouts/Sidebar";
@@ -48,6 +49,7 @@ const CodeLookUp = () => {
     try {
       const result = await codePrompt(prompt, source.token);
       setFormData({ ...formData, generatedText: result.result, loading: false });
+      await updateCharacters();
       if (result.userCharacters) {
         setRemainingWords(result.userCharacters);
       } else {
