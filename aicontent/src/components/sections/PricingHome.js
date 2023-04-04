@@ -27,11 +27,7 @@ const PricingHome = () => {
                         </div>
                     </div>
                     <div>
-                        <Link
-                            to="/login"
-                            className="inline-flex items-center justify-center w-full h-12 px-6 mt-6 font-medium tracking-wide text-white transition duration-200 bg-indigo-500 rounded shadow-md hover:bg-gray-900 focus:shadow-outline focus:outline-none"
-                        > Start for free </Link>
-
+                        <Link to="/login" className="inline-flex items-center justify-center w-full h-12 px-6 mt-6 font-medium tracking-wide text-white transition duration-200 bg-indigo-500 rounded shadow-md hover:bg-gray-900 focus:shadow-outline focus:outline-none"> Start for free </Link>
                     </div>
                 </div>
 
@@ -40,7 +36,7 @@ const PricingHome = () => {
                         <div className="text-lg font-semibold">Monthly Plan</div>
                         <div className="flex items-center justify-center mt-2">
                             <div className="mr-1 text-5xl font-bold">$9.99</div>
-                            <div className="text-gray-700">/ mo</div>
+                            <div className="text-gray-700">/ Monthly</div>
                         </div>
                         <div className="mt-2 space-y-3">
                             <div className="text-gray-700">Unlimited characters</div>
@@ -52,7 +48,6 @@ const PricingHome = () => {
                     </div>
                     <div>
                         <Link to="/billing" className="inline-flex items-center justify-center w-full h-12 px-6 mt-6 font-medium tracking-wide text-white transition duration-200 bg-indigo-500 rounded shadow-md hover:bg-gray-900 focus:shadow-outline focus:outline-none"> Subscribe </Link>
-
                     </div>
                 </div>
                 <div className="relative flex flex-col justify-between p-8 transition-shadow duration-300 bg-white border rounded shadow-sm sm:items-center hover:shadow border-indigo-500">
@@ -63,9 +58,12 @@ const PricingHome = () => {
                     </div>
                     <div className="text-center">
                         <div className="text-lg font-semibold">Yearly Plan</div>
+                        <div className="w-full flex justify-center">
+                            <span className="bg-indigo-100 text-indigo-800 text-xs font-medium mr-2 px-2.5 py-0.5 mt-2 rounded">Save 4 months</span>
+                        </div>
                         <div className="flex items-center justify-center mt-2">
                             <div className="mr-1 text-5xl font-bold">$79.99</div>
-                            <div className="text-gray-700">/ year</div>
+                            <div className="text-gray-700">/ Yearly</div>
                         </div>
                         <div className="mt-2 space-y-3">
                             <div className="text-gray-700">Unlimited characters</div>

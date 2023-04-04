@@ -1,12 +1,13 @@
 import Sidebar, { SidebarContext } from "../components/layouts/Sidebar";
 import { Link, useNavigate } from "react-router-dom";
 import { RemainingWordsContext, UserContext } from "../App";
-import { useContext, useState } from "react";
-import { Logout } from "../services/userService";
+import { useContext, useEffect, useState } from "react";
+import { fetchAuthUserGoogle, Logout } from "../services/userService";
 import { moreData } from "../data";
 import minibot from "../assets/images/avatarprof.jpg";
 import Footer from "../components/layouts/Footer";
 import { Helmet } from "react-helmet-async";
+import { useGoogleAuth } from "../hooks/useGoogleAuth";
 
 const categories = [
     "All", "Writing", "Summary", "Code",
@@ -17,10 +18,15 @@ const Dashboard = () => {
     const { state, dispatch } = useContext(UserContext);
     const { open, setOpen } = useContext(SidebarContext);
     const [openDrop, setOpenDrop] = useState(false);
-    const { remainingWords } = useContext(RemainingWordsContext);
+    const { remainingWords, setRemainingWords } = useContext(RemainingWordsContext);
 
     const [selectedCategory, setSelectedCategory] = useState("All");
-
+    useEffect(() => {
+        const upd = () => {
+            setRemainingWords(state.user.user.characters);
+        }
+        upd();
+    })
     const navigate = useNavigate();
     // Filter data based on selected category
     const filteredData = selectedCategory === "All"
@@ -31,6 +37,7 @@ const Dashboard = () => {
         await Logout(state, dispatch);
         navigate("/login");
     }
+
     if (state.user && (remainingWords < -1 || remainingWords === 0)) {
         navigate('/billing'); // Navigate to the billing page
     }
@@ -41,7 +48,7 @@ const Dashboard = () => {
                 <title>SkrillBot | Dashboard</title>
             </Helmet>
             <header className="px-4 border-b w-full mb-6 md:mb-0 z-30 md:bg-opacity-90 transition duration-300 ease-in-out false">
-                <div className="max-w-6xl mx-auto">
+                <div className="mx-auto">
                     <div className="flex items-center justify-between h-16 md:h-20">
                         <div className="flex-shrink-0">
                             <p className="text-2xl font-bold block">
@@ -98,7 +105,7 @@ const Dashboard = () => {
                             })}
                         </div>
                     </div>
-                    <div className="flex">
+                    <div className="flex w-full justify-center items-center">
                         <div className="grid lg:grid-cols-4 md:grid-cols-2 grid-cols-1 gap-2">
                             {filteredData.map((item, index) => {
                                 return <Link to={item.link} key={index} className="scale-90 hover:scale-100 hover:shadow-xl transition ease-in delay-150 max-w-sm bg-white border border-gray-200 rounded-[25px] shadow">

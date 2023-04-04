@@ -24,7 +24,7 @@ const Pricing = () => {
               </p>
               <h3 className="text-2xl mb-6">
                 <strong>$9.99</strong>
-                <small className="text-gray-500 text-sm">/month</small>
+                <small className="text-gray-500 text-sm">/Monthly</small>
               </h3>
               <form action={config.baseURL + "stripe/stripe/subscribe"} method="POST" className="flex flex-1">
                 <input type="hidden" name="token" value={state.user.token} />
@@ -35,7 +35,7 @@ const Pricing = () => {
                 </button>
               </form>
             </div>
-            <div className="p-6">
+            <div className="py-6 px-4 text-sm">
               <ol className="list-inside">
                 <li className="mb-4 flex items-center">
                   <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="check"
@@ -57,7 +57,7 @@ const Pricing = () => {
                 </li>
                 <li className="mb-4 flex items-center">
                   <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="check"
-                    className="text-indigo-600 w-4 h-4 mr-2" role="img" xmlns="http://www.w3.org/2000/svg"
+                    className="text-indigo-600 w-[1.2rem] h-4 mr-2" role="img" xmlns="http://www.w3.org/2000/svg"
                     viewBox="0 0 512 512">
                     <path fill="currentColor"
                       d="M173.898 439.404l-166.4-166.4c-9.997-9.997-9.997-26.206 0-36.204l36.203-36.204c9.997-9.998 26.207-9.998 36.204 0L192 312.69 432.095 72.596c9.997-9.997 26.207-9.997 36.204 0l36.203 36.204c9.997 9.997 9.997 26.206 0 36.204l-294.4 294.401c-9.998 9.997-26.207 9.997-36.204-.001z">
@@ -87,9 +87,9 @@ const Pricing = () => {
               </p>
               <h3 className="text-2xl mb-6">
                 <strong>$79.99</strong>
-                <small className="text-gray-500 text-sm">/year</small>
+                <small className="text-gray-500 text-sm">/Yearly</small>
               </h3>
-              <form action={config.baseURL + "stripe/stripe/subscribe"} method="POST" className="flex flex-1">
+              <form action={config.baseURL + "stripe/stripe/subscribe"} method="POST" className="flex flex-col flex-1">
                 <input type="hidden" name="token" value={state.user.token} />
                 <input type="hidden" name="priceId" value={config.stripe.yearly} />
                 <button type="submit"
@@ -98,7 +98,7 @@ const Pricing = () => {
                 </button>
               </form>
             </div>
-            <div className="p-6">
+            <div className="py-6 px-4 text-sm">
               <ol className="list-inside">
                 <li className="mb-4 flex items-center">
                   <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="check"
@@ -120,7 +120,7 @@ const Pricing = () => {
                 </li>
                 <li className="mb-4 flex items-center">
                   <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="check"
-                    className="text-indigo-600 w-4 h-4 mr-2" role="img" xmlns="http://www.w3.org/2000/svg"
+                    className="text-indigo-600 w-[1.2rem] h-4 mr-2" role="img" xmlns="http://www.w3.org/2000/svg"
                     viewBox="0 0 512 512">
                     <path fill="currentColor"
                       d="M173.898 439.404l-166.4-166.4c-9.997-9.997-9.997-26.206 0-36.204l36.203-36.204c9.997-9.998 26.207-9.998 36.204 0L192 312.69 432.095 72.596c9.997-9.997 26.207-9.997 36.204 0l36.203 36.204c9.997 9.997 9.997 26.206 0 36.204l-294.4 294.401c-9.998 9.997-26.207 9.997-36.204-.001z">
@@ -138,6 +138,9 @@ const Pricing = () => {
                   </svg>Multiple Generators
                 </li>
               </ol>
+              <div className="w-full flex justify-center">
+                <span className="bg-indigo-100 text-indigo-800 text-xs font-medium mr-2 px-2.5 py-0.5 mt-2 rounded">Save 4 months</span>
+              </div>
             </div>
           </div>
         </div>}

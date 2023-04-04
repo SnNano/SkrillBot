@@ -2,6 +2,7 @@ import axios from "axios";
 
 
 export const register = async (userData, dispatch, tokenRef) => {
+  console.log(userData)
   try {
     let response;
     if (!tokenRef) {
@@ -42,12 +43,11 @@ export const addPhoneNumber = async (data, dispatch) => {
 
 
 export const updateCharacters = async () => {
-  const resp = await axios.get(process.env.REACT_APP_BACKEND_URL + 'users/update-characters', {
+  await axios.get(process.env.REACT_APP_BACKEND_URL + 'users/update-characters', {
     headers: {
       'x-access-token': getToken()
     }
   });
-  console.log("yp", resp);
 }
 
 export const fetchAuthUserGoogle = async (dispatch) => {
@@ -77,7 +77,6 @@ export const fetchAuthUser = async (dispatch) => {
 }
 
 export const Logout = async (state, dispatch) => {
-  console.log(state.user.user.googleId)
   if (state.user.user.googleId || state.user.user.facebookId) {
     await axios.get(process.env.REACT_APP_BACKEND_URL + "users/auth/logout", { withCredentials: true });
   }

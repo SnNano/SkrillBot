@@ -54,8 +54,8 @@ const Home = () => {
                             </div>
                         </div>
                     </section>
-                    <PricingHome />
                     <General />
+                    <PricingHome />
                     <section className="py-12 overflow-hidden bg-indigo-400 bg-opacity-80 md:py-20">
                         <div className="relative px-4 mx-auto max-w-7xl sm:px-6 lg:px-8">
                             <svg className="absolute transform top-full right-full translate-x-1/3 -translate-y-1/4 lg:translate-x-1/2 xl:-translate-y-1/2 rotate-3" width="404" height="404" fill="none" viewBox="0 0 404 404" role="img">

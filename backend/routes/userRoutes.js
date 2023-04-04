@@ -4,9 +4,9 @@ const { registerUser, login, checkUserAuth, updateCharacters, checkGoogleAuth, l
 const { isUserAuthenticated } = require("../middleware/auth");
 const { protect } = require("../middleware/authMiddleware");
 
+router.post("/login", login);
 router.post("/:referralId", registerUser);
 router.post("/", registerUser);
-router.post("/login", login);
 // router.post("/phone-number", protect, updatePhone);
 // router.get("/:referralId", referralCode);
 router.get("/update-characters", protect, updateCharacters);

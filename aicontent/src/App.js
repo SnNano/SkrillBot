@@ -56,6 +56,7 @@ function App() {
     }
     log()
   }, [])
+
   const onLogout = async () => {
     await Logout(state, dispatch);
   }

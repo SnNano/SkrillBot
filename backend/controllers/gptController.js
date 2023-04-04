@@ -22,10 +22,10 @@ const postPrompt = asyncHandler(async (req, res) => {
     }
     let completion;
     try {
-        completion = await openai.createCompletion({
-            model: "text-davinci-003",
-            prompt: prompt,
-            max_tokens: 3000,
+        completion = await openai.createChatCompletion({
+            model: "gpt-3.5-turbo",
+            prompt: [{ role: "user", prompt }],
+            max_tokens: 3900,
             temperature: creativity,
             user: req.user._id
         });
@@ -34,7 +34,7 @@ const postPrompt = asyncHandler(async (req, res) => {
         console.log(error);
         throw new Error("You should type a prompt");
     }
-    let output = `${completion.data.choices[0].text}`
+    let output = `${completion.data.choices[0].message.content}`
 
     // remove the first character from output
     output = output.substring(1, output.length)
@@ -51,7 +51,7 @@ const postPrompt = asyncHandler(async (req, res) => {
 
     outputLength = output.length;
     await updateUserCharacter(user, outputLength);
-    res.status(200).json({ result: output, userCharacters: user.characters })
+    res.status(200).json({ result: output.content, userCharacters: user.characters })
 })
 
 const getEssay = asyncHandler(async (req, res) => {

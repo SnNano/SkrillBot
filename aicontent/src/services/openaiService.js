@@ -6,6 +6,7 @@ export const getResponse = async (prompt, creativity, cancelToken) => {
             'x-access-token': getToken()
         }, cancelToken: cancelToken
     });
+    console.log(response)
     return response.data;
 }
 export const getEssay = async (prompt, creativity, cancelToken) => {

@@ -33,9 +33,7 @@ passport.use(
       };
       let user = await User.findOne({ googleId: profile.id });
       //const token = generateToken(user._id)
-      if (!user) {
-        user = await User.create(defaultUser);
-      }
+      if (!user) { user = await User.create(defaultUser); }
 
       if (user) return cb(null, user);
     }

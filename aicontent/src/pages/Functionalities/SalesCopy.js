@@ -3,6 +3,7 @@ import { Helmet } from "react-helmet-async";
 
 
 const SalesCopy = () => {
+
   return (
     <div>
       <Helmet>

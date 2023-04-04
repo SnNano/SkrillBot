@@ -17,10 +17,7 @@ const Login = () => {
   const { setRemainingWords } = useContext(RemainingWordsContext);
   const location = useLocation();
   const { from } = location.state || { from: { pathname: '/dashboard' } };
-  const [formData, setFormData] = useState({
-    email: "",
-    password: ""
-  });
+  const [formData, setFormData] = useState({ email: "", password: "" });
 
   const { email, password } = formData;
 
@@ -33,7 +30,6 @@ const Login = () => {
     }
     dispatch({ type: "RESET" });
   }, [state.isError, state.isLoading, state.isSuccess, state.user, state.message, navigate, dispatch]);
-
 
   const handleChange = (e) => {
     setFormData((prevState) => ({

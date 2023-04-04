@@ -16,7 +16,7 @@ const FirstSection = () => {
     }
     return (
         <>
-            <div className="md:pl-14 md:pr-12 pr-2 pt-4 flex justify-between items-center">
+            <div className="md:px-12 pr-2 pt-4 flex justify-between items-center">
                 <div className="flex items-center space-x-2">
                     <img className="w-auto h-8 ml-2" src={logo} alt="Skrillbot logo" />
                 </div>
@@ -26,7 +26,7 @@ const FirstSection = () => {
                         <button onClick={onLogout} className="rounded-md text-white text-lg px-4 py-2 bg-indigo-400 hover:bg-indigo-500">Logout</button>
                     </div>
                 </>) : (<>
-                    <Link to="/login" className="rounded-md text-white text-lg px-4 py-2 bg-indigo-400 hover:bg-indigo-500">Login</Link>
+                    <Link to="/login" className="rounded-md text-white text-lg px-4 py-2 bg-indigo-400 hover:bg-indigo-500">Try for Free</Link>
                 </>)}
             </div>
             <section className="pt-8 overflow-hidden sm:pt-12 lg:relative lg:pb-48">
@@ -34,18 +34,18 @@ const FirstSection = () => {
                     <div>
                         <div className="mt-14">
                             <div className="mt-6 sm:max-w-xl">
-                                <h1 className="text-4xl font-black tracking-tight text-gray-900 sm:text-6xl md:text-7xl">The Perfect Tool for Writing<span className="text-indigo-400">.</span></h1>
-                                <h2 className="mt-6 text-lg text-gray-500 sm:text-xl">Unlock your writing potential with our Al-powered service. From essays to sales copy, create original and compelling content with ease and confidence, free from the worries of plagiarism detection.</h2>
+                                <h1 className="text-4xl font-black tracking-tight text-gray-900 sm:text-4xl md:text-6xl">Empowering Creativity and Productivity: The Ultimate Toolbox for Every Endeavor<span className="text-indigo-400">.</span></h1>
+                                <h2 className="mt-6 text-lg text-gray-500 sm:text-xl">Unlock Your Full Potential: Explore our versatile collection of powerful tools designed to streamline your writing, coding, learning, and creative pursuits, all in one convenient platform. Discover endless possibilities and elevate your projects with our comprehensive and easy-to-use resources</h2>
                             </div>
                             <div className="my-10 space-y-4">
                                 <a href="#pricingHome" className="rounded-md text-white text-lg px-4 py-2 bg-indigo-400 hover:bg-indigo-500">Get Started</a>
                             </div>
                             <div className="mt-6">
                                 <div className="inline-flex items-center">
-                                    <img src={teenager} alt="William White" className="object-cover inline-block mr-3 border-2 border-indigo-400 rounded-full sm:mr-2 h-14 w-[4.3rem]" />
+                                    <img src={teenager} alt="William Smith" className="object-cover inline-block mr-3 border-2 border-indigo-400 rounded-full sm:mr-2 h-14 w-[4.3rem]" />
                                     <div>
                                         <p className="sm:pl-2.5 text-base font-black tracking-tight text-gray-800 sm:text-lg"> “Using SkrillBot has been a life-saver. My essays now look professional.” </p>
-                                        <p className="sm:pl-2.5 text-sm sm:text-base font-bold text-gray-500">William White </p>
+                                        <p className="sm:pl-2.5 text-sm sm:text-base font-bold text-gray-500">William Smith </p>
                                     </div>
                                 </div>
                             </div>

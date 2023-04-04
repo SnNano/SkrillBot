@@ -69,7 +69,8 @@ const CollegeApp = () => {
                 <section className="flex justify-center flex-col lg:pb-32 lg:pt-6 md:pb-12 md:pt-4 sm:py-6">
                     <div className="grid grid-cols-1 gap-3">
                         <form onSubmit={handleSubmit}>
-                            <div className="mb-6">
+                            <div className="mb-6 relative">
+                                <span className="spanChar absolute bg-transparent text-center px-2 py-1 text-xs text-gray-500 right-[18px] top-[20px]" >{topic.length > 0 ? topic.length : 0}</span>
                                 <label htmlFor="topic" className="block mb-2 text-md font-medium text-indigo-500">University to apply for</label>
                                 <textarea id="topic" minLength={10} maxLength={600} value={topic} onChange={handleChange} name="topic" rows="6" className="block w-full px-4 py-2 text-sm text-gray-900 placeholder-gray-500 border border-gray-300 rounded-md shadow-sm focus:outline-0 focus:border-indigo-400 flex-1" placeholder="University to apply for" required></textarea>
                             </div>

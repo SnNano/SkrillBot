@@ -77,7 +77,56 @@ export const data = [
         title: "Code Generator",
         text: "Effortlessly generate high-quality code with our Al-powered code generator. Save time and focus on what matters most - bringing your ideas to life.",
         link: "/code-generator"
-    }
+    },
+    {
+        id: 10,
+        icone: "fa-comments",
+        title: "Email Responder",
+        text: "Craft personalized and professional email responses effortlessly.",
+        link: "/email-responder"
+    },
+    {
+        id: 11,
+        icone: "fa-pen-to-square",
+        title: "Bio Generator",
+        text: "Create engaging and unique biographical profiles in a snap.",
+        link: "/bio-generator"
+    },
+    {
+        id: 12,
+        icone: "fa-pen-to-square",
+        title: "Summarizer",
+        text: "Condense lengthy content into succinct, easy-to-understand summaries.",
+        link: "/summarizer"
+    },
+    {
+        id: 13,
+        icone: "fa-laptop-code",
+        title: "Book Summary",
+        text: "Discover the essence of your favorite books in a single, concise sentence.",
+        link: "/book-summary"
+    },
+    {
+        id: 14,
+        icone: "fa-laptop-code",
+        title: "College Application",
+        text: "Streamline your college application process with tailored advice and guidance.",
+        link: "/college"
+    },
+    {
+        id: 15,
+        icone: "fa-laptop-code",
+        title: "Ask me anything",
+        link: "/ask-anything",
+        text: "Get quick, well-informed answers to any question on your mind."
+    },
+    {
+        id: 16,
+        icone: "fa-laptop-code",
+        title: "Cover Letter",
+        text: "Effortlessly generate high-quality code with our Al-powered code generator. Save time and focus on what matters most - bringing your ideas to life.",
+        link: "/cover-letter"
+    },
 ]
 export const sidebarData = [
     {

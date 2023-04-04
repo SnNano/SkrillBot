@@ -149,7 +149,8 @@ const Essay = () => {
                   <option value="1">Max</option>
                 </select>
               </div>
-              <div className="mb-6">
+              <div className="mb-6 relative">
+                <span className="spanChar absolute bg-transparent text-center px-2 py-1 text-xs text-gray-500 right-[18px] top-[20px]" >{message.length > 0 ? message.length : 0}</span>
                 <label htmlFor="message" className="block mb-2 text-md font-medium text-indigo-500">Essay topic</label>
                 <textarea id="message" minLength="10" maxLength="300" value={message} onChange={handleChange} name="message" rows="4" className="block w-full px-4 py-2 text-sm text-gray-900 placeholder-gray-500 border border-gray-300 rounded-md shadow-sm focus:outline-0 focus:border-indigo-400 flex-1" placeholder="The more context the better!" required></textarea>
               </div>

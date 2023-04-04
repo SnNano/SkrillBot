@@ -141,7 +141,7 @@ const checkGoogleAuth = (req, res) => {
             charctersUpdated: req.user.charctersUpdated,
             charactersUsed: req.user.charactersUsed,
             plan: req.user.plan,
-            referralId: user.referralId
+            referralId: req.user.referralId
         },
         token: generateToken(req.user._id)
     });

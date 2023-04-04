@@ -2,8 +2,8 @@ const passport = require("passport");
 // const { isUserAuthenticated } = require("../middlewares/auth");
 const jwt = require('jsonwebtoken');
 
-const successLoginUrl = `${process.env.DOMAIN}/dashboard`;
-const errorLoginUrl = `${process.env.DOMAIN}/login`;
+const successLoginUrl = `${process.env.DOMAIN}dashboard`;
+const errorLoginUrl = `${process.env.DOMAIN}login`;
 
 const loginGoogle = (req, res) => {
   passport.authenticate("google", { scope: ["profile", "email"] }, (err, user, info) => {
