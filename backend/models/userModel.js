@@ -80,7 +80,11 @@ const userSchema = mongoose.Schema({
 	charctersUpdated: {
 		type: Boolean,
 		default: false
-	}
+	},
+	verified: {
+		type: Boolean,
+		default: false
+	},
 }, { timestamps: true });
 
 module.exports = mongoose.model("User", userSchema);

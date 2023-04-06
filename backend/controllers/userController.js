@@ -2,7 +2,10 @@ const asyncHandler = require("express-async-handler");
 const bcrypt = require("bcryptjs");
 const stripe = require('../middleware/stripe')
 const User = require("../models/userModel");
+const Token = require("../models/tokenModel");
+const { sendEmail } = require("../controllers/emailController");
 const jwt = require("jsonwebtoken");
+const crypto = require("crypto");
 
 // @desc   register user
 // @route  POST /api/users
@@ -39,6 +42,13 @@ const registerUser = asyncHandler(async (req, res) => {
         user.referredBy = referredBy;
         user.save();
     }
+    const token = await new Token({
+        userId: user._id,
+        token: crypto.randomBytes(32).toString("hex"),
+    }).save();
+    const url = `${process.env.DOMAIN}users/${user.id}/verify/${token.token}`;
+    sendEmail(user.email, url);
+
     if (user) {
         delete user.password
         res.status(201).json({
@@ -62,6 +72,31 @@ const registerUser = asyncHandler(async (req, res) => {
     }
 });
 
+
+const verifyEmail = asyncHandler(async (req, res) => {
+    try {
+        const user = await User.findOne({ _id: req.params.id });
+        if (!user) return res.status(400).send({ message: "Invalid link" });
+
+        const token = await Token.findOne({
+            userId: user._id,
+            token: req.params.token,
+        });
+        if (!token) {
+            res.status(400).send({ message: "Invalid link" });
+            throw new Error("Invalid link");
+        }
+
+        await User.updateOne({ _id: user._id, verified: true });
+        await token.remove();
+
+        res.status(200).send({ message: "Email verified successfully" });
+    } catch (error) {
+        res.status(500).send({ message: "Internal Server Error" });
+    }
+})
+
+
 // @desc   login
 // @route  POST /api/users/login
 // @access  Public
@@ -71,6 +106,21 @@ const login = asyncHandler(async (req, res) => {
     const user = await User.findOne({ email });
     // Check password
     if (user && (await bcrypt.compare(password, user.password))) {
+        if (!user.verified) {
+            let token = await Token.findOne({ userId: user._id });
+            if (!token) {
+                token = await new Token({
+                    userId: user._id,
+                    token: crypto.randomBytes(32).toString("hex"),
+                }).save();
+                const url = `${process.env.DOMAIN}users/${user.id}/verify/${token.token}`;
+                sendEmail(user.email, url);
+            }
+
+            return res
+                .status(400)
+                .send({ message: "An Email sent to your account please verify" });
+        }
         delete user.password
         res.status(201).json({
             user: {
@@ -209,5 +259,5 @@ const generateToken = (id) => {
 module.exports = {
     registerUser, checkUserAuth,
     login, checkGoogleAuth, updateCharacters,
-    logout, updatePhone
+    logout, updatePhone, verifyEmail
 }
