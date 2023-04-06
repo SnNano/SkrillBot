@@ -124,7 +124,7 @@ export const data = [
         id: 16,
         icone: "fa-laptop-code",
         title: "Cover Letter",
-        text: "Effortlessly generate high-quality code with our Al-powered code generator. Save time and focus on what matters most - bringing your ideas to life.",
+        text: " AI tool that generates personalized cover letters in seconds. Say goodbye to the hassle of writing cover letters and hello to a more efficient job application process.",
         link: "/cover-letter"
     },
 ]
@@ -305,6 +305,14 @@ export const moreData = [
         category: "writing",
         text: "Streamline your college application process with tailored advice and guidance.",
         link: "/college"
+    },
+    {
+        id: 16,
+        icone: "fa-laptop-code",
+        title: "Cover Letter",
+        category: "writing",
+        text: " AI tool that generates personalized cover letters in seconds. Say goodbye to the hassle of writing cover letters and hello to a more efficient job application process.",
+        link: "/cover-letter"
     },
     {
         id: 20,

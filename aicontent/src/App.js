@@ -38,6 +38,7 @@ import PrivacyPolicy from "./components/sections/PrivacyPolicy";
 import RefundPolicy from "./components/sections/RefundPolicy";
 import AuthVerify from "./services/AuthVerify";
 import { Logout } from "./services/userService";
+import CoverLetter from "./pages/Functionalities/CoverLetter";
 
 export const UserContext = createContext();
 export const RemainingWordsContext = createContext({});
@@ -79,6 +80,7 @@ function App() {
                           <Route path="/settings" element={<Settings />} />
                           <Route path="/billing" element={<Billing />} />
                           <Route path="/dashboard" element={<Dashboard />} />
+                          <Route path="/cover-letter" element={<CoverLetter />} />
                           <Route path="/success" element={<Dashboard />} />
                           <Route path="/rewrite-essay" element={<RewriteEssay />} />
                           <Route path="/essay" element={<Essay />} />

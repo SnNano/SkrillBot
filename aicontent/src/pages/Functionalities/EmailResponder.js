@@ -36,7 +36,7 @@ const EmailResponder = () => {
         setShowModal(true);
         try {
             prompt = `Generate a response to the following email: [${topic}].\nThe response should be professional, clear, and concise.`;
-            const result = await getResponse(prompt, 0.5, source.token);
+            const result = await getResponse([{ role: "user", content: prompt }], 0.5, source.token);
             setFormData({ ...formData, generatedText: result.result, loading: false });
             await updateCharacters();
             if (result.userCharacters) {

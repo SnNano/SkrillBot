@@ -42,7 +42,7 @@ const BioGenerator = () => {
         setShowModal(true);
         try {
             prompt = `Please generate a ${socialMedia} bio according to the following topic: [${topic}].`;
-            const result = await getResponse(prompt, 0.5, source.token);
+            const result = await getResponse([{ role: "user", content: prompt }], 0.5, source.token);
             setFormData({ ...formData, generatedText: result.result, loading: false });
             await updateCharacters();
             if (result.userCharacters) {

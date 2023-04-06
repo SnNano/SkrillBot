@@ -21,37 +21,24 @@ const postPrompt = asyncHandler(async (req, res) => {
         throw new Error("You reached the characters limit Please Upgrade your plan");
     }
     let completion;
+
     try {
         completion = await openai.createChatCompletion({
             model: "gpt-3.5-turbo",
-            prompt: [{ role: "user", prompt }],
-            max_tokens: 3900,
+            messages: prompt,
+            max_tokens: 3400,
             temperature: creativity,
             user: req.user._id
         });
     } catch (error) {
         res.status(401);
-        console.log(error);
+        console.log(error)
         throw new Error("You should type a prompt");
     }
-    let output = `${completion.data.choices[0].message.content}`
+    let output = `${completion.data.choices[0].message.content}`;
 
-    // remove the first character from output
-    output = output.substring(1, output.length)
-
-    // If the output string ends with one or more hashtags, remove all of them
-    if (output.endsWith('"')) {
-        output = output.substring(0, output.length - 1)
-    }
-
-    // remove a single new line at the end of output if there is one
-    if (output.endsWith('\n')) {
-        output = output.substring(0, output.length - 1)
-    }
-
-    outputLength = output.length;
-    await updateUserCharacter(user, outputLength);
-    res.status(200).json({ result: output.content, userCharacters: user.characters })
+    await updateUserCharacter(user, output.length);
+    res.status(200).json({ result: output, userCharacters: user.characters })
 })
 
 const getEssay = asyncHandler(async (req, res) => {

@@ -77,9 +77,12 @@ const GeneralForm = ({ header, paragraph, keywordP, label2, type, maxLength, min
       prompt = `Generate a ${tone} script about [${message}].\n${keywords ? `Keywords: [${keywords}]` : ''}.`;
     } else if (type === "COLLEGE") {
       prompt = `Generate a ${tone} script about [${message}].\n${keywords ? `Keywords: [${keywords}]` : ''}.`;
+    } else if (type === "COVER_LETTER") {
+      prompt = `Generate a ${tone} cover letter about [${message}].\n${keywords ? `Keywords: [${keywords}]` : ''}.`;
     }
     try {
-      const result = await getResponse(prompt, parseFloat(creativity), source.token);
+      const result = await getResponse([{ role: 'user', content: prompt }], parseFloat(creativity), source.token);
+      console.log(result)
       setFormData({ ...formData, generatedText: result.result, loading: false });
       await updateCharacters();
       if (result.userCharacters) {

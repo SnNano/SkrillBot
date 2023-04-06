@@ -39,7 +39,7 @@ const CollegeApp = () => {
         setShowModal(true);
         try {
             prompt = `Please write a college application essay for: [${topic}].\nIt should be original.\nWithout Plagiarism.`;
-            const result = await getResponse(prompt, 0.5, source.token);
+            const result = await getResponse([{ role: "user", content: prompt }], 0.5, source.token);
             setFormData({ ...formData, generatedText: result.result, loading: false });
             await updateCharacters();
             if (result.userCharacters) {
