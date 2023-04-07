@@ -57,8 +57,8 @@ const Essay = () => {
         navigate("/billing")
       }
     } catch (error) {
+      setFormData({ ...formData, loading: false });
       if (axios.isCancel(error)) {
-        setFormData({ ...formData, loading: false });
         console.log('Request canceled');
       } else {
         console.log('Error', error.message);

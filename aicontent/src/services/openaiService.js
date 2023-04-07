@@ -52,6 +52,6 @@ export const getRandomUser = async () => {
     return response.data.results;
 }
 const getToken = () => {
-    const user = JSON.parse(localStorage.getItem("user"));
+    const user = JSON.parse(localStorage.getItem("skrill_user"));
     return user.token;
 }
