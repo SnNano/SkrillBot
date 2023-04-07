@@ -19,6 +19,7 @@ let transporter = nodemailer.createTransport({
 })
 
 const sendEmail = asyncHandler(async (email, url) => {
+    console.log("send email")
     try {
         const mailOptions = {
             from: "no-reply@contentcrunch.ai",

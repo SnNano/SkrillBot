@@ -1,56 +1,60 @@
 
 
 // Get user from localStorage
-const user = JSON.parse(localStorage.getItem("user"));
+const user = JSON.parse(localStorage.getItem("skrill_user"));
 
 export const initialState = {
     user: user ? user : null,
-    isLoading:false,
-    isError:false,
-    isSuccess:false,
-    message:""
-  }
+    isLoading: false,
+    isError: false,
+    isSuccess: false,
+    message: ""
+}
 export const authReducer = (state, action) => {
-    switch(action.type){
+    switch (action.type) {
         case "REGISTER_USER":
-            return {...state,
-                user:action.payload,
-                isLoading:true,
-                isError:false,
+            return {
+                ...state,
+                user: action.payload,
+                isLoading: true,
+                isError: false,
                 isSuccess: true,
-                message:"User has been created"
-                };
+                message: "User has been created"
+            };
         case "LOGIN_USER":
-            return {...state,
-                user:action.payload,
-                isLoading:true,
-                isError:false,
+            return {
+                ...state,
+                user: action.payload,
+                isLoading: true,
+                isError: false,
                 isSuccess: true,
-                message:"User is loggedIn"
-                };
+                message: "User is loggedIn"
+            };
         case "LOGOUT":
-            return {...state,
-                user:null,
-                isLoading:true,
-                };
+            return {
+                ...state,
+                user: null,
+                isLoading: true,
+            };
         case "ERROR":
-            return {...state,
-                isLoading:false,
-                isError:true,
+            return {
+                ...state,
+                isLoading: false,
+                isError: true,
                 isSuccess: false,
-                message:action.payload
-              }
+                message: action.payload
+            }
         case "RESET":
             return {
                 ...state,
-                isLoading:false,
-                isError:false,
+                isLoading: false,
+                isError: false,
                 isSuccess: false,
-                message:""
+                message: ""
             };
         default:
             throw new Error("You are dispatching something that is not in reducer");
- }
+    }
 
 }
 

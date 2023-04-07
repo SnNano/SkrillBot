@@ -23,6 +23,7 @@ import { authReducer } from "./Reducers/authReducer";
 import Settings from "./components/sections/Settings";
 import Dashboard from "./pages/Dashboard";
 import Billing from "./components/sections/Billing";
+import VerifyEmail from "./components/layouts/VerifyEmail";
 import BioGenerator from "./pages/Functionalities/BioGenerator";
 import ArticleSummary from "./pages/Functionalities/ArticleSummary";
 import BookSummary from "./pages/Functionalities/BookSummary";
@@ -106,6 +107,7 @@ function App() {
                   }
                 />
                 <Route path="/sign-up" element={<Signup />} />
+                <Route path="/:id/verify/:token" element={<VerifyEmail />} />
                 <Route path="/refund-policy" element={<RefundPolicy />} />
                 {/* <Route path="/complete-signup" element={state.user ? <Phone /> : <Navigate to="/sign-up" />} /> */}
                 <Route path="/sign-up/:referralId" element={<Signup />} />

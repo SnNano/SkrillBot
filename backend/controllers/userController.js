@@ -46,7 +46,7 @@ const registerUser = asyncHandler(async (req, res) => {
         userId: user._id,
         token: crypto.randomBytes(32).toString("hex"),
     }).save();
-    const url = `${process.env.DOMAIN}users/${user.id}/verify/${token.token}`;
+    const url = `${process.env.DOMAIN}${user.id}/verify/${token.token}`;
     sendEmail(user.email, url);
 
     if (user) {
@@ -83,16 +83,17 @@ const verifyEmail = asyncHandler(async (req, res) => {
             token: req.params.token,
         });
         if (!token) {
-            res.status(400).send({ message: "Invalid link" });
-            throw new Error("Invalid link");
+            return res.status(400).send({ message: "Invalid link" });
+        } else {
+            user.verified = true;
+            await user.save();
+            await token.remove();
+            return res.status(200).send({ message: "Email verified successfully" });
         }
 
-        await User.updateOne({ _id: user._id, verified: true });
-        await token.remove();
-
-        res.status(200).send({ message: "Email verified successfully" });
     } catch (error) {
-        res.status(500).send({ message: "Internal Server Error" });
+        res.status(500);
+        throw new Error("Internal Server Error")
     }
 })
 
@@ -113,10 +114,9 @@ const login = asyncHandler(async (req, res) => {
                     userId: user._id,
                     token: crypto.randomBytes(32).toString("hex"),
                 }).save();
-                const url = `${process.env.DOMAIN}users/${user.id}/verify/${token.token}`;
-                sendEmail(user.email, url);
             }
-
+            const url = `${process.env.DOMAIN}${user.id}/verify/${token.token}`;
+            sendEmail(user.email, url);
             return res
                 .status(400)
                 .send({ message: "An Email sent to your account please verify" });

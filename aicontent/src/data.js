@@ -12,6 +12,7 @@ import adCopy from "./assets/images/adCopy.PNG";
 import salesCopy from "./assets/images/salesCopy.PNG";
 import essay from "./assets/images/essay.png";
 import rewriter from "./assets/images/rewriter.png";
+import cover from "./assets/images/coverletter.png";
 
 
 export const data = [
@@ -310,6 +311,7 @@ export const moreData = [
         id: 16,
         icone: "fa-laptop-code",
         title: "Cover Letter",
+        image: cover,
         category: "writing",
         text: " AI tool that generates personalized cover letters in seconds. Say goodbye to the hassle of writing cover letters and hello to a more efficient job application process.",
         link: "/cover-letter"

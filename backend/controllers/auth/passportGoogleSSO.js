@@ -30,11 +30,15 @@ passport.use(
         customerId: customer.id,
         password: hashedPassword,
         googleId: profile.id,
+        verified: true,
       };
       let user = await User.findOne({ googleId: profile.id });
       //const token = generateToken(user._id)
       if (!user) { user = await User.create(defaultUser); }
-
+      if (!user.verified) {
+        user.verified = true;
+        await user.save();
+      }
       if (user) return cb(null, user);
     }
   )
