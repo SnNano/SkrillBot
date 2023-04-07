@@ -5,12 +5,12 @@
 /* Firefox */
 * {
   scrollbar-width: thin;
-  scrollbar-color: #6366f1;
+  scrollbar-color: #8A58A6;
 }
 
 /* Chrome, Edge, and Safari */
 *::-webkit-scrollbar {
-  width: 10px;
+  width: 5px;
 }
 
 *::-webkit-scrollbar-track {
@@ -18,7 +18,7 @@
 }
 
 *::-webkit-scrollbar-thumb {
-  background-color: #6366f1;
+  background-color: #8A58A6;
 }
 
 .spanChar {

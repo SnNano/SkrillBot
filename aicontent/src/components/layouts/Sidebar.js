@@ -1,7 +1,7 @@
 import React, { createContext, useContext, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { UserContext } from '../../App';
-import { sidebarData } from "../../data";
+import { moreData } from "../../data";
 import logo from "../../assets/images/logo.png";
 import { fetchAuthUser } from '../../services/userService';
 import connection from "../../assets/images/connection.svg";
@@ -21,13 +21,13 @@ const Sidebar = ({ removeIsVisible }) => {
   return (
     <>
       <aside className={`fixed top-0 left-0 z-40 w-64 ${open ? '' : '-translate-x-full'} h-screen pt-4 transition-transform bg-white shadow-md sm:translate-x-0`}>
-        <div className="flex justify-between flex-col overflow-hidden h-full px-3 pb-4 bg-white relative">
+        <div className="flex justify-between flex-col overflow-y-scroll h-full px-3 pb-4 bg-white relative">
           <div>
             <Link to="/" className="flex items-center ml-4">
               <img className="w-auto h-8" src={logo} alt="Skrillbot logo" />
             </Link>
             <ul className="flex flex-col mt-6 text-justify">
-              {sidebarData.map((item) => {
+              {moreData.map((item) => {
                 return <li key={item.id} onClick={() => { removeIsVisible() }}>
                   <Link to={item.link} onClick={() => { fetchAuthUser(dispatch) }} className={` ${state.user.user.characters < -1 ? 'pointer-events' : ''} flex my-2 items-center p-2 text-sm font-normal text-gray-900 rounded-lg hover:bg-indigo-500 hover:text-white`}>
                     <i className={`text-gray-600 fa-solid ${item.icone}`}></i>

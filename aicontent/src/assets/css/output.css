@@ -1455,6 +1455,10 @@ video {
   overflow-x: hidden;
 }
 
+.overflow-y-scroll {
+  overflow-y: scroll;
+}
+
 .truncate {
   overflow: hidden;
   text-overflow: ellipsis;
@@ -2214,11 +2218,6 @@ video {
   color: rgb(255 255 255 / var(--tw-text-opacity));
 }
 
-.text-green-500 {
-  --tw-text-opacity: 1;
-  color: rgb(34 197 94 / var(--tw-text-opacity));
-}
-
 .antialiased {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -2346,13 +2345,13 @@ video {
 
 * {
   scrollbar-width: thin;
-  scrollbar-color: #6366f1;
+  scrollbar-color: #8A58A6;
 }
 
 /* Chrome, Edge, and Safari */
 
 *::-webkit-scrollbar {
-  width: 10px;
+  width: 5px;
 }
 
 *::-webkit-scrollbar-track {
@@ -2360,7 +2359,7 @@ video {
 }
 
 *::-webkit-scrollbar-thumb {
-  background-color: #6366f1;
+  background-color: #8A58A6;
 }
 
 .spanChar {

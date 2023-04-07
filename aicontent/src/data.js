@@ -247,7 +247,7 @@ export const moreData = [
     {
         id: 8,
         icone: "fa-lightbulb",
-        title: "Ideas",
+        title: "Generate Ideas",
         image: idea,
         category: "ideas",
         text: "Spark your imagination with SkrillBot. Our Al-powered tool generates endless ideas to help you create anything from blog posts to business plans.",
@@ -282,7 +282,7 @@ export const moreData = [
     },
     {
         id: 12,
-        icone: "fa-pen-to-square",
+        icone: "fa-paperclip",
         title: "Summarizer",
         image: articleSum,
         category: "summary",
@@ -291,7 +291,7 @@ export const moreData = [
     },
     {
         id: 13,
-        icone: "fa-pen-to-square",
+        icone: "fa-regular fa-newspaper",
         title: "Book Summary",
         image: bookSum,
         category: "summary",
@@ -300,7 +300,7 @@ export const moreData = [
     },
     {
         id: 15,
-        icone: "fa-pen-to-square",
+        icone: "fa-paste",
         title: "College Application ",
         image: college,
         category: "writing",
@@ -309,7 +309,7 @@ export const moreData = [
     },
     {
         id: 16,
-        icone: "fa-laptop-code",
+        icone: "fa-copy",
         title: "Cover Letter",
         image: cover,
         category: "writing",
