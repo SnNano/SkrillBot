@@ -42,13 +42,20 @@ const registerUser = asyncHandler(async (req, res) => {
         user.referredBy = referredBy;
         user.save();
     }
-    const token = await new Token({
-        userId: user._id,
-        token: crypto.randomBytes(32).toString("hex"),
-    }).save();
-    const url = `${process.env.DOMAIN}${user.id}/verify/${token.token}`;
-    sendEmail(user.email, url);
-
+    if (!user.verified) {
+        let token = await Token.findOne({ userId: user._id });
+        if (!token) {
+            token = await new Token({
+                userId: user._id,
+                token: crypto.randomBytes(32).toString("hex"),
+            }).save();
+        }
+        const url = `${process.env.DOMAIN}${user.id}/verify/${token.token}`;
+        sendEmail(user.email, url);
+        return res
+            .status(200)
+            .send({ message: "Your account has been created, An Email sent to your account please verify" });
+    }
     if (user) {
         delete user.password
         res.status(201).json({
@@ -121,22 +128,27 @@ const login = asyncHandler(async (req, res) => {
                 .status(400)
                 .send({ message: "An Email sent to your account please verify" });
         }
-        delete user.password
-        res.status(201).json({
-            user: {
-                _id: user._id,
-                username: user.username,
-                googleId: user.googleId,
-                email: user.email,
-                customerId: user.customerId,
-                characters: user.characters,
-                charctersUpdated: user.charctersUpdated,
-                charactersUsed: user.charactersUsed,
-                plan: user.plan,
-                referralId: user.referralId
-            },
-            token: generateToken(user._id),
-        });
+        if (user) {
+            delete user.password
+            res.status(201).json({
+                user: {
+                    _id: user._id,
+                    username: user.username,
+                    googleId: user.googleId,
+                    email: user.email,
+                    customerId: user.customerId,
+                    characters: user.characters,
+                    charactersUsed: user.charactersUsed,
+                    charctersUpdated: user.charctersUpdated,
+                    plan: user.plan,
+                    referralId: user.referralId
+                },
+                token: generateToken(user._id)
+            });
+        } else {
+            res.status(401);
+            throw new Error("Invalid data");
+        }
     } else {
         res.status(400);
         throw new Error("Invalid credentials");

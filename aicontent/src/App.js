@@ -61,7 +61,6 @@ function App() {
   }, [])
   useEffect(() => {
     const checkAndUpdateCache = () => {
-      localStorage.setItem('version', "0.1.0");
       let version = localStorage.getItem('version');
       if (version !== packageJson.version) {
         if ('caches' in window) {

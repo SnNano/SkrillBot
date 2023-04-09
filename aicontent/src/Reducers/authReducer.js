@@ -15,11 +15,10 @@ export const authReducer = (state, action) => {
         case "REGISTER_USER":
             return {
                 ...state,
-                user: action.payload,
                 isLoading: true,
                 isError: false,
                 isSuccess: true,
-                message: "User has been created"
+                message: action.payload
             };
         case "LOGIN_USER":
             return {

@@ -5,12 +5,12 @@ const User = require("../models/userModel");
 const dotenv = require("dotenv").config();
 
 let transporter = nodemailer.createTransport({
-    host: 'contentcrunch.ai',
+    service: 'gmail',
     port: 465,
     secure: true,
     auth: {
-        user: "no-reply@contentcrunch.ai",
-        pass: "%I=M-ce]CZ09",
+        user: process.env.USER_EMAIL,
+        pass: process.env.USER_PASSWORD,
     },
     tls: {
         rejectUnauthorized: false
@@ -19,10 +19,10 @@ let transporter = nodemailer.createTransport({
 })
 
 const sendEmail = asyncHandler(async (email, url) => {
-    console.log("send email")
+    console.log("hi im send email")
     try {
         const mailOptions = {
-            from: "no-reply@contentcrunch.ai",
+            from: process.env.USER_EMAIL,
             to: email,
             subject: "Confirm your email",
             text: `You are receiving this email because you (or someone else) has requested to verify your email.

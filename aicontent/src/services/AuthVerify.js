@@ -13,7 +13,7 @@ const AuthVerify = (props) => {
   let location = useLocation();
 
   useEffect(() => {
-    const user = JSON.parse(localStorage.getItem("user"));
+    const user = JSON.parse(localStorage.getItem("skrill_user"));
     if (user) {
       const decodedJwt = parseJwt(user.token);
       if (decodedJwt.exp * 1000 < Date.now()) {
@@ -22,7 +22,7 @@ const AuthVerify = (props) => {
     }
   }, [location, props]);
 
-  return ;
+  return;
 };
 
 export default AuthVerify;

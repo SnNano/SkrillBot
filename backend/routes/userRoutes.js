@@ -4,8 +4,9 @@ const { registerUser, login, verifyEmail, checkUserAuth, updateCharacters, check
 const { isUserAuthenticated } = require("../middleware/auth");
 const { protect } = require("../middleware/authMiddleware");
 
-router.post("/login", login);
+
 router.get("/:id/verify/:token", verifyEmail);
+router.post("/login", login);
 router.post("/:referralId", registerUser);
 router.post("/", registerUser);
 // router.post("/phone-number", protect, updatePhone);

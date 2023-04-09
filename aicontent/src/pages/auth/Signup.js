@@ -31,7 +31,10 @@ const Signup = () => {
             toast.error(state.message);
         }
         if (state.isSuccess || (state.user)) {
-            navigate(location.state?.from || '/dashboard', { replace: true });
+            toast.success(state.message);
+            setTimeout(() => {
+                navigate(location.state?.from || '/dashboard', { replace: true });
+            }, 3000)
         }
 
         dispatch({ type: "RESET" });
@@ -55,10 +58,11 @@ const Signup = () => {
         } else {
             const userData = { username, email, password };
             const response = await register(userData, dispatch, referralId);
-            setRemainingWords(response.user.characters);
-            if (response) {
-                navigate(from, { replace: true });
-            }
+            setTimeout(() => {
+                if (response) {
+                    navigate(from, { replace: true });
+                }
+            }, 3000)
         }
     }
 

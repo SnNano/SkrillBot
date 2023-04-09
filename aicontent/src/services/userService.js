@@ -19,9 +19,10 @@ export const register = async (userData, dispatch, tokenRef) => {
     } else {
       response = await axios.post(process.env.REACT_APP_BACKEND_URL + "users/" + tokenRef, userData);
     }
-    dispatch({ type: "REGISTER_USER", payload: response.data });
-    localStorage.setItem("skrill_user", JSON.stringify(response.data));
-    return response.data;
+    dispatch({ type: "REGISTER_USER", payload: response.data.message });
+    // dispatch({ type: "REGISTER_USER", payload: response.data });
+    // localStorage.setItem("skrill_user", JSON.stringify(response.data));
+    // return response.data;
   } catch (error) {
     dispatch({ type: "ERROR", payload: error.response.data.message });
   }
@@ -34,7 +35,11 @@ export const login = async (userData, dispatch) => {
     localStorage.setItem("skrill_user", JSON.stringify(response.data));
     return response.data;
   } catch (error) {
-    dispatch({ type: "ERROR", payload: error.response.data.message });
+    if (error.response.data) {
+      dispatch({ type: "ERROR", payload: error.response.data.message });
+    } else {
+      dispatch({ type: "ERROR", payload: error });
+    }
   }
 }
 // export const addPhoneNumber = async (data, dispatch) => {

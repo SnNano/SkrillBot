@@ -25,6 +25,6 @@ export const cancelSubscription = async (dispatch) => {
 }
 
 const getToken = () => {
-    const user = JSON.parse(localStorage.getItem("user"));
+    const user = JSON.parse(localStorage.getItem("skrill_user"));
     return user.token;
 }
