@@ -40,6 +40,7 @@ import RefundPolicy from "./components/sections/RefundPolicy";
 import AuthVerify from "./services/AuthVerify";
 import { Logout } from "./services/userService";
 import CoverLetter from "./pages/Functionalities/CoverLetter";
+import packageJson from '../package.json';
 
 export const UserContext = createContext();
 export const RemainingWordsContext = createContext({});
@@ -58,7 +59,30 @@ function App() {
     }
     log()
   }, [])
+  useEffect(() => {
+    const checkAndUpdateCache = () => {
+      localStorage.setItem('version', "0.1.0");
+      let version = localStorage.getItem('version');
+      if (version !== packageJson.version) {
+        if ('caches' in window) {
+          caches.keys().then((names) => {
+            // Delete all the cache files
+            names.forEach((name) => {
+              caches.delete(name);
+            });
+          });
 
+          // Makes sure the page reloads. Changes are only visible after you refresh.
+          window.location.reload(true);
+        }
+
+        localStorage.clear();
+        localStorage.setItem('version', packageJson.version);
+      }
+    };
+
+    checkAndUpdateCache();
+  }, []); // Pass an empty dependency array
   const onLogout = async () => {
     await Logout(state, dispatch);
   }

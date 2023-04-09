@@ -20,7 +20,7 @@ const Pricing = () => {
           <div className="block rounded-lg shadow-lg bg-gray-100 w-[300px] h-full">
             <div className="p-6 border-b border-gray-300 text-center">
               <p className="uppercase mb-4 text-sm">
-                <strong>Basic</strong>
+                <strong>Monthly</strong>
               </p>
               <h3 className="text-2xl mb-6">
                 <strong>$9.99</strong>
@@ -83,7 +83,7 @@ const Pricing = () => {
           <div className="block rounded-lg shadow-lg bg-gray-100 w-[300px] h-full">
             <div className="p-6 border-b border-gray-300 text-center">
               <p className="uppercase mb-4 text-sm">
-                <strong>Advanced</strong>
+                <strong>Yearly</strong>
               </p>
               <h3 className="text-2xl mb-6">
                 <strong>$79.99</strong>

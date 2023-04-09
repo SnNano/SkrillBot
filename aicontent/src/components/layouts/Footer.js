@@ -27,11 +27,11 @@ const Footer = () => {
                                     <img className="w-4 h-4" src={tiktok} alt="insta logo" />
                                 </a>
                             </li>
-                            <li className="ml-4">
+                            {/* <li className="ml-4">
                                 <a href=" https://discord.gg/hZcD6FZBUA" className="flex justify-center items-center text-gray-600 hover:text-gray-900 bg-white hover:bg-white-100 rounded-full shadow transition duration-150 ease-in-out">
                                     <img className="w-4 h-4" src={discord} alt="discord logo" />
                                 </a>
-                            </li>
+                            </li> */}
                         </ul>
                     </div>
                     <div className="flex flex-col">
